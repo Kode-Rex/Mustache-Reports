@@ -1,0 +1,10 @@
+{
+  "firstName": "Travis",
+  "lastName": "Frisinger",
+  "birthdate": "1981-04-29",
+  "isUnicycleQualified": true,
+  "hobbies": 
+   [{"name": "Reading"},
+   {"name": "Programming"},
+   {"name": "Walking"}]
+}

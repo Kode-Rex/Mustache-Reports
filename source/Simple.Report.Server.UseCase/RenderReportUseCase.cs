@@ -1,5 +1,4 @@
-﻿using Simple.Report.Server.Domain.Messages;
-using Simple.Report.Server.Domain.Messages.Input;
+﻿using Simple.Report.Server.Domain.Messages.Input;
 using Simple.Report.Server.Domain.Messages.Output;
 using Simple.Report.Server.Domain.Repositories;
 using Simple.Report.Server.Domain.UseCases;

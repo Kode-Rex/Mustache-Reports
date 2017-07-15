@@ -1,5 +1,4 @@
-﻿using Simple.Report.Server.Domain.Messages;
-using Simple.Report.Server.Domain.Messages.Input;
+﻿using Simple.Report.Server.Domain.Messages.Input;
 using TddBuddy.CleanArchitecture.Domain;
 using TddBuddy.CleanArchitecture.Domain.Output;
 

@@ -1,0 +1,28 @@
+{
+  "name": "simple-report-server",
+  "version": "0.9.6",
+  "description": "Service to generate reports using docx-templater",
+  "main": "cmdLineRender.js",
+  "scripts": {
+    "test": "jasmine-node spec"
+  },
+  "dependencies": {
+    "angular-expressions": "^0.3.0",
+    "base-64": "^0.1.0",
+    "body-parser": "^1.8.1",
+    "commander": "^2.9.0",
+    "docxtemplater": "3.0.8",
+    "docxtemplater-image-module": "3.0.2",
+    "jszip": "2.5.0",
+    "moment": "2.18.1",
+    "winston": "^2.3.1"
+  },
+  "engines": {
+    "node": ">=6.9.1"
+  },
+  "author": "Travis Frisinger",
+  "license": "MIT",
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
+  }
+}

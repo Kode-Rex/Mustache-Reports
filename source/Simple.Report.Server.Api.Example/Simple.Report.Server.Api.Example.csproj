@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ReportTemplates\" />
+    <Folder Include="Reporting\NodeApp\" />
+    <Folder Include="Reporting\Templates\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
@@ -31,7 +32,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Simple.Report.Server.Domain\Simple.Report.Server.Domain.csproj" />
+    <ProjectReference Include="..\Simple.Report.Server.Domain\Simple.Report.Server.Domain.csproj" />
   </ItemGroup>
 
 </Project>

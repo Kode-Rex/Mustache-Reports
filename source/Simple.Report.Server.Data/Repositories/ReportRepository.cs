@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using Simple.Report.Server.Data.Task;
-using Simple.Report.Server.Domain.Messages;
 using Simple.Report.Server.Domain.Messages.Input;
 using Simple.Report.Server.Domain.Messages.Output;
 using Simple.Report.Server.Domain.Repositories;
