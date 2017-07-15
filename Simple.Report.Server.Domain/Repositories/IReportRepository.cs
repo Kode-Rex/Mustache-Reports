@@ -1,9 +1,11 @@
 ﻿using Simple.Report.Server.Domain.Messages;
+using Simple.Report.Server.Domain.Messages.Input;
+using Simple.Report.Server.Domain.Messages.Output;
 
 namespace Simple.Report.Server.Domain.Repositories
 {
     public interface IReportRepository
     {
-        RenderedReportMessage CreateReport(CreateReportMessage message);
+        RenderedReportOutputMessage CreateReport(RenderReportInputMessage inputMessage);
     }
 }

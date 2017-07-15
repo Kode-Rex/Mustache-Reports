@@ -1,4 +1,6 @@
 ﻿using Simple.Report.Server.Domain.Messages;
+using Simple.Report.Server.Domain.Messages.Input;
+using Simple.Report.Server.Domain.Messages.Output;
 using Simple.Report.Server.Domain.Repositories;
 using Simple.Report.Server.Domain.UseCases;
 using TddBuddy.CleanArchitecture.Domain.Messages;
@@ -15,11 +17,11 @@ namespace Simple.Report.Server.UseCase
             _reportRepository = reportRepository;
         }
 
-        public void Execute(CreateReportMessage inputMessage, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
+        public void Execute(RenderReportInputMessage inputInputMessage, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
         {
-            var result = _reportRepository.CreateReport(inputMessage);
+            var result = _reportRepository.CreateReport(inputInputMessage);
 
-            var reportMessage = new InMemoryWordFileOutputMessage(inputMessage.ReportName,result.FetchReportAsByteArray());
+            var reportMessage = new InMemoryWordFileOutputMessage(inputInputMessage.ReportName,result.FetchReportAsByteArray());
             presenter.Respond(reportMessage);
         }
     }

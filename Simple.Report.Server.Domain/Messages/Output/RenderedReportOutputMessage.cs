@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Simple.Report.Server.Domain.Messages
+namespace Simple.Report.Server.Domain.Messages.Output
 {
-    public class RenderedReportMessage
+    public class RenderedReportOutputMessage
     {
         public string ReportAsBase64String { get; set; }
         public string ErrorMessages { get; set; }

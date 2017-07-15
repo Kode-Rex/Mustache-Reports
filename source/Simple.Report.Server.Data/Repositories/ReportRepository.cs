@@ -2,6 +2,8 @@
 using System.IO;
 using Simple.Report.Server.Data.Task;
 using Simple.Report.Server.Domain.Messages;
+using Simple.Report.Server.Domain.Messages.Input;
+using Simple.Report.Server.Domain.Messages.Output;
 using Simple.Report.Server.Domain.Repositories;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
@@ -21,14 +23,14 @@ namespace Simple.Report.Server.Data.Repositories
             _nodeAppLocation = nodeAppLocation;
         }
 
-        public RenderedReportMessage CreateReport(CreateReportMessage message)
+        public RenderedReportOutputMessage CreateReport(RenderReportInputMessage inputMessage)
         {
-            var reportJsonPath = WriteReportJson(message.JsonModel);
-            var reportTemplatePath = FetchReportTemplatePath(message.TemplateName);
+            var reportJsonPath = WriteReportJson(inputMessage.JsonModel);
+            var reportTemplatePath = FetchReportTemplatePath(inputMessage.TemplateName);
 
             if (string.IsNullOrEmpty(reportTemplatePath))
             {
-                throw new Exception($"Invalid Report Type [{message.TemplateName}]");
+                throw new Exception($"Invalid Report Type [{inputMessage.TemplateName}]");
             }
 
             var presenter = new PropertyPresenter<string, ErrorOutputMessage>();
@@ -37,11 +39,11 @@ namespace Simple.Report.Server.Data.Repositories
             if (presenter.IsErrorResponse())
             {
                 var errors =  string.Join(", ", presenter.ErrorContent.Errors.ToArray());
-                return new RenderedReportMessage {ErrorMessages = errors};
+                return new RenderedReportOutputMessage {ErrorMessages = errors};
             }
 
             var base64Report = presenter.SuccessContent.TrimEnd('\r', '\n');
-            return new RenderedReportMessage { ReportAsBase64String = base64Report };
+            return new RenderedReportOutputMessage { ReportAsBase64String = base64Report };
         }
 
         private void RenderReport(string reportTemplatePath, string reportJsonPath, IRespondWithSuccessOrError<string, ErrorOutputMessage> presenter)
