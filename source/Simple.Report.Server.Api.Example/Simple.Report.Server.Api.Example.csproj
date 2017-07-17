@@ -56,6 +56,11 @@ xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\*.js" "$(SolutionDir)Simple.Rep
     <ProjectReference Include="..\Simple.Report.Server.UseCase\Simple.Report.Server.UseCase.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="ExampleData\WithImagesSampleData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <None Update="Reporting\Templates\ReportWithImages.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <PreBuildEvent>REM copy node_modules into location IIS Express runs from
+xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\node_modules" "$(SolutionDir)Simple.Report.Server.Example\Reporting\NodeApp\node_modules" /s /I /y /d
+REM copy js files into IIS Express run location
+xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\*.js" "$(SolutionDir)Simple.Report.Server.Example\Reporting\NodeApp" /s /I /y /d</PreBuildEvent>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Simple.Report.Server.Data\Simple.Report.Server.Data.csproj" />
+    <ProjectReference Include="..\Simple.Report.Server.Domain\Simple.Report.Server.Domain.csproj" />
+    <ProjectReference Include="..\Simple.Report.Server.UseCase\Simple.Report.Server.UseCase.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\Simple.Report.Server.NodeJS\cmdLineRender.js">
+      <Link>Reporting\NodeApp\cmdLineRender.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simple.Report.Server.NodeJS\reportRender.js">
+      <Link>Reporting\NodeApp\reportRender.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Simple.Report.Server.NodeJS\package.json">
+      <Link>Reporting\NodeApp\package.json</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Reporting\NodeApp\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TddBuddy.System.Utils.DotNetCore" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.IO;
+using Microsoft.AspNetCore.Mvc;
 using Simple.Report.Server.Domain.Messages.Input;
 using Simple.Report.Server.Domain.UseCases;
 using TddBuddy.CleanArchitecture.Domain.Messages;
@@ -21,6 +22,24 @@ namespace Simple.Report.Server.Api.Example.Controllers
         [HttpPost("create")]
         public void Create([FromBody] RenderReportInputMessage inputMessage)
         {
+            var presenter = new DownloadFilePresenter();
+            _usecase.Execute(inputMessage, presenter);
+            presenter.Render();
+        }
+
+        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(ErrorOutputMessage), 422)]
+        [HttpGet("example/withImages")]
+        public void Example()
+        {
+            var jsonData = File.ReadAllText("ExampleData\\WithImagesSampleData.json");
+
+            var inputMessage = new RenderReportInputMessage
+            {
+                TemplateName = "ReportWithImages",
+                ReportName = "ExampleReport",
+                JsonModel = jsonData
+            };
             var presenter = new DownloadFilePresenter();
             _usecase.Execute(inputMessage, presenter);
             presenter.Render();
