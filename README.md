@@ -6,6 +6,7 @@ _You will need to make sure both node and libreoffice 5 are installed on your co
 _This example is rough and ready, please log an issue if you require assistance._
 
 _Please note there is a pre-build hook to copy the NodeApp contents into the solution directory Simple.Report.Server.Example\Reporting\NodeApp from Simple.Report.Server.NodeJS_
+
 This is done to allow me to version controll the node_modules folder outside of the VS solution. 
 
 The word file generations happens using [docx-templater](https://docxtemplater.com/). It is written in node and uses mustache templating to populate the report.
