@@ -16,21 +16,6 @@ xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\*.js" "$(SolutionDir)Simple.Rep
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\Simple.Report.Server.NodeJS\cmdLineRender.js">
-      <Link>Reporting\NodeApp\cmdLineRender.js</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simple.Report.Server.NodeJS\reportRender.js">
-      <Link>Reporting\NodeApp\reportRender.js</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simple.Report.Server.NodeJS\package.json">
-      <Link>Reporting\NodeApp\package.json</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Reporting\NodeApp\" />
   </ItemGroup>
 
