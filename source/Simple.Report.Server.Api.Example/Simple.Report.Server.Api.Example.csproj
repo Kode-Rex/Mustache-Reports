@@ -46,7 +46,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Simple.Report.Server.Data\Simple.Report.Server.Data.csproj" />
     <ProjectReference Include="..\Simple.Report.Server.Domain\Simple.Report.Server.Domain.csproj" />
+    <ProjectReference Include="..\Simple.Report.Server.UseCase\Simple.Report.Server.UseCase.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Reporting\Templates\ReportWithImages.docx">

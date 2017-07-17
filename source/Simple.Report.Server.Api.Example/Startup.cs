@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Simple.Report.Server.Data.Repositories;
+using Simple.Report.Server.Domain.Repositories;
+using Simple.Report.Server.Domain.UseCases;
+using Simple.Report.Server.UseCase;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Swagger;
@@ -16,6 +17,8 @@ namespace Simple.Report.Server.Api.Example
 {
     public class Startup
     {
+        public IConfigurationRoot Configuration { get; }
+
         private readonly Container _container = new Container();
 
         public Startup(IHostingEnvironment env)
@@ -28,9 +31,6 @@ namespace Simple.Report.Server.Api.Example
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
@@ -44,7 +44,6 @@ namespace Simple.Report.Server.Api.Example
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -55,12 +54,40 @@ namespace Simple.Report.Server.Api.Example
 
         private void RegisterSimpleInjector(IServiceCollection services)
         {
-            services.AddSingleton<IControllerActivator>(
-                new SimpleInjectorControllerActivator(_container));
+            services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(_container));
 
             services.UseSimpleInjectorAspNetRequestScoping(_container);
 
-            //_container.Register<IUserRepository, SqlUserRepository>(Lifestyle.Scoped);
+            RegisterUseCases();
+            RegisterRepositories(services);
+        }
+
+        private void RegisterUseCases()
+        {
+            _container.Register<IRenderReportUseCase, RenderReportUseCase>();
+        }
+
+        private void RegisterRepositories(IServiceCollection services)
+        {
+            var webRoot = GetWebRootPath(services);
+
+            // todo : Path.Combine not used cuz it breaks if there are spaces in folder name ;(
+            var templateLocation = webRoot + "\\Reporting\\Templates";
+            var nodeAppLocation = webRoot + "\\Reporting\\NodeApp";
+
+            _container.Register<IReportRepository>(() => new ReportRepository(templateLocation, nodeAppLocation));
+        }
+
+        private string GetWebRootPath(IServiceCollection services)
+        {
+            var serviceDescriptor = services.First(c => c.ServiceType == typeof(IHostingEnvironment));
+            var hostingEnvironment = (IHostingEnvironment)serviceDescriptor.ImplementationInstance;
+            return IsWebRootPathNull(hostingEnvironment) ? hostingEnvironment.ContentRootPath : hostingEnvironment.WebRootPath;
+        }
+
+        private static bool IsWebRootPathNull(IHostingEnvironment hostingEnvironment)
+        {
+            return hostingEnvironment.WebRootPath == null;
         }
     }
 }
