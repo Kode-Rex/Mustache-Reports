@@ -2,7 +2,7 @@
 {
     public class RenderReportInputMessage
     {
-        public string JsonModel { get; set; }
+        public object JsonModel { get; set; }
         public string TemplateName { get; set; }
         public string ReportName { get; set; }
 

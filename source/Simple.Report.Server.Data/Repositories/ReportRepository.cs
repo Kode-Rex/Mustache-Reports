@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Simple.Report.Server.Data.Task;
 using Simple.Report.Server.Domain.Messages.Input;
@@ -24,12 +25,15 @@ namespace Simple.Report.Server.Data.Repositories
 
         public RenderedReportOutputMessage CreateReport(RenderReportInputMessage inputMessage)
         {
-            var reportJsonPath = WriteReportJson(inputMessage.JsonModel);
+            var reportJsonPath = WriteReportJson(inputMessage.JsonModel.ToString());
             var reportTemplatePath = FetchReportTemplatePath(inputMessage.TemplateName);
 
             if (string.IsNullOrEmpty(reportTemplatePath))
             {
-                throw new Exception($"Invalid Report Type [{inputMessage.TemplateName}]");
+                return new RenderedReportOutputMessage
+                {
+                    ErrorMessages = $"Invalid Report Type [{inputMessage.TemplateName}]"
+                };
             }
 
             var presenter = new PropertyPresenter<string, ErrorOutputMessage>();
@@ -37,8 +41,9 @@ namespace Simple.Report.Server.Data.Repositories
 
             if (presenter.IsErrorResponse())
             {
-                var errors =  string.Join(", ", presenter.ErrorContent.Errors.ToArray());
-                return new RenderedReportOutputMessage {ErrorMessages = errors};
+                var errorsEnumerable = presenter.ErrorContent.Errors.ToArray() as IEnumerable<string>;
+                var errorString =  string.Join(", ", errorsEnumerable);
+                return new RenderedReportOutputMessage {ErrorMessages = errorString};
             }
 
             var base64Report = presenter.SuccessContent.TrimEnd('\r', '\n');

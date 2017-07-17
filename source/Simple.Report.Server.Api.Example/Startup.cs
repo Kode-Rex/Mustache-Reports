@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -11,6 +12,7 @@ using Simple.Report.Server.Domain.UseCases;
 using Simple.Report.Server.UseCase;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
+using SimpleInjector.Lifestyles;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Simple.Report.Server.Api.Example
@@ -33,23 +35,32 @@ namespace Simple.Report.Server.Api.Example
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
             services.AddMvc();
 
             RegisterSimpleInjector(services);
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Simple.Report.Server.Api.Example", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "Simple.Report.Server.Example", Version = "v1" });
             });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            InitializeContainer(app, env);
+            _container.Verify();
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             app.UseMvc();
+            app.UseMvcWithDefaultRoute();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Simple.Report.Server");
+            });
         }
 
         private void RegisterSimpleInjector(IServiceCollection services)
@@ -57,9 +68,17 @@ namespace Simple.Report.Server.Api.Example
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(_container));
 
             services.UseSimpleInjectorAspNetRequestScoping(_container);
+        }
+
+        private void InitializeContainer(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            _container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+
+            // Add application presentation components:
+            _container.RegisterMvcControllers(app);
 
             RegisterUseCases();
-            RegisterRepositories(services);
+            RegisterRepositories(env);
         }
 
         private void RegisterUseCases()
@@ -67,25 +86,21 @@ namespace Simple.Report.Server.Api.Example
             _container.Register<IRenderReportUseCase, RenderReportUseCase>();
         }
 
-        private void RegisterRepositories(IServiceCollection services)
+        private void RegisterRepositories(IHostingEnvironment env)
         {
-            var webRoot = GetWebRootPath(services);
-
-            // todo : Path.Combine not used cuz it breaks if there are spaces in folder name ;(
-            var templateLocation = webRoot + "\\Reporting\\Templates";
-            var nodeAppLocation = webRoot + "\\Reporting\\NodeApp";
+            var webRoot = GetRootPath(env);
+            var templateLocation = Path.Combine(webRoot, "Reporting", "Templates");
+            var nodeAppLocation = Path.Combine(webRoot, "Reporting" , "NodeApp");
 
             _container.Register<IReportRepository>(() => new ReportRepository(templateLocation, nodeAppLocation));
         }
 
-        private string GetWebRootPath(IServiceCollection services)
+        private string GetRootPath(IHostingEnvironment env)
         {
-            var serviceDescriptor = services.First(c => c.ServiceType == typeof(IHostingEnvironment));
-            var hostingEnvironment = (IHostingEnvironment)serviceDescriptor.ImplementationInstance;
-            return IsWebRootPathNull(hostingEnvironment) ? hostingEnvironment.ContentRootPath : hostingEnvironment.WebRootPath;
+            return IsWebRootPathNull(env) ? env.ContentRootPath : env.WebRootPath;
         }
 
-        private static bool IsWebRootPathNull(IHostingEnvironment hostingEnvironment)
+        private bool IsWebRootPathNull(IHostingEnvironment hostingEnvironment)
         {
             return hostingEnvironment.WebRootPath == null;
         }

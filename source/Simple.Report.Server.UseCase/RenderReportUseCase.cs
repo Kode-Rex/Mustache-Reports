@@ -20,8 +20,21 @@ namespace Simple.Report.Server.UseCase
         {
             var result = _reportRepository.CreateReport(inputInputMessage);
 
+            if (result.HasErrors())
+            {
+                RespondWithErrors(presenter, result);
+                return;
+            }
+
             var reportMessage = new InMemoryWordFileOutputMessage(inputInputMessage.ReportName,result.FetchReportAsByteArray());
             presenter.Respond(reportMessage);
+        }
+
+        private void RespondWithErrors(IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedReportOutputMessage result)
+        {
+            var errors = new ErrorOutputMessage();
+            errors.AddError(result.ErrorMessages);
+            presenter.Respond(errors);
         }
     }
 }

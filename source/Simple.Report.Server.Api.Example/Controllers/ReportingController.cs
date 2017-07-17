@@ -6,7 +6,7 @@ using TddBuddy.CleanArchitecture.Presenters;
 
 namespace Simple.Report.Server.Api.Example.Controllers
 {
-    [Route("api/v1/reporting")]
+    [Route("api/reporting")]
     public class ReportingController
     {
         private readonly IRenderReportUseCase _usecase;

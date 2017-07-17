@@ -3,15 +3,19 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
-    <PreBuildEvent>xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\node_modules" "$(ProjectDir)\Reporting\NodeApp\node_modules" /s /I /y /d</PreBuildEvent>
+    <PreBuildEvent>REM copy node_modules into location IIS Express runs from
+xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\node_modules" "$(SolutionDir)Simple.Report.Server.Api.Example\Reporting\NodeApp\node_modules" /s /I /y /d
+REM copy js files into IIS Express run location
+xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\*.js" "$(SolutionDir)Simple.Report.Server.Api.Example\Reporting\NodeApp" /s /I /y /d</PreBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Reporting\NodeApp\" />
+    <Folder Include="Reporting\NodeApp\">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Folder>
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Hamazon.AspNetCore.SwaggerUI" Version="1.1.3" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
@@ -25,6 +29,7 @@
     <PackageReference Include="SimpleInjector" Version="4.0.8" />
     <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc" Version="4.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="1.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="1.0.0" />
     <PackageReference Include="TddBuddy.CleanArchitecture.Domain.DotNetCore" Version="2.0.0" />
     <PackageReference Include="TddBuddy.CleanArchitecture.DotNetCore" Version="2.0.0" />
   </ItemGroup>
