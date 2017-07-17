@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Simple.Report.Server.Domain.Messages;
 using Simple.Report.Server.Domain.Messages.Input;
 using Simple.Report.Server.Domain.UseCases;
 using TddBuddy.CleanArchitecture.Domain.Messages;

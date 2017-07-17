@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
+    <PreBuildEvent>xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\node_modules" "$(ProjectDir)\Reporting\NodeApp\node_modules" /s /I /y /d</PreBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
