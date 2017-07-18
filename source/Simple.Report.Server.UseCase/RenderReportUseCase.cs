@@ -26,7 +26,14 @@ namespace Simple.Report.Server.UseCase
                 return;
             }
 
-            var reportMessage = new InMemoryWordFileOutputMessage(inputInputMessage.ReportName,result.FetchReportAsByteArray());
+            RespondWithFile(inputInputMessage, presenter, result);
+        }
+
+        private static void RespondWithFile(RenderReportInputMessage inputInputMessage, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter,
+            RenderedReportOutputMessage result)
+        {
+            var reportMessage = new InMemoryWordFileOutputMessage(inputInputMessage.ReportName,
+                result.FetchReportAsByteArray());
             presenter.Respond(reportMessage);
         }
 
