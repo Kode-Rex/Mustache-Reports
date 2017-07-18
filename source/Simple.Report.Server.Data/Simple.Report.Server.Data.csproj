@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="TddBuddy.Synchronous.Process.Runner.DotNetCore" Version="1.0.2" />
+    <PackageReference Include="TddBuddy.Synchronous.Process.Runner.DotNetCore" Version="1.0.4" />
   </ItemGroup>
 
   <ItemGroup>
