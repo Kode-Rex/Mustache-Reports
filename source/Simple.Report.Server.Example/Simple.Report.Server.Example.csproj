@@ -12,7 +12,6 @@ xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\*.js" "$(SolutionDir)Simple.Rep
   <ItemGroup>
     <ProjectReference Include="..\Simple.Report.Server.Data\Simple.Report.Server.Data.csproj" />
     <ProjectReference Include="..\Simple.Report.Server.Domain\Simple.Report.Server.Domain.csproj" />
-    <ProjectReference Include="..\Simple.Report.Server.UseCase\Simple.Report.Server.UseCase.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +19,7 @@ xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\*.js" "$(SolutionDir)Simple.Rep
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="TddBuddy.System.Utils.DotNetCore" Version="1.0.0" />
+    <PackageReference Include="TddBuddy.System.Utils.DotNetCore" Version="1.1.0" />
   </ItemGroup>
 
 </Project>

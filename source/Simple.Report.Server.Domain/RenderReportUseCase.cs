@@ -1,11 +1,8 @@
-﻿using Simple.Report.Server.Domain.Messages.Input;
-using Simple.Report.Server.Domain.Messages.Output;
-using Simple.Report.Server.Domain.Repositories;
-using Simple.Report.Server.Domain.UseCases;
+﻿using Simple.Report.Server.Boundry.ReportRendering;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 
-namespace Simple.Report.Server.UseCase
+namespace Simple.Report.Server.Domain
 {
     public class RenderReportUseCase : IRenderReportUseCase
     {
@@ -18,7 +15,7 @@ namespace Simple.Report.Server.UseCase
 
         public void Execute(RenderReportInputMessage inputInputMessage, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
         {
-            var result = _reportRepository.CreateReport(inputInputMessage);
+            var result = _reportRepository.CreatePdfReport(inputInputMessage);
 
             if (result.HasErrors())
             {
@@ -32,8 +29,8 @@ namespace Simple.Report.Server.UseCase
         private static void RespondWithFile(RenderReportInputMessage inputInputMessage, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter,
             RenderedReportOutputMessage result)
         {
-            var reportMessage = new InMemoryWordFileOutputMessage(inputInputMessage.ReportName,
-                result.FetchReportAsByteArray());
+            var reportMessage = new WordFileOutputMessage(inputInputMessage.ReportName,
+            result.FetchReportAsByteArray());
             presenter.Respond(reportMessage);
         }
 

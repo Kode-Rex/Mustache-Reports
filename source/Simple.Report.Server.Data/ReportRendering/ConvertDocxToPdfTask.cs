@@ -1,6 +1,6 @@
 ﻿using TddBuddy.Synchronous.Process.Runner.PipeLineTask;
 
-namespace Simple.Report.Server.Data.Task
+namespace Simple.Report.Server.Data.ReportRendering
 {
     public class ConvertDocxToPdfTask : GenericPipeLineTask
     {

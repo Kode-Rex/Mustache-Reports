@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Simple.Report.Server.Domain.Messages.Output
+namespace Simple.Report.Server.Boundry.ReportRendering
 {
     public class RenderedReportOutputMessage
     {

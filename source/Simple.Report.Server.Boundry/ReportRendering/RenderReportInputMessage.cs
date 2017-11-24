@@ -1,4 +1,4 @@
-﻿namespace Simple.Report.Server.Domain.Messages.Input
+﻿namespace Simple.Report.Server.Boundry.ReportRendering
 {
     public class RenderReportInputMessage
     {

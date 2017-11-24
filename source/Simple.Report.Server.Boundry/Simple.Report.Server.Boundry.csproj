@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
@@ -6,10 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="TddBuddy.CleanArchitecture.Domain.DotNetCore" Version="3.6.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Simple.Report.Server.Boundry\Simple.Report.Server.Boundry.csproj" />
   </ItemGroup>
 
 </Project>

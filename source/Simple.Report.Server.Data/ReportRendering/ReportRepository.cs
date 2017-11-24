@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Simple.Report.Server.Data.Task;
-using Simple.Report.Server.Domain.Messages.Input;
-using Simple.Report.Server.Domain.Messages.Output;
-using Simple.Report.Server.Domain.Repositories;
+using Simple.Report.Server.Boundry.ReportRendering;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 using TddBuddy.CleanArchitecture.Domain.Presenters;
 using TddBuddy.Synchronous.Process.Runner;
 
-namespace Simple.Report.Server.Data.Repositories
+namespace Simple.Report.Server.Data.ReportRendering
 {
     public class ReportRepository : IReportRepository
     {
@@ -23,31 +20,57 @@ namespace Simple.Report.Server.Data.Repositories
             _nodeAppLocation = nodeAppLocation;
         }
 
-        public RenderedReportOutputMessage CreateReport(RenderReportInputMessage inputMessage)
+        public RenderedReportOutputMessage CreatePdfReport(RenderReportInputMessage inputMessage)
         {
             var reportJsonPath = WriteReportJson(inputMessage.JsonModel.ToString());
             var reportTemplatePath = FetchReportTemplatePath(inputMessage.TemplateName);
 
-            if (string.IsNullOrEmpty(reportTemplatePath))
+            if (InvalidReportTemplatePath(reportTemplatePath))
             {
-                return new RenderedReportOutputMessage
-                {
-                    ErrorMessages = $"Invalid Report Type [{inputMessage.TemplateName}]"
-                };
+                return ReturnInvalidReportTemplatePathError(inputMessage);
             }
 
-            var presenter = new PropertyPresenter<string, ErrorOutputMessage>();
-            RenderReport(reportTemplatePath, reportJsonPath, presenter);
+            var presenter = RenderReport(reportTemplatePath, reportJsonPath);
 
             if (presenter.IsErrorResponse())
             {
-                var errorsEnumerable = presenter.ErrorContent.Errors.ToArray() as IEnumerable<string>;
-                var errorString =  string.Join(", ", errorsEnumerable);
-                return new RenderedReportOutputMessage {ErrorMessages = errorString};
+                return ReturnRenderErrors(presenter);
             }
 
+            return ReturnRenderedReport(presenter);
+        }
+
+        private RenderedReportOutputMessage ReturnInvalidReportTemplatePathError(RenderReportInputMessage inputMessage)
+        {
+            return new RenderedReportOutputMessage
+            {
+                ErrorMessages = $"Invalid Report Type [{inputMessage.TemplateName}]"
+            };
+        }
+
+        private bool InvalidReportTemplatePath(string reportTemplatePath)
+        {
+            return string.IsNullOrEmpty(reportTemplatePath);
+        }
+
+        private PropertyPresenter<string, ErrorOutputMessage> RenderReport(string reportTemplatePath, string reportJsonPath)
+        {
+            var presenter = new PropertyPresenter<string, ErrorOutputMessage>();
+            RenderReport(reportTemplatePath, reportJsonPath, presenter);
+            return presenter;
+        }
+
+        private RenderedReportOutputMessage ReturnRenderedReport(PropertyPresenter<string, ErrorOutputMessage> presenter)
+        {
             var base64Report = presenter.SuccessContent.TrimEnd('\r', '\n');
-            return new RenderedReportOutputMessage { ReportAsBase64String = base64Report };
+            return new RenderedReportOutputMessage {ReportAsBase64String = base64Report};
+        }
+
+        private RenderedReportOutputMessage ReturnRenderErrors(PropertyPresenter<string, ErrorOutputMessage> presenter)
+        {
+            var errorsEnumerable = presenter.ErrorContent.Errors.ToArray() as IEnumerable<string>;
+            var errorString = string.Join(", ", errorsEnumerable);
+            return new RenderedReportOutputMessage {ErrorMessages = errorString};
         }
 
         private void RenderReport(string reportTemplatePath, string reportJsonPath, IRespondWithSuccessOrError<string, ErrorOutputMessage> presenter)

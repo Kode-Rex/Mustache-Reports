@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Simple.Report.Server.Data.Repositories;
-using Simple.Report.Server.Data.Task;
-using Simple.Report.Server.Domain.Messages.Input;
-using Simple.Report.Server.Domain.UseCases;
-using Simple.Report.Server.UseCase;
+using Simple.Report.Server.Boundry.ReportRendering;
+using Simple.Report.Server.Data.ReportRendering;
+using Simple.Report.Server.Domain;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 using TddBuddy.CleanArchitecture.Domain.Presenters;
