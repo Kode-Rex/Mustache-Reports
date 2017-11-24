@@ -1,11 +1,10 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Mvc;
-using Simple.Report.Server.Domain.Messages.Input;
-using Simple.Report.Server.Domain.UseCases;
+using Simple.Report.Server.Boundry.ReportRendering;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Presenters;
 
-namespace Simple.Report.Server.Api.Example.Controllers
+namespace Simple.Report.Server.Controllers.Web
 {
     [Route("api/reporting")]
     public class ReportingController
