@@ -10,12 +10,10 @@ xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\*.js" "$(SolutionDir)Simple.Rep
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Simple.Report.Server.Boundry\Simple.Report.Server.Boundry.csproj" />
+    <ProjectReference Include="..\Simple.Report.Server.Controllers.Console\Simple.Report.Server.Controllers.Console.csproj" />
     <ProjectReference Include="..\Simple.Report.Server.Data\Simple.Report.Server.Data.csproj" />
     <ProjectReference Include="..\Simple.Report.Server.Domain\Simple.Report.Server.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Reporting\NodeApp\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -56,50 +56,11 @@ ReportRender.prototype.configureAngularExpressions = function(){
 		return Moment(input).format(format).toString();
 	}
 
-	// todo : this should be property on data, to lazy to adjust data model
 	expressions.filters.today = function(input, format){
 		return Moment().format(format).toString();
-	}
+    }
 
-	// todo : there should have been model transformations to handle the today, areThereSectionIssues, 
-	// areThereHighPriorityIssues method concerns rather then putting it into the reporting lib.
-	expressions.filters.areThereSectionIssues = function(input){
-		if(!input || Object.prototype.toString.call( input ) !== '[object Array]' ) return false;
-		var result = false;
-		input.forEach(function(element){
-			if(element.hasIssues){
-				 result = true;
-			}
-		});
-		return result;
-	}
-
-	expressions.filters.areThereHighPriorityIssues = function(input){
-		if(!input || Object.prototype.toString.call( input ) !== '[object Array]' ) return false;
-		var result = false;
-		input.forEach(function(section){
-			section.auditAreaSectionIssues.forEach(function(issue){
-				if(section.hasIssues && section.sectionRating <= 3 && issue.notifyLandlord === true){
-					result = true;
-				}
-			});
-		});
-		return result;
-	}
-
-	expressions.filters.doesStringHaveData = function(input){
-		if(!input) return false;
-		return input.length > 0;
-	}
-
-	expressions.filters.formatArrayAsList = function(input, delimiter){
-		var result = "";
-		if(!input || Object.prototype.toString.call( input ) !== '[object Array]') return result;
-		input.forEach(function(item){
-			result += item + delimiter;
-		});
-		return result.substring(0,result.length-1);
-	}
+    // todo : Add your own angular expressions here
 };
 
 ReportRender.prototype.renderAsBase64 = function(reportTemplateBase64, reportData){

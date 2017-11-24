@@ -1,30 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Simple.Report.Server.Boundry.ReportRendering;
 using Simple.Report.Server.Data.ReportRendering;
-using Simple.Report.Server.Domain;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 using TddBuddy.CleanArchitecture.Domain.Presenters;
 using TddBuddy.Synchronous.Process.Runner;
 
-namespace Simple.Report.Server.Example
+namespace Simple.Report.Server.Controllers.Console
 {
-    class Program
+    public class RenderReport
     {
-        private static readonly IRenderReportUseCase RenderReportUseCase = new RenderReportUseCase(new ReportRepository("Reporting\\Templates","Reporting\\NodeApp"));
+        private readonly IRenderReportUseCase _usecase;
 
-        static void Main(string[] args)
+        public RenderReport(IRenderReportUseCase usecase)
         {
-            // todo : change this when running example for different output location
-            var writeReportTo = "C:\\SimpleReportServer.RenderedReports";
-            RenderReportWithImages(writeReportTo);
+            _usecase = usecase;
         }
 
-        private static void RenderReportWithImages(string reportOuputDirectory)
+        public void Run(string reportOutputDirectory, string reportDataFilePath)
         {
-            var jsonData = File.ReadAllText("ExampleData\\WithImagesSampleData.json");
+            RenderReportWithImages(reportOutputDirectory, reportDataFilePath);
+        }
+
+        private void RenderReportWithImages(string reportOuputDirectory, string reportDataFilePath)
+        {
+            var jsonData = File.ReadAllText(reportDataFilePath);
 
             var inputMessage = new RenderReportInputMessage
             {
@@ -32,9 +34,9 @@ namespace Simple.Report.Server.Example
                 ReportName = "ExampleReport",
                 JsonModel = jsonData
             };
-            
+
             var docxPresenter = new PropertyPresenter<IFileOutput, ErrorOutputMessage>();
-            RenderReportUseCase.Execute(inputMessage, docxPresenter);
+            _usecase.Execute(inputMessage, docxPresenter);
 
             if (docxPresenter.IsErrorResponse())
             {
@@ -52,13 +54,13 @@ namespace Simple.Report.Server.Example
                 return;
             }
 
-            Console.WriteLine($"Report output to [{pdfPresenter.SuccessContent}]");
-            Console.WriteLine("");
-            Console.WriteLine("Press enter to exit.");
-            Console.ReadLine();
+            System.Console.WriteLine($"Report output to [{pdfPresenter.SuccessContent}]");
+            System.Console.WriteLine("");
+            System.Console.WriteLine("Press enter to exit.");
+            System.Console.ReadLine();
         }
 
-        private static PropertyPresenter<string, ErrorOutputMessage> RenderReportToPdf(string reportOuputDirectory, string reportPath)
+        private PropertyPresenter<string, ErrorOutputMessage> RenderReportToPdf(string reportOuputDirectory, string reportPath)
         {
             var pdfPresenter = new PropertyPresenter<string, ErrorOutputMessage>();
             var executor = new SynchronousAction(new ConvertDocxToPdfTask(reportPath, reportOuputDirectory),
@@ -67,16 +69,16 @@ namespace Simple.Report.Server.Example
             return pdfPresenter;
         }
 
-        private static void WriteErrorsToConsole<T>(PropertyPresenter<T, ErrorOutputMessage> presenter)
+        private void WriteErrorsToConsole<T>(PropertyPresenter<T, ErrorOutputMessage> presenter)
         {
-            Console.WriteLine("The following errors occured: ");
-            Console.WriteLine(string.Join(", ", (IEnumerable<string>) presenter.ErrorContent.Errors));
-            Console.WriteLine("");
-            Console.WriteLine("Press enter to exit.");
-            Console.ReadLine();
+            System.Console.WriteLine("The following errors occured: ");
+            System.Console.WriteLine(string.Join(", ", (IEnumerable<string>)presenter.ErrorContent.Errors));
+            System.Console.WriteLine("");
+            System.Console.WriteLine("Press enter to exit.");
+            System.Console.ReadLine();
         }
 
-        private static string PersistReport(string reportOuputDirectory, IFileOutput successContent)
+        private string PersistReport(string reportOuputDirectory, IFileOutput successContent)
         {
             EnsureDirectory(reportOuputDirectory);
 
@@ -88,7 +90,7 @@ namespace Simple.Report.Server.Example
             return reportPath;
         }
 
-        private static void WriteReport(IFileOutput successContent, string reportPath)
+        private void WriteReport(IFileOutput successContent, string reportPath)
         {
             using (var stream = successContent.GetStream())
             {
@@ -101,7 +103,7 @@ namespace Simple.Report.Server.Example
             }
         }
 
-        private static void RemoveOldReport(string reportPath)
+        private void RemoveOldReport(string reportPath)
         {
             if (File.Exists(reportPath))
             {
@@ -109,7 +111,7 @@ namespace Simple.Report.Server.Example
             }
         }
 
-        private static void EnsureDirectory(string reportOuputDirectory)
+        private void EnsureDirectory(string reportOuputDirectory)
         {
             if (!Directory.Exists(reportOuputDirectory))
             {
