@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Report.Server.Boundr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Report.Server.Controllers.Console", "Simple.Report.Server.Controllers.Console\Simple.Report.Server.Controllers.Console.csproj", "{165374E4-C731-4A5B-A3FD-41873C882D11}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Report.Server.Example.Web", "Simple.Report.Server.Example.Web\Simple.Report.Server.Example.Web.csproj", "{886F658A-AC27-443D-8BB5-8C706C8772F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{165374E4-C731-4A5B-A3FD-41873C882D11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{165374E4-C731-4A5B-A3FD-41873C882D11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{165374E4-C731-4A5B-A3FD-41873C882D11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{886F658A-AC27-443D-8BB5-8C706C8772F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{886F658A-AC27-443D-8BB5-8C706C8772F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{886F658A-AC27-443D-8BB5-8C706C8772F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{886F658A-AC27-443D-8BB5-8C706C8772F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
