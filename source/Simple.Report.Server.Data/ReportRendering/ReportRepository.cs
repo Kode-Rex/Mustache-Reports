@@ -22,7 +22,6 @@ namespace Simple.Report.Server.Data.ReportRendering
 
         public RenderedReportOutputMessage CreatePdfReport(RenderReportInputMessage inputMessage)
         {
-            var pwd = Directory.GetCurrentDirectory();
             var reportJsonPath = WriteReportJson(inputMessage.JsonModel.ToString());
             var reportTemplatePath = FetchReportTemplatePath(inputMessage.TemplateName);
 

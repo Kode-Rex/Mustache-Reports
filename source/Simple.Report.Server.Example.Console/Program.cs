@@ -1,4 +1,7 @@
-﻿using Simple.Report.Server.Controllers.Console;
+﻿using System.IO;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Simple.Report.Server.Controllers.Console;
 using Simple.Report.Server.Data.ReportRendering;
 using Simple.Report.Server.Domain;
 
@@ -8,19 +11,47 @@ namespace Simple.Report.Server.Example.Console
     {
         static void Main(string[] args)
         {
-            var renderReportUseCase = CreateRenderReportUseCase();
-            
-            var writeReportTo = "C:\\SimpleReportServer.RenderedReports";
-            var reportDataFilePath = "bin\\Debug\\netcoreapp2.0\\ExampleData\\WithImagesSampleData.json";
+            var configuration = SetupConfiguration();
 
-            var reportController = new RenderReport(renderReportUseCase);
-            reportController.Run(writeReportTo, reportDataFilePath);
+            var writeReportTo = configuration["Reporting:RenderLocation"];
+            var reportDataFilePath = configuration["Reporting:RelativeSampleDataLocation"];
+            var libreOfficeLocation = configuration["Reporting:LibreOfficeLocation"];
+
+            var reportController = CreateReportController(configuration);
+            reportController.Run(libreOfficeLocation, writeReportTo, reportDataFilePath);
         }
 
-        private static RenderReportUseCase CreateRenderReportUseCase()
+        private static RenderReport CreateReportController(IConfigurationRoot configuration)
         {
-            var reportingTemplates = "bin\\Debug\\netcoreapp2.0\\ReportRendering\\Templates";
-            var nodeAppLocation = "ReportRendering\\NodeApp";
+            var renderReportUseCase = CreateRenderReportUseCase(configuration);
+            var loggerFactory = CreateLoggerFactory();
+
+            var reportController = new RenderReport(renderReportUseCase, loggerFactory);
+
+            return reportController;
+        }
+
+        private static IConfigurationRoot SetupConfiguration()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            var configuration = builder.Build();
+            return configuration;
+        }
+
+        private static LoggerFactory CreateLoggerFactory()
+        {
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddConsole((text, logLevel) => logLevel >= LogLevel.Trace, true);
+            return loggerFactory;
+        }
+
+        private static RenderReportUseCase CreateRenderReportUseCase(IConfigurationRoot configuration)
+        {
+            var reportingTemplates = configuration["Reporting:RelativeReportTemplateLocation"];
+            var nodeAppLocation = configuration["Reporting:RelativeToConsoleNodeAppLocation"];
 
             var renderReportUseCase = new RenderReportUseCase(new ReportRepository(reportingTemplates, nodeAppLocation));
             return renderReportUseCase;
