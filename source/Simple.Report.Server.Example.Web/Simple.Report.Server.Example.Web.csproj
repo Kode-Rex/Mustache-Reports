@@ -10,9 +10,6 @@ xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\*.js" "$(SolutionDir)Simple.Rep
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Reporting\NodeApp\">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Folder>
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
@@ -34,37 +31,10 @@ xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\*.js" "$(SolutionDir)Simple.Rep
     <PackageReference Include="TddBuddy.CleanArchitecture.DotNetCore" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Simple.Report.Server.NodeJS\cmdLineRender.js">
-      <Link>Reporting\NodeApp\cmdLineRender.js</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simple.Report.Server.NodeJS\reportRender.js">
-      <Link>Reporting\NodeApp\reportRender.js</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Simple.Report.Server.NodeJS\package.json">
-      <Link>Reporting\NodeApp\package.json</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Simple.Report.Server.Data\Simple.Report.Server.Data.csproj" />
     <ProjectReference Include="..\Simple.Report.Server.Domain\Simple.Report.Server.Domain.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Update="ExampleData\WithImagesSampleData.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Reporting\Templates\ReportWithImages.docx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Reporting\Templates\ReportWithNoImages.docx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

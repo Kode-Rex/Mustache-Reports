@@ -19,6 +19,7 @@ namespace Simple.Report.Server.Example.Console
 
             var reportController = CreateReportController(configuration);
             reportController.Run(libreOfficeLocation, writeReportTo, reportDataFilePath);
+            System.Console.ReadLine();
         }
 
         private static RenderReport CreateReportController(IConfigurationRoot configuration)
@@ -51,7 +52,7 @@ namespace Simple.Report.Server.Example.Console
         private static RenderReportUseCase CreateRenderReportUseCase(IConfigurationRoot configuration)
         {
             var reportingTemplates = configuration["Reporting:RelativeReportTemplateLocation"];
-            var nodeAppLocation = configuration["Reporting:RelativeToConsoleNodeAppLocation"];
+            var nodeAppLocation = configuration["Reporting:RelativeToExampleNodeAppLocation"];
 
             var renderReportUseCase = new RenderReportUseCase(new ReportRepository(reportingTemplates, nodeAppLocation));
             return renderReportUseCase;

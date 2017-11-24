@@ -59,7 +59,6 @@ namespace Simple.Report.Server.Controllers.Console
             _logger.LogInformation($"Report output to directory [ {reportOuputDirectory} ]");
             _logger.LogInformation("");
             _logger.LogInformation("Press enter to exit.");
-            System.Console.ReadLine();
         }
 
         private PropertyPresenter<string, ErrorOutputMessage> RenderReportToPdf(string libreOfficeLocation, string reportOuputDirectory, string reportPath)
@@ -77,7 +76,6 @@ namespace Simple.Report.Server.Controllers.Console
             _logger.LogError(string.Join(", ", (IEnumerable<string>)presenter.ErrorContent.Errors));
             _logger.LogError("");
             _logger.LogError("Press enter to exit.");
-            System.Console.ReadLine();
         }
 
         private string PersistReport(string reportOuputDirectory, IFileOutput successContent)
