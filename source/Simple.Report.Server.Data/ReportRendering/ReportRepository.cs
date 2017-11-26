@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.Extensions.Configuration;
 using Simple.Report.Server.Boundry.ReportRendering;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
@@ -14,10 +15,10 @@ namespace Simple.Report.Server.Data.ReportRendering
         private readonly string _templateLocation;
         private readonly string _nodeAppLocation;
 
-        public ReportRepository(string templateLocation, string nodeAppLocation)
+        public ReportRepository(IConfiguration configuration)
         {
-            _templateLocation = templateLocation;
-            _nodeAppLocation = nodeAppLocation;
+            _templateLocation = configuration["Reporting:RelativeReportTemplateLocation"];
+            _nodeAppLocation = configuration["Reporting:RelativeToExampleNodeAppLocation"];
         }
 
         public RenderedReportOutputMessage CreatePdfReport(RenderReportInputMessage inputMessage)

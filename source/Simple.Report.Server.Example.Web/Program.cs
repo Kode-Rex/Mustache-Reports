@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using Simple.Report.Server.Example.Web;
 
-namespace Simple.Report.Server.Api.Example
+namespace Simple.Report.Server.Example.Web
 {
     public class Program
     {

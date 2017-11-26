@@ -51,10 +51,7 @@ namespace Simple.Report.Server.Example.Console
 
         private static RenderReportUseCase CreateRenderReportUseCase(IConfigurationRoot configuration)
         {
-            var reportingTemplates = configuration["Reporting:RelativeReportTemplateLocation"];
-            var nodeAppLocation = configuration["Reporting:RelativeToExampleNodeAppLocation"];
-
-            var renderReportUseCase = new RenderReportUseCase(new ReportRepository(reportingTemplates, nodeAppLocation));
+            var renderReportUseCase = new RenderReportUseCase(new ReportRepository(configuration));
             return renderReportUseCase;
         }
     }
