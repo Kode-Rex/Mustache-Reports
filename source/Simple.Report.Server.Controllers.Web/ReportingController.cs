@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Simple.Report.Server.Boundry.ReportRendering;
 using TddBuddy.CleanArchitecture.Presenters;
@@ -15,23 +16,12 @@ namespace Simple.Report.Server.Controllers.Web
             _usecase = usecase;
         }
 
-        //[ProducesResponseType(typeof(string), 200)]
-        //[ProducesResponseType(typeof(ErrorOutputMessage), 422)]
-        //[HttpPost("create")]
-        //public void Create([FromBody] RenderReportInputMessage inputMessage)
-        //{
-        //    var presenter = new DownloadFilePresenter();
-        //    _usecase.Execute(inputMessage, presenter);
-        //    presenter.Render();
-        //}
-
         [ProducesResponseType(typeof(File), 200)]
         [Produces("application/pdf")]
         //[ProducesResponseType(typeof(ErrorOutputMessage), 422)]
         [HttpGet("create")]
-        public void Create()
+        public IActionResult Create()
         {
-            var pwd = Directory.GetCurrentDirectory();
             var jsonData = File.ReadAllText("ReportRendering\\ExampleData\\WithImagesSampleData.json");
 
             var inputMessage = new RenderReportInputMessage
@@ -42,7 +32,8 @@ namespace Simple.Report.Server.Controllers.Web
             };
             var presenter = new DownloadFilePresenter();
             _usecase.Execute(inputMessage, presenter);
-            presenter.Render();
+            return presenter.Render();
         }
+
     }
 }
