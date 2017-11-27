@@ -17,8 +17,6 @@ namespace Simple.Report.Server.Controllers.Web
             _usecase = usecase;
         }
 
-        // todo : add create/pdf
-        [ProducesResponseType(typeof(File), 200)]
         [Produces("application/vnd.openxmlformats-officedocument.wordprocessingml.document")]
         [ProducesResponseType(typeof(ErrorOutputMessage), 422)]
         [HttpGet("create/word")]
