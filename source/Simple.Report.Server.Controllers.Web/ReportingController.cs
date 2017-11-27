@@ -32,7 +32,7 @@ namespace Simple.Report.Server.Controllers.Web
         public void Create()
         {
             var pwd = Directory.GetCurrentDirectory();
-            var jsonData = File.ReadAllText("ExampleData\\WithImagesSampleData.json");
+            var jsonData = File.ReadAllText("ReportRendering\\ExampleData\\WithImagesSampleData.json");
 
             var inputMessage = new RenderReportInputMessage
             {

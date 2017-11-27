@@ -3,10 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
-    <PreBuildEvent>REM copy node_modules into location IIS Express runs from
-xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\node_modules" "$(SolutionDir)Simple.Report.Server.Api.Example\Reporting\NodeApp\node_modules" /s /I /y /d
-REM copy js files into IIS Express run location
-xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\*.js" "$(SolutionDir)Simple.Report.Server.Api.Example\Reporting\NodeApp" /s /I /y /d</PreBuildEvent>
+    <PreBuildEvent>
+      REM copy node_modules into location IIS Express runs from
+      xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\node_modules" "$(SolutionDir)Simple.Report.Server.Example.Web\ReportingRendering\NodeApp\node_modules" /s /I /y /d
+      REM copy js files into IIS Express run location
+      xcopy "$(SolutionDir)Simple.Report.Server.NodeJS\*.js" "$(SolutionDir)Simple.Report.Server.Example.Web\ReportingRendering\NodeApp" /s /I /y /d
+      REM copy example dadta into location Web location
+      xcopy "$(SolutionDir)Simple.Report.Server.Data\ExampleData\*.json" "$(SolutionDir)Simple.Report.Server.Example.Web\ReportRendering\ExampleData" /s /I /y /d
+    </PreBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
