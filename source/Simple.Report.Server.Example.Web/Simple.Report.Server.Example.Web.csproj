@@ -29,8 +29,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="1.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="1.1.0" />
-    <PackageReference Include="TddBuddy.CleanArchitecture.Domain.DotNetCore" Version="3.6.0" />
-    <PackageReference Include="TddBuddy.CleanArchitecture.DotNetCore" Version="3.6.0" />
+    <PackageReference Include="TddBuddy.CleanArchitecture.Domain.DotNetCore" Version="3.7.0" />
+    <PackageReference Include="TddBuddy.CleanArchitecture.DotNetCore" Version="3.7.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />

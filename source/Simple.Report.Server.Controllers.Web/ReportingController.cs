@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Simple.Report.Server.Boundry.ReportRendering;
+using Simple.Report.Server.Boundry.Rendering.Report;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Presenters;
 
@@ -24,7 +24,7 @@ namespace Simple.Report.Server.Controllers.Web
         {
             var jsonData = File.ReadAllText("ReportRendering\\ExampleData\\WithImagesSampleData.json");
 
-            var inputMessage = new RenderReportInputMessage
+            var inputMessage = new RenderReportInput
             {
                 TemplateName = "ReportWithImages",
                 ReportName = "ExampleReport.docx",

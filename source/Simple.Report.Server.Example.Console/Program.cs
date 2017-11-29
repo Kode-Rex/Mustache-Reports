@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Simple.Report.Server.Controllers.Console;
-using Simple.Report.Server.Data.ReportRendering;
+using Simple.Report.Server.Data;
 using Simple.Report.Server.Domain;
 
 namespace Simple.Report.Server.Example.Console
@@ -24,12 +24,21 @@ namespace Simple.Report.Server.Example.Console
 
         private static RenderReport CreateReportController(IConfigurationRoot configuration)
         {
-            var renderReportUseCase = CreateRenderReportUseCase(configuration);
+            var reportRepository = new ReportRepository(configuration);
+
+            var renderReportUseCase = CreateRenderReportUseCase(reportRepository);
+            var renderPdfUseCase = CreateRenderDocxToPdfUseCase(reportRepository);
             var loggerFactory = CreateLoggerFactory();
 
-            var reportController = new RenderReport(renderReportUseCase, loggerFactory);
+            var reportController = new RenderReport(renderReportUseCase, renderPdfUseCase, loggerFactory);
 
             return reportController;
+        }
+
+        private static RenderDocxToPdfUseCase CreateRenderDocxToPdfUseCase(ReportRepository reportRepository)
+        {
+            var renderPdfUseCase = new RenderDocxToPdfUseCase(reportRepository);
+            return renderPdfUseCase;
         }
 
         private static IConfigurationRoot SetupConfiguration()
@@ -49,9 +58,9 @@ namespace Simple.Report.Server.Example.Console
             return loggerFactory;
         }
 
-        private static RenderReportUseCase CreateRenderReportUseCase(IConfigurationRoot configuration)
+        private static RenderReportUseCase CreateRenderReportUseCase(ReportRepository reportRepository)
         {
-            var renderReportUseCase = new RenderReportUseCase(new ReportRepository(configuration));
+            var renderReportUseCase = new RenderReportUseCase(reportRepository);
             return renderReportUseCase;
         }
     }

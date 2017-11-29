@@ -1,4 +1,6 @@
-﻿using Simple.Report.Server.Boundry.ReportRendering;
+﻿using Simple.Report.Server.Boundry;
+using Simple.Report.Server.Boundry.Rendering;
+using Simple.Report.Server.Boundry.Rendering.Report;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 
@@ -13,9 +15,9 @@ namespace Simple.Report.Server.Domain
             _reportRepository = reportRepository;
         }
 
-        public void Execute(RenderReportInputMessage inputInputMessage, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
+        public void Execute(RenderReportInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
         {
-            var result = _reportRepository.CreatePdfReport(inputInputMessage);
+            var result = _reportRepository.CreateReport(inputInput);
 
             if (result.HasErrors())
             {
@@ -23,21 +25,20 @@ namespace Simple.Report.Server.Domain
                 return;
             }
 
-            RespondWithFile(inputInputMessage, presenter, result);
+            RespondWithFile(inputInput, presenter, result);
         }
 
-        private static void RespondWithFile(RenderReportInputMessage inputInputMessage, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter,
-            RenderedReportOutputMessage result)
+        private static void RespondWithFile(RenderReportInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedDocummentOutput result)
         {
-            var reportMessage = new WordFileOutputMessage(inputInputMessage.ReportName,
-            result.FetchReportAsByteArray());
+            var reportMessage = new WordFileOutput(inputInput.ReportName, result.FetchDocumentAsByteArray());
+
             presenter.Respond(reportMessage);
         }
 
-        private void RespondWithErrors(IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedReportOutputMessage result)
+        private void RespondWithErrors(IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedDocummentOutput result)
         {
             var errors = new ErrorOutputMessage();
-            errors.AddError(result.ErrorMessages);
+            errors.AddErrors(result.ErrorMessages);
             presenter.Respond(errors);
         }
     }

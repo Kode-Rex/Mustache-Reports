@@ -1,12 +1,12 @@
-﻿namespace Simple.Report.Server.Boundry.ReportRendering
+﻿namespace Simple.Report.Server.Boundry.Rendering.Report
 {
-    public class RenderReportInputMessage
+    public class RenderReportInput
     {
         public object JsonModel { get; set; }
         public string TemplateName { get; set; }
         public string ReportName { get; set; }
 
-        public RenderReportInputMessage()
+        public RenderReportInput()
         {
             ReportName = "report.docx";
         }

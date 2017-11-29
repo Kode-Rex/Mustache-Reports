@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.Logging;
-using Simple.Report.Server.Boundry.ReportRendering;
-using Simple.Report.Server.Data.ReportRendering;
+using Simple.Report.Server.Boundry.Rendering.Pdf;
+using Simple.Report.Server.Boundry.Rendering.Report;
+using Simple.Report.Server.Data.PdfRendering;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 using TddBuddy.CleanArchitecture.Domain.Presenters;
@@ -13,11 +15,13 @@ namespace Simple.Report.Server.Controllers.Console
     public class RenderReport
     {
         private readonly IRenderReportUseCase _usecase;
+        private readonly IRenderDocxToPdfUseCase _pdfUseCase;
         private readonly ILogger _logger;
 
-        public RenderReport(IRenderReportUseCase usecase, ILoggerFactory logFactory)
+        public RenderReport(IRenderReportUseCase usecase, IRenderDocxToPdfUseCase pdfUseCase, ILoggerFactory logFactory)
         {
             _usecase = usecase;
+            _pdfUseCase = pdfUseCase;
             _logger = logFactory.CreateLogger<RenderReport>();
         }
 
@@ -30,7 +34,7 @@ namespace Simple.Report.Server.Controllers.Console
         {
             var jsonData = File.ReadAllText(reportDataFilePath);
 
-            var inputMessage = new RenderReportInputMessage
+            var inputMessage = new RenderReportInput
             {
                 TemplateName = "ReportWithImages",
                 ReportName = "ExampleReport",
@@ -46,25 +50,53 @@ namespace Simple.Report.Server.Controllers.Console
                 return;
             }
 
-            var successContent = docxPresenter.SuccessContent;
-            var reportPath = PersistReport(reportOuputDirectory, successContent);
+            //var successContent = docxPresenter.SuccessContent;
+            //var reportPath = PersistReport(reportOuputDirectory, successContent);
 
-            var pdfPresenter = RenderReportToPdf(libreOfficeLocation, reportOuputDirectory, reportPath);
+            //var pdfPresenter = RenderReportToPdf(libreOfficeLocation, reportOuputDirectory, reportPath);
+            //if (pdfPresenter.IsErrorResponse())
+            //{
+            //    WriteErrorsToConsole(pdfPresenter);
+            //    return;
+            //}
+
+            var input = CreateRenderPdfInput(docxPresenter);
+
+            var pdfPresenter = new PropertyPresenter<IFileOutput, ErrorOutputMessage>();
+            _pdfUseCase.Execute(input,pdfPresenter);
+
             if (pdfPresenter.IsErrorResponse())
             {
                 WriteErrorsToConsole(pdfPresenter);
                 return;
             }
+
+            var pdfPath = PersistReport(reportOuputDirectory, pdfPresenter.SuccessContent);
             
-            _logger.LogInformation($"Report output to directory [ {reportOuputDirectory} ]");
+            _logger.LogInformation($"Report output to directory [ {pdfPath} ]");
             _logger.LogInformation("");
             _logger.LogInformation("Press enter to exit.");
+        }
+
+        private static RenderPdfInput CreateRenderPdfInput(PropertyPresenter<IFileOutput, ErrorOutputMessage> docxPresenter)
+        {
+            var input = new RenderPdfInput();
+            using (var stream = docxPresenter.SuccessContent.GetStream())
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    stream.CopyTo(memoryStream);
+                    var reportBytes = memoryStream.ToArray();
+                    input.Base64DocxReport = Convert.ToBase64String(reportBytes);
+                }
+            }
+            return input;
         }
 
         private PropertyPresenter<string, ErrorOutputMessage> RenderReportToPdf(string libreOfficeLocation, string reportOuputDirectory, string reportPath)
         {
             var pdfPresenter = new PropertyPresenter<string, ErrorOutputMessage>();
-            var executor = new SynchronousAction(new ConvertDocxToPdfTask(libreOfficeLocation, reportPath, reportOuputDirectory),
+            var executor = new SynchronousAction(new DocxToPdfTask(libreOfficeLocation, reportPath, reportOuputDirectory),
                 new ProcessFactory());
             executor.Execute(pdfPresenter);
             return pdfPresenter;
@@ -82,7 +114,7 @@ namespace Simple.Report.Server.Controllers.Console
         {
             EnsureDirectory(reportOuputDirectory);
 
-            var reportPath = Path.Combine(reportOuputDirectory, $"{successContent.FileName}.docx");
+            var reportPath = Path.Combine(reportOuputDirectory, $"{successContent.FileName}.pdf");
             RemoveOldReport(reportPath);
 
             WriteReport(successContent, reportPath);
