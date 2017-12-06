@@ -1,0 +1,2 @@
+https://marketplace.visualstudio.com/items?itemName=E-iceblueCoLtd.FreeNETPDFLibrary
+https://code.msdn.microsoft.com/vstudio/Create-Digital-Signature-0e938217/sourcecode?fileId=122651&pathId=912880959
