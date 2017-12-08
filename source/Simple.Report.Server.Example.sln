@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Report.Server.Domain", "Simple.Report.Server.Domain\Simple.Report.Server.Domain.csproj", "{E438CA19-2C9E-4837-91B5-FEE717209C44}"
 EndProject
@@ -15,7 +15,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Report.Server.Contro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Report.Server.Example.Web", "Simple.Report.Server.Example.Web\Simple.Report.Server.Example.Web.csproj", "{886F658A-AC27-443D-8BB5-8C706C8772F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Report.Server.Controllers.Web", "Simple.Report.Server.Controllers.Web\Simple.Report.Server.Controllers.Web.csproj", "{491516A4-ECDE-4335-A7DF-BBFB9CF5579C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Report.Server.Controllers.Web", "Simple.Report.Server.Controllers.Web\Simple.Report.Server.Controllers.Web.csproj", "{491516A4-ECDE-4335-A7DF-BBFB9CF5579C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Simple.Report.Server.Example", "Simple.Report.Server.Example", "{35BEB4D9-8327-425D-94CD-21CD8E90331F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mustache.Reports", "Mustache.Reports", "{795F9AE4-2F9F-458D-979E-5BC625EBFDBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mustache.Reports.Domain", "Mustache.Reports.Domain\Mustache.Reports.Domain.csproj", "{BE07703F-3565-495D-8FBB-37A9802C2E81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mustache.Reports.Domain.Tests", "Mustache.Reports.Domain.Tests\Mustache.Reports.Domain.Tests.csproj", "{E3F81194-785C-4AF6-9B15-BA37C2A89D7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mustache.Reports.Boundary", "Mustache.Reports.Boundary\Mustache.Reports.Boundary.csproj", "{A78CEED9-2008-4BE8-BC09-9FF60468D6F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,9 +61,33 @@ Global
 		{491516A4-ECDE-4335-A7DF-BBFB9CF5579C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{491516A4-ECDE-4335-A7DF-BBFB9CF5579C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{491516A4-ECDE-4335-A7DF-BBFB9CF5579C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE07703F-3565-495D-8FBB-37A9802C2E81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE07703F-3565-495D-8FBB-37A9802C2E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE07703F-3565-495D-8FBB-37A9802C2E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE07703F-3565-495D-8FBB-37A9802C2E81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3F81194-785C-4AF6-9B15-BA37C2A89D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3F81194-785C-4AF6-9B15-BA37C2A89D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3F81194-785C-4AF6-9B15-BA37C2A89D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3F81194-785C-4AF6-9B15-BA37C2A89D7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A78CEED9-2008-4BE8-BC09-9FF60468D6F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A78CEED9-2008-4BE8-BC09-9FF60468D6F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A78CEED9-2008-4BE8-BC09-9FF60468D6F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A78CEED9-2008-4BE8-BC09-9FF60468D6F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E438CA19-2C9E-4837-91B5-FEE717209C44} = {35BEB4D9-8327-425D-94CD-21CD8E90331F}
+		{FB1E98EF-78A5-464F-867D-D8B3E8E78E3D} = {35BEB4D9-8327-425D-94CD-21CD8E90331F}
+		{3A293A9D-F01E-4E83-9B7A-4EC2E12EC470} = {35BEB4D9-8327-425D-94CD-21CD8E90331F}
+		{F0796344-EC3A-4635-9DB1-54DA170930E2} = {35BEB4D9-8327-425D-94CD-21CD8E90331F}
+		{165374E4-C731-4A5B-A3FD-41873C882D11} = {35BEB4D9-8327-425D-94CD-21CD8E90331F}
+		{886F658A-AC27-443D-8BB5-8C706C8772F5} = {35BEB4D9-8327-425D-94CD-21CD8E90331F}
+		{491516A4-ECDE-4335-A7DF-BBFB9CF5579C} = {35BEB4D9-8327-425D-94CD-21CD8E90331F}
+		{BE07703F-3565-495D-8FBB-37A9802C2E81} = {795F9AE4-2F9F-458D-979E-5BC625EBFDBD}
+		{E3F81194-785C-4AF6-9B15-BA37C2A89D7E} = {795F9AE4-2F9F-458D-979E-5BC625EBFDBD}
+		{A78CEED9-2008-4BE8-BC09-9FF60468D6F1} = {795F9AE4-2F9F-458D-979E-5BC625EBFDBD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E1EA986C-6192-4B3D-B3F4-FB7B56D65E34}
