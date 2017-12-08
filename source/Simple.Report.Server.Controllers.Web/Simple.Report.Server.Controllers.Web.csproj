@@ -5,20 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.1" />
+    <PackageReference Include="TddBuddy.CleanArchitecture.DotNetCore" Version="3.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Simple.Report.Server.Boundry\Simple.Report.Server.Boundry.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.AspNetCore.Mvc.Core">
-      <HintPath>..\..\..\..\Users\travis-pc\.nuget\packages\microsoft.aspnetcore.mvc.core\1.1.3\lib\netstandard1.6\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="TddBuddy.CleanArchitecture">
-      <HintPath>..\..\..\..\Users\travis-pc\.nuget\packages\tddbuddy.cleanarchitecture.dotnetcore\3.6.0\lib\netcoreapp2.0\TddBuddy.CleanArchitecture.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
