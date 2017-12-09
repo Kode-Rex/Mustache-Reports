@@ -1,5 +1,5 @@
 using Mustache.Reports.Boundary.Rendering;
-using Mustache.Reports.Domain.Tests.Extensions;
+using Mustache.Reports.Domain.TestData;
 using NExpect;
 using NExpect.Interfaces;
 using NExpect.MatcherLogic;
@@ -14,7 +14,7 @@ namespace Mustache.Reports.Domain.Tests.Rendering
         {
             return have.Compose(inputFile =>
             {
-                Expect(inputFile).Not.To.Be("Input file was null");
+                Expect(inputFile).Not.To.Be.Null("Input file was null");
 
                 using (var stream = inputFile.GetStream())
                 {

@@ -1,7 +1,7 @@
 ﻿using Mustache.Reports.Boundary.Rendering;
 using Mustache.Reports.Boundary.Rendering.Word;
 using TddBuddy.CleanArchitecture.Domain.Messages;
-using TddBuddy.CleanArchitecture.Domain.Presenters;
+using TddBuddy.CleanArchitecture.Domain.Output;
 
 namespace Mustache.Reports.Domain.Rendering.Word
 {
@@ -14,14 +14,11 @@ namespace Mustache.Reports.Domain.Rendering.Word
             _wordTemplaterGateway = wordTemplaterGateway;
         }
 
-        public void Execute(RenderReportInput input, PropertyPresenter<IWordFileOutput, ErrorOutput> presenter)
+        public void Execute(RenderReportInput input, IRespondWithSuccessOrError<IWordFileOutput, ErrorOutput> presenter)
         {
-            var renderedReport = _wordTemplaterGateway.Render(
-                new InMemoryWordInputFile(input.Template), 
-                input.Data
+            presenter.Respond(() =>
+                _wordTemplaterGateway.Render(new InMemoryWordInputFile(input.Template), input.Data)
             );
-
-            presenter.Respond(renderedReport);
         }
     }
 }

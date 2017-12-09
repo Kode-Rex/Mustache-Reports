@@ -1,10 +1,10 @@
 ﻿using TddBuddy.CleanArchitecture.Domain.Messages;
-using TddBuddy.CleanArchitecture.Domain.Presenters;
+using TddBuddy.CleanArchitecture.Domain.Output;
 
 namespace Mustache.Reports.Boundary.Rendering.Word
 {
     public interface IRenderWordReportUseCase
     {
-        void Execute(RenderReportInput input, PropertyPresenter<IWordFileOutput, ErrorOutput> presenter);
+        void Execute(RenderReportInput input, IRespondWithSuccessOrError<IWordFileOutput, ErrorOutput> presenter);
     }
 }

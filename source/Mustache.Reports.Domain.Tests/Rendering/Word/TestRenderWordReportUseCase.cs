@@ -1,13 +1,16 @@
 using System;
 using Mustache.Reports.Boundary.Rendering.Word;
 using Mustache.Reports.Domain.Rendering.Word;
+using Mustache.Reports.Domain.TestData.Errors;
 using Mustache.Reports.Domain.TestData.Rendering.Word;
 using NExpect;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
+using PeanutButter.RandomGenerators;
 using TddBuddy.CleanArchitecture.Domain.Messages;
-using TddBuddy.CleanArchitecture.Domain.Output;
 using TddBuddy.CleanArchitecture.Domain.Presenters;
+using static NExpect.Expectations;
 
 namespace Mustache.Reports.Domain.Tests.Rendering.Word
 {
@@ -31,7 +34,7 @@ namespace Mustache.Reports.Domain.Tests.Rendering.Word
                 // Act
                 useCase.Execute(input, CreatePropertyPresenter());
                 // Assert
-                Expectations.Expect(actualTemplate).To.Have.ContentsEqualTo(input.Template);
+                Expect(actualTemplate).To.Have.ContentsEqualTo(input.Template);
             }
 
             [Test]
@@ -48,7 +51,7 @@ namespace Mustache.Reports.Domain.Tests.Rendering.Word
                 // Act
                 useCase.Execute(input, CreatePropertyPresenter());
                 // Assert
-                Expectations.Expect(actualData).To.Be(input.Data);
+                Expect(actualData).To.Be(input.Data);
             }
         }
 
@@ -71,22 +74,61 @@ namespace Mustache.Reports.Domain.Tests.Rendering.Word
                 // Act
                 useCase.Execute(input, output);
                 // Assert
-                Expectations.Expect(output.SuccessContent).To.Be(expectedFile);
+                Expect(output.SuccessContent).To.Be(expectedFile);
+                Expect(output.ErrorContent).To.Have.NoErrors();
             }
         }
 
-        // TODO deal error(s) from templater, should we handle this using exceptions or something that wraps the current IWordFileOutput of the gateway?
+        [TestFixture]
+        public class UnsuccessfulRender
+        {
+            [Test]
+            public void Should_OutputErrorsFromTemplaterGateway()
+            {
+                // Arrange
+                var input = RenderReportInputTestDataBuilder
+                    .Create()
+                    .WithValidTemplateAndData()
+                    .Build();
+                var output = CreatePropertyPresenter();
+
+                var gatewayException = ExceptionTestDataBuilder.Create()
+                    .WithRandomMessage()
+                    .WithNestedInnerExceptions(RandomValueGen.GetRandomInt())
+                    .Build();
+
+                var useCase = CreateRenderWordReportUseCase(gatewayException);
+                // Act
+                useCase.Execute(input, output);
+                // Assert
+                Expect(output.ErrorContent).To.Have.ErrorsFor(gatewayException);
+                Expect(output.SuccessContent).To.Be.Null();
+            }
+        }
+
         // TODO invalid / missing template
         // TODO non base64 dataUri
         // TODO should the use case check if the template is not a docx file? Or perhapse the InMemoryWordInputFile should.
         // TODO I'm guessing at some point we need to care about the name of the output file
 
-        private static RenderWordReportUseCase CreateRenderWordReportUseCase(IFileOutput gatewayOutput)
+        private static RenderWordReportUseCase CreateRenderWordReportUseCase(IWordFileOutput gatewayOutput)
         {
             var templaterGateway = Substitute.For<IWordTemplaterGateway>();
             templaterGateway
                 .Render(Arg.Any<IWordFileInput>(), Arg.Any<object>())
                 .Returns(gatewayOutput);
+
+            return new RenderWordReportUseCase(
+                templaterGateway
+            );
+        }
+
+        private static RenderWordReportUseCase CreateRenderWordReportUseCase(Exception gatewayError)
+        {
+            var templaterGateway = Substitute.For<IWordTemplaterGateway>();
+            templaterGateway
+                .Render(Arg.Any<IWordFileInput>(), Arg.Any<object>())
+                .Throws(gatewayError);
 
             return new RenderWordReportUseCase(
                 templaterGateway

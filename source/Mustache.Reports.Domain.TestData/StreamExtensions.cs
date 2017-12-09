@@ -1,9 +1,8 @@
 using System;
 using System.IO;
 
-namespace Mustache.Reports.Domain.Tests.Extensions
+namespace Mustache.Reports.Domain.TestData
 {
-    // TODO maybe this belongs in a TestUtils project
     public static class StreamExtensions
     {
         public static string ToBase64String(this Stream stream)
