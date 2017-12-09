@@ -18,31 +18,12 @@ namespace Mustache.Reports.Domain.Tests.Rendering.Word
         public class ValidInput
         {
             [Test]
-            public void Should_OutputFileFromTemplaterGateway()
+            public void Should_UseTemplaterGateway_ToRenderReport_WithTemplateFromInput()
             {
                 // Arrange
                 var input = RenderReportInputTestDataBuilder
                     .Create()
-                    .WithValidData()
-                    .Build();
-                var output = CreatePropertyPresenter();
-
-                var expectedFile = Substitute.For<IWordFileOutput>();
-
-                var useCase = CreateRenderWordReportUseCase(expectedFile);
-                // Act
-                useCase.Execute(input, output);
-                // Assert
-                Expectations.Expect(output.SuccessContent).To.Be(expectedFile);
-            }
-
-            [Test]
-            public void Should_SendTemplateAsWordInputFile_ToTemplaterGateway()
-            {
-                // Arrange
-                var input = RenderReportInputTestDataBuilder
-                    .Create()
-                    .WithValidData()
+                    .WithValidTemplateAndData()
                     .Build();
 
                 InMemoryWordInputFile actualTemplate = null;
@@ -54,12 +35,12 @@ namespace Mustache.Reports.Domain.Tests.Rendering.Word
             }
 
             [Test]
-            public void Should_SendData_ToTemplaterGateway()
+            public void Should_UseTemplaterGateway_ToRenderReport_WithDataFromInput()
             {
                 // Arrange
                 var input = RenderReportInputTestDataBuilder
                     .Create()
-                    .WithValidData()
+                    .WithValidTemplateAndData()
                     .Build();
 
                 object actualData = null;
@@ -69,13 +50,36 @@ namespace Mustache.Reports.Domain.Tests.Rendering.Word
                 // Assert
                 Expectations.Expect(actualData).To.Be(input.Data);
             }
-
-            // TODO deal error(s) from templater, should we handle this using exceptions or something that wraps the current IWordFileOutput of the gateway?
-            // TODO invalid / missing template
-            // TODO non base64 dataUri
-            // TODO should the use case check if the template is not a docx file? Or perhapse the InMemoryWordInputFile should.
-            // TODO I'm guessing at some point we need to care about the name of the output file
         }
+
+        [TestFixture]
+        public class SuccessfulRender
+        {
+            [Test]
+            public void Should_OutputFileFromTemplaterGateway()
+            {
+                // Arrange
+                var input = RenderReportInputTestDataBuilder
+                    .Create()
+                    .WithValidTemplateAndData()
+                    .Build();
+                var output = CreatePropertyPresenter();
+
+                var expectedFile = Substitute.For<IWordFileOutput>();
+
+                var useCase = CreateRenderWordReportUseCase(expectedFile);
+                // Act
+                useCase.Execute(input, output);
+                // Assert
+                Expectations.Expect(output.SuccessContent).To.Be(expectedFile);
+            }
+        }
+
+        // TODO deal error(s) from templater, should we handle this using exceptions or something that wraps the current IWordFileOutput of the gateway?
+        // TODO invalid / missing template
+        // TODO non base64 dataUri
+        // TODO should the use case check if the template is not a docx file? Or perhapse the InMemoryWordInputFile should.
+        // TODO I'm guessing at some point we need to care about the name of the output file
 
         private static RenderWordReportUseCase CreateRenderWordReportUseCase(IFileOutput gatewayOutput)
         {

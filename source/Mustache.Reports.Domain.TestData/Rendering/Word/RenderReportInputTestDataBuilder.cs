@@ -6,7 +6,7 @@ namespace Mustache.Reports.Domain.TestData.Rendering.Word
 {
     public class RenderReportInputTestDataBuilder : GenericBuilder<RenderReportInputTestDataBuilder, RenderReportInput>
     {
-        public RenderReportInputTestDataBuilder WithValidData()
+        public RenderReportInputTestDataBuilder WithValidTemplateAndData()
         {
             // TODO it would be nice if this was actually a valid word file.
             var base64String = Convert.ToBase64String(RandomValueGen.GetRandomBytes(512));
