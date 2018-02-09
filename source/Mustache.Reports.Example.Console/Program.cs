@@ -24,10 +24,11 @@ namespace Mustache.Reports.Example.Console
 
         private static RenderReport CreateReportController(IConfigurationRoot configuration)
         {
-            var reportRepository = new ReportRepository(configuration);
+            var wordTemplateGateway = new WordTemplateGateway(configuration);
+            var pdfGateway = new PdfGateway(configuration);
 
-            var renderReportUseCase = CreateRenderReportUseCase(reportRepository);
-            var renderPdfUseCase = CreateRenderDocxToPdfUseCase(reportRepository);
+            var renderReportUseCase = CreateRenderReportUseCase(wordTemplateGateway);
+            var renderPdfUseCase = CreateRenderDocxToPdfUseCase(pdfGateway);
             var loggerFactory = CreateLoggerFactory();
 
             var reportController = new RenderReport(renderReportUseCase, renderPdfUseCase, loggerFactory);
@@ -35,9 +36,9 @@ namespace Mustache.Reports.Example.Console
             return reportController;
         }
 
-        private static RenderDocxToPdfUseCase CreateRenderDocxToPdfUseCase(ReportRepository reportRepository)
+        private static RenderDocxToPdfUseCase CreateRenderDocxToPdfUseCase(PdfGateway pdfGateway)
         {
-            var renderPdfUseCase = new RenderDocxToPdfUseCase(reportRepository);
+            var renderPdfUseCase = new RenderDocxToPdfUseCase(pdfGateway);
             return renderPdfUseCase;
         }
 
@@ -58,9 +59,9 @@ namespace Mustache.Reports.Example.Console
             return loggerFactory;
         }
 
-        private static RenderReportUseCase CreateRenderReportUseCase(ReportRepository reportRepository)
+        private static RenderWordUseCase CreateRenderReportUseCase(WordTemplateGateway wordTemplateGateway)
         {
-            var renderReportUseCase = new RenderReportUseCase(reportRepository);
+            var renderReportUseCase = new RenderWordUseCase(wordTemplateGateway);
             return renderReportUseCase;
         }
     }

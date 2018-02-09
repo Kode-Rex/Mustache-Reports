@@ -14,11 +14,11 @@ namespace Mustache.Reports.Controllers.Console
 {
     public class RenderReport
     {
-        private readonly IRenderReportUseCase _usecase;
+        private readonly IRenderWordUseCase _usecase;
         private readonly IRenderDocxToPdfUseCase _pdfUseCase;
         private readonly ILogger _logger;
 
-        public RenderReport(IRenderReportUseCase usecase, IRenderDocxToPdfUseCase pdfUseCase, ILoggerFactory logFactory)
+        public RenderReport(IRenderWordUseCase usecase, IRenderDocxToPdfUseCase pdfUseCase, ILoggerFactory logFactory)
         {
             _usecase = usecase;
             _pdfUseCase = pdfUseCase;
@@ -34,7 +34,7 @@ namespace Mustache.Reports.Controllers.Console
         {
             var jsonData = File.ReadAllText(reportDataFilePath);
 
-            var inputMessage = new RenderReportInput
+            var inputMessage = new RenderWordInput
             {
                 TemplateName = "ReportWithImages",
                 ReportName = "ExampleReport",

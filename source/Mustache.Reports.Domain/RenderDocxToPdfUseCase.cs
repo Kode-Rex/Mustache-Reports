@@ -1,6 +1,7 @@
 ﻿using Mustache.Reports.Boundry;
 using Mustache.Reports.Boundry.Rendering;
 using Mustache.Reports.Boundry.Rendering.Pdf;
+using Mustache.Reports.Boundry.Rendering.Report;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 
@@ -8,9 +9,9 @@ namespace Mustache.Reports.Domain
 {
     public class RenderDocxToPdfUseCase : IRenderDocxToPdfUseCase
     {
-        private readonly IReportRepository _reportRepository;
+        private readonly IPdfGateway _reportRepository;
 
-        public RenderDocxToPdfUseCase(IReportRepository reportRepository)
+        public RenderDocxToPdfUseCase(IPdfGateway reportRepository)
         {
             _reportRepository = reportRepository;
         }

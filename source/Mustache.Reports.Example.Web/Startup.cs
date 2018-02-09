@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mustache.Reports.Boundry;
+using Mustache.Reports.Boundry.Rendering.Pdf;
 using Mustache.Reports.Boundry.Rendering.Report;
 using Mustache.Reports.Data;
 using Mustache.Reports.Domain;
@@ -37,7 +37,7 @@ namespace Mustache.Reports.Example.Web
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info {Title = "Simple.Report.Server.Example", Version = "v1"});
+                c.SwaggerDoc("v1", new Info {Title = "Mustache.Reports.Example", Version = "v1"});
             });
         }
 
@@ -49,8 +49,9 @@ namespace Mustache.Reports.Example.Web
         private void RegisterApplicationDepenedencies(IServiceCollection services)
         {
             services.AddSingleton<IConfiguration>(Configuration);
-            services.AddTransient<IReportRepository, ReportRepository>();
-            services.AddTransient<IRenderReportUseCase, RenderReportUseCase>();
+            services.AddTransient<IWordTemplaterGateway, WordTemplateGateway>();
+            services.AddTransient<IPdfGateway, PdfGateway>();
+            services.AddTransient<IRenderWordUseCase, RenderWordUseCase>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

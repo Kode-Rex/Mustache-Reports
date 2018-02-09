@@ -1,11 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Microsoft.Extensions.Configuration;
-using Mustache.Reports.Boundry;
 using Mustache.Reports.Boundry.Rendering;
-using Mustache.Reports.Boundry.Rendering.Pdf;
 using Mustache.Reports.Boundry.Rendering.Report;
-using Mustache.Reports.Data.PdfRendering;
 using Mustache.Reports.Data.ReportRendering;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
@@ -14,20 +10,18 @@ using TddBuddy.Synchronous.Process.Runner;
 
 namespace Mustache.Reports.Data
 {
-    public class ReportRepository : IReportRepository
+    public class WordTemplateGateway : IWordTemplaterGateway
     {
         private readonly string _templateLocation;
         private readonly string _nodeAppLocation;
-        private readonly string _libreOffice;
 
-        public ReportRepository(IConfiguration configuration)
+        public WordTemplateGateway(IConfiguration configuration)
         {
             _templateLocation = configuration["Reporting:RelativeReportTemplateLocation"];
             _nodeAppLocation = configuration["Reporting:RelativeToExampleNodeAppLocation"];
-            _libreOffice = configuration["Reporting:LibreOfficeLocation"];
         }
 
-        public RenderedDocummentOutput CreateReport(RenderReportInput input)
+        public RenderedDocummentOutput CreateReport(RenderWordInput input)
         {
             using (var renderDirectory = GetWorkspace())
             {
@@ -46,28 +40,7 @@ namespace Mustache.Reports.Data
             }
         }
 
-        public RenderedDocummentOutput ConvertToPdf(RenderPdfInput inputMessage)
-        {
-            using (var renderDirectory = GetWorkspace())
-            {
-                var pdfPresenter = new PropertyPresenter<string, ErrorOutputMessage>();
-
-                var reportPath = PersistDocxFile(inputMessage, renderDirectory);
-
-                CovertToPdf(reportPath, renderDirectory, pdfPresenter);
-
-                return RenderingErrors(pdfPresenter) ? ReturnErrors(pdfPresenter) : ReturnPdf(reportPath);
-            }
-        }
-
-        private void CovertToPdf(string reportPath, DisposableWorkSpace renderDirectory, PropertyPresenter<string, ErrorOutputMessage> pdfPresenter)
-        {
-            var executor = new SynchronousAction(new DocxToPdfTask(_libreOffice, reportPath, renderDirectory.TmpPath),
-                new ProcessFactory());
-            executor.Execute(pdfPresenter);
-        }
-
-        private string PersitReportData(RenderReportInput input, string renderDirectory)
+        private string PersitReportData(RenderWordInput input, string renderDirectory)
         {
             var reportJsonPath = Path.Combine(renderDirectory, "reportData.json");
             WriteTo(reportJsonPath, input.JsonModel.ToString());
@@ -78,25 +51,8 @@ namespace Mustache.Reports.Data
         {
             return presenter.IsErrorResponse();
         }
-
-        private RenderedDocummentOutput ReturnPdf(string reportPath)
-        {
-            var pdfPath = reportPath.Replace(".docx", ".pdf");
-            var result = new RenderedDocummentOutput
-            {
-                Base64String = Convert.ToBase64String(File.ReadAllBytes(pdfPath))
-            };
-            return result;
-        }
-
-        private string PersistDocxFile(RenderPdfInput inputMessage, DisposableWorkSpace renderDirectory)
-        {
-            var reportPath = Path.Combine(renderDirectory.TmpPath, "report.docx");
-            WriteTo(reportPath, inputMessage.Base64DocxReport);
-            return reportPath;
-        }
-
-        private RenderedDocummentOutput ReturnInvalidReportTemplatePathError(RenderReportInput input)
+        
+        private RenderedDocummentOutput ReturnInvalidReportTemplatePathError(RenderWordInput input)
         {
             var result = new RenderedDocummentOutput();
             result.ErrorMessages.Add($"Invalid Report Type [{input.TemplateName}]");

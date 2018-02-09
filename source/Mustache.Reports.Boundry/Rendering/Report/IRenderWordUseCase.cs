@@ -3,7 +3,7 @@ using TddBuddy.CleanArchitecture.Domain.Output;
 
 namespace Mustache.Reports.Boundry.Rendering.Report
 {
-    public interface IRenderReportUseCase : IUseCase<RenderReportInput, IFileOutput>
+    public interface IRenderWordUseCase : IUseCase<RenderWordInput, IFileOutput>
     {
     }
 }

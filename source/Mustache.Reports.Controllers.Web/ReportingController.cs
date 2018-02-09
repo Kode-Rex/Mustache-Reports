@@ -9,9 +9,9 @@ namespace Mustache.Reports.Controllers.Web
     [Route("api/reporting")]
     public class ReportingController
     {
-        private readonly IRenderReportUseCase _usecase;
+        private readonly IRenderWordUseCase _usecase;
 
-        public ReportingController(IRenderReportUseCase usecase)
+        public ReportingController(IRenderWordUseCase usecase)
         {
             _usecase = usecase;
         }
@@ -23,7 +23,7 @@ namespace Mustache.Reports.Controllers.Web
         {
             var jsonData = File.ReadAllText("ReportRendering\\ExampleData\\WithImagesSampleData.json");
 
-            var inputMessage = new RenderReportInput
+            var inputMessage = new RenderWordInput
             {
                 TemplateName = "ReportWithImages",
                 ReportName = "ExampleReport.docx",

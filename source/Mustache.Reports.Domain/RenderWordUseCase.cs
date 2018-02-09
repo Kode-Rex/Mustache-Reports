@@ -6,18 +6,18 @@ using TddBuddy.CleanArchitecture.Domain.Output;
 
 namespace Mustache.Reports.Domain
 {
-    public class RenderReportUseCase : IRenderReportUseCase
+    public class RenderWordUseCase : IRenderWordUseCase
     {
-        private readonly IReportRepository _reportRepository;
+        private readonly IWordTemplaterGateway _wordTemplater;
 
-        public RenderReportUseCase(IReportRepository reportRepository)
+        public RenderWordUseCase(IWordTemplaterGateway wordTemplater)
         {
-            _reportRepository = reportRepository;
+            _wordTemplater = wordTemplater;
         }
 
-        public void Execute(RenderReportInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
+        public void Execute(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
         {
-            var result = _reportRepository.CreateReport(inputInput);
+            var result = _wordTemplater.CreateReport(inputInput);
 
             if (result.HasErrors())
             {
@@ -28,7 +28,7 @@ namespace Mustache.Reports.Domain
             RespondWithFile(inputInput, presenter, result);
         }
 
-        private static void RespondWithFile(RenderReportInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedDocummentOutput result)
+        private static void RespondWithFile(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedDocummentOutput result)
         {
             var reportMessage = new WordFileOutput(inputInput.ReportName, result.FetchDocumentAsByteArray());
 
