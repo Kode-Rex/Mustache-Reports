@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Domain", "Simple.Report.Server.Domain\Mustache.Reports.Domain.csproj", "{E438CA19-2C9E-4837-91B5-FEE717209C44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Domain", "Mustache.Reports.Domain\Mustache.Reports.Domain.csproj", "{E438CA19-2C9E-4837-91B5-FEE717209C44}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Data", "Simple.Report.Server.Data\Mustache.Reports.Data.csproj", "{FB1E98EF-78A5-464F-867D-D8B3E8E78E3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Data", "Mustache.Reports.Data\Mustache.Reports.Data.csproj", "{FB1E98EF-78A5-464F-867D-D8B3E8E78E3D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Example.Console", "Simple.Report.Server.Example.Console\Mustache.Reports.Example.Console.csproj", "{3A293A9D-F01E-4E83-9B7A-4EC2E12EC470}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Example.Console", "Mustache.Reports.Example.Console\Mustache.Reports.Example.Console.csproj", "{3A293A9D-F01E-4E83-9B7A-4EC2E12EC470}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Boundry", "Simple.Report.Server.Boundry\Mustache.Reports.Boundry.csproj", "{F0796344-EC3A-4635-9DB1-54DA170930E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Boundry", "Mustache.Reports.Boundry\Mustache.Reports.Boundry.csproj", "{F0796344-EC3A-4635-9DB1-54DA170930E2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Controllers.Console", "Simple.Report.Server.Controllers.Console\Mustache.Reports.Controllers.Console.csproj", "{165374E4-C731-4A5B-A3FD-41873C882D11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Controllers.Console", "Mustache.Reports.Controllers.Console\Mustache.Reports.Controllers.Console.csproj", "{165374E4-C731-4A5B-A3FD-41873C882D11}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Example.Web", "Simple.Report.Server.Example.Web\Mustache.Reports.Example.Web.csproj", "{886F658A-AC27-443D-8BB5-8C706C8772F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Example.Web", "Mustache.Reports.Example.Web\Mustache.Reports.Example.Web.csproj", "{886F658A-AC27-443D-8BB5-8C706C8772F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Controllers.Web", "Simple.Report.Server.Controllers.Web\Mustache.Reports.Controllers.Web.csproj", "{491516A4-ECDE-4335-A7DF-BBFB9CF5579C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Controllers.Web", "Mustache.Reports.Controllers.Web\Mustache.Reports.Controllers.Web.csproj", "{491516A4-ECDE-4335-A7DF-BBFB9CF5579C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

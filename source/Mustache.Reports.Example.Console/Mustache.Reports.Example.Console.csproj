@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <PreBuildEvent>
+      REM copy node_modules into location Console location
+      xcopy "$(SolutionDir)Mustache.Reports.NodeJS\node_modules" "$(SolutionDir)Simple.Report.Server.Example.Console\ReportRendering\NodeApp\node_modules" /s /I /y /d
+      REM copy js into location Console location
+      xcopy "$(SolutionDir)Mustache.Reports.NodeJS\*.js" "$(SolutionDir)Simple.Report.Server.Example.Console\ReportRendering\NodeApp" /s /I /y /d
+      REM copy example dadta into location Console location
+      xcopy "$(SolutionDir)Mustache.Reports.Data\ExampleData\*.json" "$(SolutionDir)Simple.Report.Server.Example.Console\ReportRendering\ExampleData" /s /I /y /d
+</PreBuildEvent>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mustache.Reports.Boundry\Mustache.Reports.Boundry.csproj" />
+    <ProjectReference Include="..\Mustache.Reports.Controllers.Console\Mustache.Reports.Controllers.Console.csproj" />
+    <ProjectReference Include="..\Mustache.Reports.Data\Mustache.Reports.Data.csproj" />
+    <ProjectReference Include="..\Mustache.Reports.Domain\Mustache.Reports.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
+    <PackageReference Include="TddBuddy.System.Utils.DotNetCore" Version="1.1.0" />
+  </ItemGroup>
+
+</Project>
