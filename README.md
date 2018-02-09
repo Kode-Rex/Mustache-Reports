@@ -1,11 +1,11 @@
-# Simple-Report-Server-Example
-An example of using the simple report server code base to generate reports in docx using node and LibreOffice to convert to PDF.
+# Mustache-Reports-Example
+An example of using the mustache reports server code base to generate reports in docx using node and LibreOffice to convert to PDF.
 
 _You will need to make sure both node and libreoffice 5 are installed on your computer to run this example._
 
 _This example is rough and ready, please log an issue if you require assistance._
 
-_Please note there is a pre-build hook to copy the NodeApp contents into the solution directory Simple.Report.Server.Example\Reporting\NodeApp from Simple.Report.Server.NodeJS_
+_Please note there is a pre-build hook to copy the NodeApp contents into the solution directory Mustache.Reports.Example\Reporting\NodeApp from Mustache.Reports.NodeJS_
 
 This is done to allow me to version controll the node_modules folder outside of the VS solution. 
 
