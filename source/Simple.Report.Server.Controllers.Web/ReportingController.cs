@@ -1,11 +1,10 @@
 ﻿using System.IO;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Simple.Report.Server.Boundry.Rendering.Report;
+using Mustache.Reports.Boundry.Rendering.Report;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Presenters;
 
-namespace Simple.Report.Server.Controllers.Web
+namespace Mustache.Reports.Controllers.Web
 {
     [Route("api/reporting")]
     public class ReportingController

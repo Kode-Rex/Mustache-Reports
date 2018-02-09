@@ -1,6 +1,6 @@
 ﻿using TddBuddy.Synchronous.Process.Runner.PipeLineTask;
 
-namespace Simple.Report.Server.Data.PdfRendering
+namespace Mustache.Reports.Data.PdfRendering
 {
     public class DocxToPdfTask : GenericPipeLineTask
     {

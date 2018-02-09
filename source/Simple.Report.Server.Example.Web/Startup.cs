@@ -1,17 +1,15 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Simple.Report.Server.Boundry;
-using Simple.Report.Server.Boundry.Rendering.Report;
-using Simple.Report.Server.Data;
-using Simple.Report.Server.Data.ReportRendering;
-using Simple.Report.Server.Domain;
+using Mustache.Reports.Boundry;
+using Mustache.Reports.Boundry.Rendering.Report;
+using Mustache.Reports.Data;
+using Mustache.Reports.Domain;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace Simple.Report.Server.Example.Web
+namespace Mustache.Reports.Example.Web
 {
     public class Startup
     {

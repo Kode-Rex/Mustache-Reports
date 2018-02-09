@@ -1,6 +1,6 @@
 ﻿using TddBuddy.Synchronous.Process.Runner.PipeLineTask;
 
-namespace Simple.Report.Server.Data.ReportRendering
+namespace Mustache.Reports.Data.ReportRendering
 {
     public class ReportRenderTask : NodePipeLineTask
     {

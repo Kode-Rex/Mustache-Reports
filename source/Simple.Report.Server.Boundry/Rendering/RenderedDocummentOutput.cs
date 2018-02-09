@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Simple.Report.Server.Boundry.Rendering
+namespace Mustache.Reports.Boundry.Rendering
 {
     public class RenderedDocummentOutput
     {

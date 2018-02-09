@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Simple.Report.Server.Controllers.Console;
-using Simple.Report.Server.Data;
-using Simple.Report.Server.Domain;
+using Mustache.Reports.Controllers.Console;
+using Mustache.Reports.Data;
+using Mustache.Reports.Domain;
 
-namespace Simple.Report.Server.Example.Console
+namespace Mustache.Reports.Example.Console
 {
     class Program
     {

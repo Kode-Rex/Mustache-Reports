@@ -1,8 +1,8 @@
-﻿using Simple.Report.Server.Boundry.Rendering;
-using Simple.Report.Server.Boundry.Rendering.Pdf;
-using Simple.Report.Server.Boundry.Rendering.Report;
+﻿using Mustache.Reports.Boundry.Rendering;
+using Mustache.Reports.Boundry.Rendering.Pdf;
+using Mustache.Reports.Boundry.Rendering.Report;
 
-namespace Simple.Report.Server.Boundry
+namespace Mustache.Reports.Boundry
 {
     public interface IReportRepository
     {

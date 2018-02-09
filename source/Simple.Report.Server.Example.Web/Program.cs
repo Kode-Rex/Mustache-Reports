@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Simple.Report.Server.Example.Web
+namespace Mustache.Reports.Example.Web
 {
     public class Program
     {

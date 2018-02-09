@@ -1,4 +1,4 @@
-﻿namespace Simple.Report.Server.Boundry.Rendering.Pdf
+﻿namespace Mustache.Reports.Boundry.Rendering.Pdf
 {
     public class RenderPdfInput
     {

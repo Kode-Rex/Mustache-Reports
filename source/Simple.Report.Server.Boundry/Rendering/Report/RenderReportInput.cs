@@ -1,4 +1,4 @@
-﻿namespace Simple.Report.Server.Boundry.Rendering.Report
+﻿namespace Mustache.Reports.Boundry.Rendering.Report
 {
     public class RenderReportInput
     {

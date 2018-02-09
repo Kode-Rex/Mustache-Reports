@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Simple.Report.Server.Data
+namespace Mustache.Reports.Data
 {
     public class DisposableWorkSpace : IDisposable
     {

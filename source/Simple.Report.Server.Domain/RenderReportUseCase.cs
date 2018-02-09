@@ -1,10 +1,10 @@
-﻿using Simple.Report.Server.Boundry;
-using Simple.Report.Server.Boundry.Rendering;
-using Simple.Report.Server.Boundry.Rendering.Report;
+﻿using Mustache.Reports.Boundry;
+using Mustache.Reports.Boundry.Rendering;
+using Mustache.Reports.Boundry.Rendering.Report;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 
-namespace Simple.Report.Server.Domain
+namespace Mustache.Reports.Domain
 {
     public class RenderReportUseCase : IRenderReportUseCase
     {

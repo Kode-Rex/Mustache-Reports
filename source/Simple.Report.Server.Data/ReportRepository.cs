@@ -1,18 +1,18 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using Simple.Report.Server.Boundry;
-using Simple.Report.Server.Boundry.Rendering;
-using Simple.Report.Server.Boundry.Rendering.Pdf;
-using Simple.Report.Server.Boundry.Rendering.Report;
-using Simple.Report.Server.Data.PdfRendering;
-using Simple.Report.Server.Data.ReportRendering;
+using Mustache.Reports.Boundry;
+using Mustache.Reports.Boundry.Rendering;
+using Mustache.Reports.Boundry.Rendering.Pdf;
+using Mustache.Reports.Boundry.Rendering.Report;
+using Mustache.Reports.Data.PdfRendering;
+using Mustache.Reports.Data.ReportRendering;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 using TddBuddy.CleanArchitecture.Domain.Presenters;
 using TddBuddy.Synchronous.Process.Runner;
 
-namespace Simple.Report.Server.Data
+namespace Mustache.Reports.Data
 {
     public class ReportRepository : IReportRepository
     {

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.Logging;
-using Simple.Report.Server.Boundry.Rendering.Pdf;
-using Simple.Report.Server.Boundry.Rendering.Report;
-using Simple.Report.Server.Data.PdfRendering;
+using Mustache.Reports.Boundry.Rendering.Pdf;
+using Mustache.Reports.Boundry.Rendering.Report;
+using Mustache.Reports.Data.PdfRendering;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 using TddBuddy.CleanArchitecture.Domain.Presenters;
 using TddBuddy.Synchronous.Process.Runner;
 
-namespace Simple.Report.Server.Controllers.Console
+namespace Mustache.Reports.Controllers.Console
 {
     public class RenderReport
     {
