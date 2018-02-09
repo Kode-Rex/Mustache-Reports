@@ -4,33 +4,31 @@ using System.IO;
 using Microsoft.Extensions.Logging;
 using Mustache.Reports.Boundry.Rendering.Pdf;
 using Mustache.Reports.Boundry.Rendering.Report;
-using Mustache.Reports.Data.PdfRendering;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 using TddBuddy.CleanArchitecture.Domain.Presenters;
-using TddBuddy.Synchronous.Process.Runner;
 
 namespace Mustache.Reports.Controllers.Console
 {
     public class RenderReport
     {
-        private readonly IRenderWordUseCase _usecase;
+        private readonly IRenderWordUseCase _wordUseCase;
         private readonly IRenderDocxToPdfUseCase _pdfUseCase;
         private readonly ILogger _logger;
 
-        public RenderReport(IRenderWordUseCase usecase, IRenderDocxToPdfUseCase pdfUseCase, ILoggerFactory logFactory)
+        public RenderReport(IRenderWordUseCase wordUseCase, IRenderDocxToPdfUseCase pdfUseCase, ILoggerFactory logFactory)
         {
-            _usecase = usecase;
+            _wordUseCase = wordUseCase;
             _pdfUseCase = pdfUseCase;
             _logger = logFactory.CreateLogger<RenderReport>();
         }
 
-        public void Run(string libreOfficeLocation, string reportOutputDirectory, string reportDataFilePath)
+        public void Run( string reportOutputDirectory, string reportDataFilePath)
         {
-            RenderReportWithImages(libreOfficeLocation, reportOutputDirectory, reportDataFilePath);
+            RenderReportWithImages(reportOutputDirectory, reportDataFilePath);
         }
 
-        private void RenderReportWithImages(string libreOfficeLocation,  string reportOuputDirectory, string reportDataFilePath)
+        private void RenderReportWithImages(string reportOuputDirectory, string reportDataFilePath)
         {
             var jsonData = File.ReadAllText(reportDataFilePath);
 
@@ -42,23 +40,13 @@ namespace Mustache.Reports.Controllers.Console
             };
 
             var docxPresenter = new PropertyPresenter<IFileOutput, ErrorOutputMessage>();
-            _usecase.Execute(inputMessage, docxPresenter);
+            _wordUseCase.Execute(inputMessage, docxPresenter);
 
             if (docxPresenter.IsErrorResponse())
             {
                 WriteErrorsToConsole(docxPresenter);
                 return;
             }
-
-            //var successContent = docxPresenter.SuccessContent;
-            //var reportPath = PersistReport(reportOuputDirectory, successContent);
-
-            //var pdfPresenter = RenderReportToPdf(libreOfficeLocation, reportOuputDirectory, reportPath);
-            //if (pdfPresenter.IsErrorResponse())
-            //{
-            //    WriteErrorsToConsole(pdfPresenter);
-            //    return;
-            //}
 
             var input = CreateRenderPdfInput(docxPresenter);
 
@@ -91,15 +79,6 @@ namespace Mustache.Reports.Controllers.Console
                 }
             }
             return input;
-        }
-
-        private PropertyPresenter<string, ErrorOutputMessage> RenderReportToPdf(string libreOfficeLocation, string reportOuputDirectory, string reportPath)
-        {
-            var pdfPresenter = new PropertyPresenter<string, ErrorOutputMessage>();
-            var executor = new SynchronousAction(new DocxToPdfTask(libreOfficeLocation, reportPath, reportOuputDirectory),
-                new ProcessFactory());
-            executor.Execute(pdfPresenter);
-            return pdfPresenter;
         }
 
         private void WriteErrorsToConsole<T>(PropertyPresenter<T, ErrorOutputMessage> presenter)

@@ -15,10 +15,9 @@ namespace Mustache.Reports.Example.Console
 
             var writeReportTo = configuration["Reporting:RenderLocation"];
             var reportDataFilePath = configuration["Reporting:RelativeSampleDataLocation"];
-            var libreOfficeLocation = configuration["Reporting:LibreOfficeLocation"];
 
             var reportController = CreateReportController(configuration);
-            reportController.Run(libreOfficeLocation, writeReportTo, reportDataFilePath);
+            reportController.Run(writeReportTo, reportDataFilePath);
             System.Console.ReadLine();
         }
 
