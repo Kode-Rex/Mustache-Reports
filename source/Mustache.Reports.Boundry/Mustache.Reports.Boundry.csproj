@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="TddBuddy.CleanArchitecture.Domain.DotNetCore" Version="3.7.0" />
+    <PackageReference Include="TddBuddy.CleanArchitecture.Domain.DotNetCore" Version="3.7.1" />
   </ItemGroup>
 
 </Project>
