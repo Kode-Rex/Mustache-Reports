@@ -5,11 +5,11 @@
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
     <PreBuildEvent>
       REM copy node_modules into location IIS Express runs from
-      xcopy "$(SolutionDir)Mustache.Reports.NodeJS\node_modules" "$(SolutionDir)Simple.Report.Server.Example.Web\ReportingRendering\NodeApp\node_modules" /s /I /y /d
+      xcopy "$(SolutionDir)Mustache.Reports.NodeJS\node_modules" "$(SolutionDir)Mustache.Reports.Example.Web\ReportingRendering\NodeApp\node_modules" /s /I /y /d
       REM copy js files into IIS Express run location
-      xcopy "$(SolutionDir)Mustache.Reports.NodeJS\*.js" "$(SolutionDir)Simple.Report.Server.Example.Web\ReportingRendering\NodeApp" /s /I /y /d
+      xcopy "$(SolutionDir)Mustache.Reports.NodeJS\*.js" "$(SolutionDir)Mustache.Reports.Example.Web\ReportingRendering\NodeApp" /s /I /y /d
       REM copy example data into location Web location
-      xcopy "$(SolutionDir)Mustache.Reports.Data\ExampleData\*.json" "$(SolutionDir)Simple.Report.Server.Example.Web\ReportRendering\ExampleData" /s /I /y /d
+      xcopy "$(SolutionDir)Mustache.Reports.Data\ExampleData\*.json" "$(SolutionDir)Mustache.Reports.Example.Web\ReportRendering\ExampleData" /s /I /y /d
 </PreBuildEvent>
   </PropertyGroup>
 
