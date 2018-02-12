@@ -2,9 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <PreBuildEvent>
-    </PreBuildEvent>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ExampleData\**" />
+    <Compile Remove="ReportRendering\Templates\**" />
+    <EmbeddedResource Remove="ExampleData\**" />
+    <EmbeddedResource Remove="ReportRendering\Templates\**" />
+    <None Remove="ExampleData\**" />
+    <None Remove="ReportRendering\Templates\**" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
@@ -14,17 +21,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Mustache.Reports.Boundry\Mustache.Reports.Boundry.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="ExampleData\WithImagesSampleData.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="ReportRendering\Templates\ReportWithImages.docx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="ReportRendering\Templates\ReportWithNoImages.docx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+  
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="REM mkdir node_modules directory&#xD;&#xA;mkdir &quot;$(SolutionDir)Mustache.Reports.Data\ReportingRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;REM copy node_modules into location IIS Express runs from&#xD;&#xA;xcopy &quot;$(SolutionDir)Mustache.Reports.NodeJS\node_modules&quot; &quot;$(SolutionDir)Mustache.Reports.Data\ReportingRendering\NodeApp\node_modules&quot; /s /I /y /d" />
+  </Target>
 
 </Project>

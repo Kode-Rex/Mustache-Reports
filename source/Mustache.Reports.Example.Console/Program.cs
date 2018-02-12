@@ -1,11 +1,4 @@
-﻿using System.IO;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Mustache.Reports.Controllers.Console;
-using Mustache.Reports.Data;
-using Mustache.Reports.Domain;
-
-namespace Mustache.Reports.Example.Console
+﻿namespace Mustache.Reports.Example.Console
 {
     class Program
     {

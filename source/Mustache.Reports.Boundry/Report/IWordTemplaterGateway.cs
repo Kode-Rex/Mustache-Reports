@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mustache.Reports.Boundry.Rendering.Report
+﻿namespace Mustache.Reports.Boundry.Report
 {
     public interface IWordTemplaterGateway
     {

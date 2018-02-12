@@ -1,4 +1,4 @@
-﻿namespace Mustache.Reports.Boundry.Rendering.Report
+﻿namespace Mustache.Reports.Boundry.Report
 {
     public class RenderWordInput
     {

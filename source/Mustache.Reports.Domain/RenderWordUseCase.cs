@@ -1,6 +1,5 @@
 ﻿using Mustache.Reports.Boundry;
-using Mustache.Reports.Boundry.Rendering;
-using Mustache.Reports.Boundry.Rendering.Report;
+using Mustache.Reports.Boundry.Report;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 

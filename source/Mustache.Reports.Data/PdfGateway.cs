@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using Mustache.Reports.Boundry.Rendering;
-using Mustache.Reports.Boundry.Rendering.Pdf;
+using Mustache.Reports.Boundry;
+using Mustache.Reports.Boundry.Pdf;
 using Mustache.Reports.Data.PdfRendering;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Presenters;
