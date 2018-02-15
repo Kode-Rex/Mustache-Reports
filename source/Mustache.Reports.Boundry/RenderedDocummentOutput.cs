@@ -20,6 +20,11 @@ namespace Mustache.Reports.Boundry
 
         public byte[] FetchDocumentAsByteArray()
         {
+            if (string.IsNullOrEmpty(Base64String))
+            {
+                return new byte[0];
+            }
+
             return Convert.FromBase64String(Base64String);
         }
     }
