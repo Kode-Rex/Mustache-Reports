@@ -1,5 +1,5 @@
 {
-  "name": "simple-report-server",
+  "name": "mustache-reports",
   "version": "1.0.1",
   "description": "Service to generate reports using docx-templater",
   "main": "cmdLineRender.js",
@@ -15,7 +15,8 @@
     "docxtemplater-image-module": "3.0.2",
     "jszip": "2.5.0",
     "moment": "2.18.1",
-    "winston": "^2.3.1"
+    "winston": "^2.3.1",
+    "xlsx-template": "^0.2.0"
   },
   "engines": {
     "node": ">=6.9.1"
