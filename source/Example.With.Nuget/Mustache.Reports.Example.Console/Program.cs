@@ -1,4 +1,11 @@
-﻿namespace Mustache.Reports.Example.Console
+﻿using System.IO;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Mustache.Reports.Controllers.Console;
+using Mustache.Reports.Data;
+using Mustache.Reports.Domain;
+
+namespace Mustache.Reports.Example.Console
 {
     class Program
     {
@@ -28,9 +35,9 @@
             return reportController;
         }
 
-        private static RenderDocxToPdfUseCase CreateRenderDocxToPdfUseCase(PdfGateway pdfGateway)
+        private static RenderWordToPdfUseCase CreateRenderDocxToPdfUseCase(PdfGateway pdfGateway)
         {
-            var renderPdfUseCase = new RenderDocxToPdfUseCase(pdfGateway);
+            var renderPdfUseCase = new RenderWordToPdfUseCase(pdfGateway);
             return renderPdfUseCase;
         }
 

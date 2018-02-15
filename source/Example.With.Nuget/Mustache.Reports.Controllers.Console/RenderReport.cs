@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.Logging;
-using Mustache.Reports.Boundry.Rendering.Pdf;
-using Mustache.Reports.Boundry.Rendering.Report;
+using Mustache.Reports.Boundry.Pdf;
+using Mustache.Reports.Boundry.Report;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 using TddBuddy.CleanArchitecture.Domain.Presenters;
