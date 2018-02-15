@@ -28,11 +28,8 @@
   
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
+    <PackageReference Include="Mustache.Reports.Boundry" Version="0.9.0" />
     <PackageReference Include="TddBuddy.Synchronous.Process.Runner.DotNetCore" Version="1.1.0" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\Mustache.Reports.Boundry\Mustache.Reports.Boundry.csproj" />
   </ItemGroup>
   
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

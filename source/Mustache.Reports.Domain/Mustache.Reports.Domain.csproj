@@ -12,11 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mustache.Reports.Boundry" Version="0.9.0" />
     <PackageReference Include="TddBuddy.CleanArchitecture.Domain.DotNetCore" Version="3.7.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Mustache.Reports.Boundry\Mustache.Reports.Boundry.csproj" />
   </ItemGroup>
 
 </Project>
