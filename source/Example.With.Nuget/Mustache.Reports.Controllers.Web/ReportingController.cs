@@ -21,7 +21,7 @@ namespace Mustache.Reports.Controllers.Web
         [HttpGet("create/word")]
         public IActionResult Create()
         {
-            var jsonData = File.ReadAllText("ReportRendering\\ExampleData\\WithImagesSampleData.json");
+            var jsonData = File.ReadAllText("ExampleData\\WithImagesSampleData.json");
 
             var inputMessage = new RenderWordInput
             {
@@ -33,6 +33,5 @@ namespace Mustache.Reports.Controllers.Web
             _usecase.Execute(inputMessage, presenter); // base64 string ok, just the swagger? Yep, download from url works fine.
             return presenter.Render();
         }
-
     }
 }

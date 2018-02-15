@@ -65,7 +65,7 @@ namespace Mustache.Reports.Example.Web
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Simple.Report.Server");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mustache.Reports");
             });
         }
     }
