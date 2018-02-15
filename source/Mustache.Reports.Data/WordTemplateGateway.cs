@@ -18,7 +18,7 @@ namespace Mustache.Reports.Data
         public WordTemplateGateway(IConfiguration configuration)
         {
             _templateLocation = configuration["Reporting:RelativeReportTemplateLocation"];
-            _nodeAppLocation = configuration["Reporting:RelativeToExampleNodeAppLocation"];
+            _nodeAppLocation = configuration["Reporting:RelativeNodeAppLocation"];
         }
 
         public RenderedDocummentOutput CreateReport(RenderWordInput input)
