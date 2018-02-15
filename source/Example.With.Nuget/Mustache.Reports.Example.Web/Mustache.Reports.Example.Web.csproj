@@ -27,6 +27,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
+    <PackageReference Include="Mustache.Reports.Data" Version="0.9.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="1.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="1.1.0" />
     <PackageReference Include="TddBuddy.CleanArchitecture.Domain.DotNetCore" Version="3.7.1" />
@@ -1207,9 +1208,6 @@
     <None Include="ReportRendering\NodeApp\node_modules\xmldom\__package__.js" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mustache.Reports.Boundry\Mustache.Reports.Boundry.csproj" />
     <ProjectReference Include="..\Mustache.Reports.Controllers.Web\Mustache.Reports.Controllers.Web.csproj" />
-    <ProjectReference Include="..\Mustache.Reports.Data\Mustache.Reports.Data.csproj" />
-    <ProjectReference Include="..\Mustache.Reports.Domain\Mustache.Reports.Domain.csproj" />
   </ItemGroup>
 </Project>
