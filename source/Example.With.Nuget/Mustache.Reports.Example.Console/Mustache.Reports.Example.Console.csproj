@@ -14,10 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mustache.Reports.Boundry\Mustache.Reports.Boundry.csproj" />
     <ProjectReference Include="..\Mustache.Reports.Controllers.Console\Mustache.Reports.Controllers.Console.csproj" />
-    <ProjectReference Include="..\Mustache.Reports.Data\Mustache.Reports.Data.csproj" />
-    <ProjectReference Include="..\Mustache.Reports.Domain\Mustache.Reports.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

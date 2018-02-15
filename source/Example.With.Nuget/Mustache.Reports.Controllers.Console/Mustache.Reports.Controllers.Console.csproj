@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
     <PackageReference Include="Mustache.Reports.Boundry" Version="0.9.0" />
+    <PackageReference Include="Mustache.Reports.Data" Version="0.9.0" />
     <PackageReference Include="Mustache.Reports.Domain" Version="0.9.0" />
   </ItemGroup>
 
