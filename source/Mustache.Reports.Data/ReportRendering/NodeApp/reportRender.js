@@ -2,7 +2,6 @@ var Docxtemplater = require('docxtemplater');
 var ImageModule = require('docxtemplater-image-module');
 var Moment = require('moment');
 var JSZip = require('jszip');
-var fs = require('fs');
 var expressions = require('angular-expressions');
 
 function ReportRender(){}
@@ -39,6 +38,7 @@ ReportRender.prototype.getOptions = function(){
 	return opts;
 };
 
+// todo : I need to find a nice generic way for people to extend this ;)
 ReportRender.prototype.configureAngularExpressions = function(){
 	
 	expressions.filters.upper = function(input) {
