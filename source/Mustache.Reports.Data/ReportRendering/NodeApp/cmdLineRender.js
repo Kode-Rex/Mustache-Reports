@@ -1,5 +1,6 @@
 var fs = require('fs');
 var wordRender = require('./wordRender.js');
+var excelRender = require('./excelRender.js');
 var program = require('commander');
 
 program
@@ -9,23 +10,23 @@ program
     .option('-r --reportType [word | excel]', 'The report type to run')
     .parse(process.argv);
 
-var templateContent = fs.readFileSync(program.template, "base64");
-var dataFileContents = fs.readFileSync(program.data, "utf-8");
+var stdout = process.stdout;
 
-var data = JSON.parse(dataFileContents);
+var reportData = fs.readFileSync(program.data, "utf-8");
+var data = JSON.parse(reportData);
 
 var reportType = program.reportType.toLowerCase();
 
-// todo : use std.out instead of console.log
-var stdout = process.stdout;
-
-if (reportType == 'word') {
+if (reportType === 'word') {
+    var templateContent = fs.readFileSync(program.template, "base64");
     var render = new wordRender();
     var reportAsBase64String = render.renderAsBase64(templateContent, data);
-    console.log(reportAsBase64String);
-    //stdout.write(reportAsBase64String);
+    stdout.write(reportAsBase64String);
 }
 
-if (reportType == 'excel') {
-    stdout.write('Todo');
+if (reportType === 'excel') {
+    var templateContent = fs.readFileSync(program.template, "binary");
+    var render = new excelRender();
+    var reportAsBase64String = render.renderAsBase64(templateContent, data);
+    stdout.write(reportAsBase64String);
 }
