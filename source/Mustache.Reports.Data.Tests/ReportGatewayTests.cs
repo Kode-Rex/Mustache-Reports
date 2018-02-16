@@ -13,7 +13,7 @@ namespace Mustache.Reports.Data.Tests
         {
             //---------------Arrange------------------
             var configuration = SetupConfiguration();
-            var reportData = File.ReadAllText(configuration["Reporting:RelativeSampleDataLocation"]);
+            var reportData = File.ReadAllText("ExampleData\\WithImagesSampleData.json");
             var wordGateway = new ReportGateway(configuration);
             var input = new RenderWordInput {JsonModel = reportData, ReportName = "test.docx", TemplateName = "ReportWithImages" };
             //---------------Act----------------------
@@ -42,13 +42,13 @@ namespace Mustache.Reports.Data.Tests
         {
             //---------------Arrange------------------
             var configuration = SetupConfiguration();
-            var reportData = File.ReadAllText(configuration["Reporting:RelativeSampleDataLocation"]);
+            var reportData = File.ReadAllText("ExampleData\\ExcelSampleData.json");
             var wordGateway = new ReportGateway(configuration);
             var input = new RenderExcelInput { JsonModel = reportData, ReportName = "test.xslx", TemplateName = "SimpleReport" };
             //---------------Act----------------------
             var actual = wordGateway.CreateExcelReport(input);
             //---------------Assert-------------------
-            var expected = File.ReadAllText("Expected\\RenderedWordBase64.txt");
+            var expected = File.ReadAllText("Expected\\RenderedExcelBase64.txt");
             Assert.Equal(expected.Substring(0, 50), actual.Base64String.Substring(0, 50));
         }
 
