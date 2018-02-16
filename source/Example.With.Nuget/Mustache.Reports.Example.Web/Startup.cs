@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mustache.Reports.Boundry.Pdf;
 using Mustache.Reports.Boundry.Report;
+using Mustache.Reports.Boundry.Report.Word;
 using Mustache.Reports.Data;
 using Mustache.Reports.Domain;
 using Swashbuckle.AspNetCore.Swagger;
@@ -49,7 +50,7 @@ namespace Mustache.Reports.Example.Web
         private void RegisterApplicationDepenedencies(IServiceCollection services)
         {
             services.AddSingleton<IConfiguration>(Configuration);
-            services.AddTransient<IWordTemplaterGateway, WordTemplateGateway>();
+            services.AddTransient<IWordGateway, WordGateway>();
             services.AddTransient<IPdfGateway, PdfGateway>();
             services.AddTransient<IRenderWordUseCase, RenderWordUseCase>();
         }

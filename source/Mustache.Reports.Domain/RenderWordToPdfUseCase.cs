@@ -1,4 +1,5 @@
-﻿using Mustache.Reports.Boundry;
+﻿using System;
+using Mustache.Reports.Boundry;
 using Mustache.Reports.Boundry.Pdf;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
@@ -7,16 +8,16 @@ namespace Mustache.Reports.Domain
 {
     public class RenderWordToPdfUseCase : IRenderDocxToPdfUseCase
     {
-        private readonly IPdfGateway _reportRepository;
+        private readonly IPdfGateway _pdfGateway;
 
-        public RenderWordToPdfUseCase(IPdfGateway reportRepository)
+        public RenderWordToPdfUseCase(IPdfGateway pdfGateway)
         {
-            _reportRepository = reportRepository;
+            _pdfGateway = pdfGateway ?? throw new ArgumentNullException(nameof(pdfGateway));
         }
 
         public void Execute(RenderPdfInput inputTo, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
         {
-            var output = _reportRepository.ConvertToPdf(inputTo);
+            var output = _pdfGateway.ConvertToPdf(inputTo);
 
             if (RenderErrors(output))
             {

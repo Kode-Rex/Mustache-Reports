@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Mvc;
-using Mustache.Reports.Boundry.Report;
+using Mustache.Reports.Boundry.Report.Word;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Presenters;
 

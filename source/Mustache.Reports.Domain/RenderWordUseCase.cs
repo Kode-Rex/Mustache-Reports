@@ -7,16 +7,16 @@ namespace Mustache.Reports.Domain
 {
     public class RenderWordUseCase : IRenderWordUseCase
     {
-        private readonly IWordTemplaterGateway _wordTemplater;
+        private readonly IWordGateway _wordGateway;
 
-        public RenderWordUseCase(IWordTemplaterGateway wordTemplater)
+        public RenderWordUseCase(IWordGateway wordGateway)
         {
-            _wordTemplater = wordTemplater;
+            _wordGateway = wordGateway;
         }
 
         public void Execute(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
         {
-            var result = _wordTemplater.CreateReport(inputInput);
+            var result = _wordGateway.CreateReport(inputInput);
 
             if (result.HasErrors())
             {
