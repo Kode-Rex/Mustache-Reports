@@ -6,7 +6,7 @@ program
     .version('2.0.0')
     .option('-t, --template [value]', 'Path to docx or xlsx template')
     .option('-d, --data [value]', 'Path to data file to')
-    .option('-rt --reportType [word | excel]', 'The report type to run')
+    .option('-r --reportType [word | excel]', 'The report type to run')
     .parse(process.argv);
 
 var templateContent = fs.readFileSync(program.template, "base64");

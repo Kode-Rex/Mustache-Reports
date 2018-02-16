@@ -1,4 +1,5 @@
-﻿using Mustache.Reports.Boundry;
+﻿using System;
+using Mustache.Reports.Boundry;
 using Mustache.Reports.Boundry.Report.Word;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
@@ -11,7 +12,7 @@ namespace Mustache.Reports.Domain
 
         public RenderWordUseCase(IWordGateway wordGateway)
         {
-            _wordGateway = wordGateway;
+            _wordGateway = wordGateway ?? throw new ArgumentNullException(nameof(wordGateway));
         }
 
         public void Execute(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
@@ -27,7 +28,7 @@ namespace Mustache.Reports.Domain
             RespondWithFile(inputInput, presenter, result);
         }
 
-        private static void RespondWithFile(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedDocummentOutput result)
+        private void RespondWithFile(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedDocummentOutput result)
         {
             var reportMessage = new WordFileOutput(inputInput.ReportName, result.FetchDocumentAsByteArray());
 
