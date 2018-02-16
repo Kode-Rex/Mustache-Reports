@@ -1,4 +1,5 @@
 ﻿using Mustache.Reports.Boundry;
+using Mustache.Reports.Boundry.Report;
 using Mustache.Reports.Boundry.Report.Excel;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
@@ -7,16 +8,16 @@ namespace Mustache.Reports.Domain
 {
     public class RenderExcelUseCase : IRenderExcelUseCase
     {
-        private readonly IExcelGateway _excelGateway;
+        private readonly IReportGateway _reportGateway;
 
-        public RenderExcelUseCase(IExcelGateway excelGateway)
+        public RenderExcelUseCase(IReportGateway reportGateway)
         {
-            _excelGateway = excelGateway;
+            _reportGateway = reportGateway;
         }
 
         public void Execute(RenderExcelInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
         {
-            var result = _excelGateway.CreateReport(inputInput);
+            var result = _reportGateway.CreateExcelReport(inputInput);
 
             if (result.HasErrors())
             {

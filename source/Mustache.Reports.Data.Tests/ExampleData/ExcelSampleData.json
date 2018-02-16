@@ -1,0 +1,12 @@
+﻿{
+  "people": [
+    {
+      "name": "John Smith",
+      "age": 20
+    },
+    {
+      "name": "Bob Johnson",
+      "age": 22
+    }
+  ]
+}

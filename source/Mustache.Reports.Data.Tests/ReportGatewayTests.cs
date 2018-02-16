@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Mustache.Reports.Data.Tests
 {
-    public class WordRenderTests
+    public class ReportGatewayTests
     {
         [Fact]
         public void CreateReport_WhenValidInput_ShouldReturnRenderedReport()
@@ -13,10 +13,10 @@ namespace Mustache.Reports.Data.Tests
             //---------------Arrange------------------
             var configuration = SetupConfiguration();
             var reportData = File.ReadAllText(configuration["Reporting:RelativeSampleDataLocation"]);
-            var wordGateway = new WordGateway(configuration);
+            var wordGateway = new ReportGateway(configuration);
             var input = new RenderWordInput {JsonModel = reportData, ReportName = "test.docx", TemplateName = "ReportWithImages" };
             //---------------Act----------------------
-            var actual = wordGateway.CreateReport(input);
+            var actual = wordGateway.CreateWordReport(input);
             //---------------Assert-------------------
             var expected = File.ReadAllText("Expected\\RenderedWordBase64.txt");
             Assert.Equal(expected.Substring(0,50), actual.Base64String.Substring(0,50));
@@ -27,10 +27,10 @@ namespace Mustache.Reports.Data.Tests
         {
             //---------------Arrange------------------
             var configuration = SetupConfiguration();
-            var wordGateway = new WordGateway(configuration);
+            var wordGateway = new ReportGateway(configuration);
             var input = new RenderWordInput { JsonModel = "", ReportName = "test.docx", TemplateName = "INVALID_NAME" };
             //---------------Act----------------------
-            var actual = wordGateway.CreateReport(input);
+            var actual = wordGateway.CreateWordReport(input);
             //---------------Assert-------------------
             Assert.True(actual.HasErrors());
             Assert.Equal("Invalid Report Type [INVALID_NAME]", actual.ErrorMessages[0]);

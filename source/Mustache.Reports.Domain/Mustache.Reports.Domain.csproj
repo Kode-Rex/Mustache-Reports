@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mustache.Reports.Boundry" Version="1.0.1" />
+    <PackageReference Include="Mustache.Reports.Boundry" Version="1.0.3" />
     <PackageReference Include="TddBuddy.CleanArchitecture.Domain.DotNetCore" Version="3.7.1" />
   </ItemGroup>
 

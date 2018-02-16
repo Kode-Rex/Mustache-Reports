@@ -1,5 +1,4 @@
-﻿
-using Xunit;
+﻿using Xunit;
 
 namespace Mustache.Reports.Boundry.Tests
 {
@@ -50,9 +49,11 @@ namespace Mustache.Reports.Boundry.Tests
         public void FetchDocumetnAsByteArray_WhenValidBase64String_ShouldReturnByteArray()
         {
             //---------------Arrange------------------
-            var renderedDocumentOutput = new RenderedDocummentOutput();
-            //---------------Act----------------------
-            renderedDocumentOutput.Base64String = "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+            var renderedDocumentOutput = new RenderedDocummentOutput
+            {
+                //---------------Act----------------------
+                Base64String = "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            };
             //---------------Assert-------------------
             Assert.NotEmpty(renderedDocumentOutput.FetchDocumentAsByteArray());
         }
