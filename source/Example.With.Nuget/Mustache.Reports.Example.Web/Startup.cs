@@ -50,7 +50,7 @@ namespace Mustache.Reports.Example.Web
         private void RegisterApplicationDepenedencies(IServiceCollection services)
         {
             services.AddSingleton<IConfiguration>(Configuration);
-            services.AddTransient<IWordGateway, WordGateway>();
+            services.AddTransient<IReportGateway, ReportGateway>();
             services.AddTransient<IPdfGateway, PdfGateway>();
             services.AddTransient<IRenderWordUseCase, RenderWordUseCase>();
         }
