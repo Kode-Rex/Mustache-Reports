@@ -9,6 +9,8 @@ using TddBuddy.CleanArchitecture.Domain.Presenters;
 using TddBuddy.Synchronous.Process.Runner;
 using Mustache.Reports.Boundry.Report.Excel;
 using Mustache.Reports.Boundry.Report;
+using System;
+using TddBuddy.Synchronous.Process.Runner.PipeLineTask;
 
 namespace Mustache.Reports.Data
 {
@@ -25,15 +27,28 @@ namespace Mustache.Reports.Data
 
         public RenderedDocummentOutput CreateWordReport(RenderWordInput input)
         {
-            return CreateReport(input.JsonModel.ToString(), input.TemplateName, "docx");
+            Func<string, string, string, NodePipeLineTask> renderFactory = (nodeAppPath, reportTemplatePath, reportJsonPath) =>
+            {
+                return new WordRender(nodeAppPath, reportTemplatePath, reportJsonPath);
+            };
+
+            return CreateReport(input.JsonModel.ToString(), input.TemplateName, "docx", renderFactory);
         }
 
         public RenderedDocummentOutput CreateExcelReport(RenderExcelInput input)
         {
-            return CreateReport(input.JsonModel.ToString(), input.TemplateName, "xlsx");
+            Func<string, string, string, NodePipeLineTask> renderFactory = (nodeAppPath, reportTemplatePath, reportJsonPath) =>
+            {
+                return new ExcelRender(nodeAppPath, reportTemplatePath, reportJsonPath);
+            };
+
+            return CreateReport(input.JsonModel.ToString(), input.TemplateName, "xlsx", renderFactory);
         }
 
-        private RenderedDocummentOutput CreateReport(string jsonModel, string templateName, string extension)
+        private RenderedDocummentOutput CreateReport(string jsonModel, 
+                                                    string templateName, 
+                                                    string extension, 
+                                                    Func<string, string, string, NodePipeLineTask> taskFactory)
         {
             using (var renderDirectory = GetWorkspace())
             {
@@ -46,7 +61,7 @@ namespace Mustache.Reports.Data
                 }
 
                 var presenter = new PropertyPresenter<string, ErrorOutputMessage>();
-                RenderReport(reportTemplatePath, reportJsonPath, presenter);
+                RenderReport(reportTemplatePath, reportJsonPath, taskFactory, presenter);
 
                 return RenderingErrors(presenter) ? ReturnErrors(presenter) : ReturnRenderedReport(presenter);
             }
@@ -89,11 +104,15 @@ namespace Mustache.Reports.Data
             return result;
         }
 
-        private void RenderReport(string reportTemplatePath, string reportJsonPath, IRespondWithSuccessOrError<string, ErrorOutputMessage> presenter)
+        private void RenderReport(string reportTemplatePath, 
+                                  string reportJsonPath, 
+                                  Func<string, string, string, NodePipeLineTask> taskFactory, 
+                                  IRespondWithSuccessOrError<string, ErrorOutputMessage> presenter)
         {
             var nodeAppPath = Path.Combine(_nodeAppLocation, "cmdLineRender.js");
+            var task = taskFactory.Invoke(nodeAppPath, reportTemplatePath, reportJsonPath);
 
-            var executor = new SynchronousAction(new WordRender(nodeAppPath, reportTemplatePath, reportJsonPath), new ProcessFactory());
+            var executor = new SynchronousAction(task, new ProcessFactory());
             executor.Execute(presenter);
         }
 
