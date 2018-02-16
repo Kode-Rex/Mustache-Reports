@@ -16,12 +16,16 @@ var data = JSON.parse(dataFileContents);
 
 var reportType = program.reportType.toLowerCase();
 
+// todo : use std.out instead of console.log
+var stdout = process.stdout;
+
 if (reportType == 'word') {
     var render = new wordRender();
     var reportAsBase64String = render.renderAsBase64(templateContent, data);
     console.log(reportAsBase64String);
+    //stdout.write(reportAsBase64String);
 }
 
 if (reportType == 'excel') {
-    console.log('Todo');
+    stdout.write('Todo');
 }
