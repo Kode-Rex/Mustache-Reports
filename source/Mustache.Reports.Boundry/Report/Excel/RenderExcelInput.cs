@@ -1,14 +1,14 @@
-﻿namespace Mustache.Reports.Boundry.Report
+﻿namespace Mustache.Reports.Boundry.Report.Excel
 {
-    public class RenderWordInput
+    public class RenderExcelInput
     {
         public object JsonModel { get; set; }
         public string TemplateName { get; set; }
         public string ReportName { get; set; }
 
-        public RenderWordInput()
+        public RenderExcelInput()
         {
-            ReportName = "report.docx";
+            ReportName = "report.xslx";
         }
     }
 }

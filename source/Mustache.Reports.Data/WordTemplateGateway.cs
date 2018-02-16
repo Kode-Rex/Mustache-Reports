@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.Extensions.Configuration;
 using Mustache.Reports.Boundry;
-using Mustache.Reports.Boundry.Report;
+using Mustache.Reports.Boundry.Report.Word;
 using Mustache.Reports.Data.ReportRendering;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
@@ -81,7 +81,7 @@ namespace Mustache.Reports.Data
         {
             var nodeAppPath = Path.Combine(_nodeAppLocation, "cmdLineRender.js");
 
-            var executor = new SynchronousAction(new ReportRenderTask(nodeAppPath, reportTemplatePath, reportJsonPath), new ProcessFactory());
+            var executor = new SynchronousAction(new WordRenderTask(nodeAppPath, reportTemplatePath, reportJsonPath), new ProcessFactory());
             executor.Execute(presenter);
         }
 

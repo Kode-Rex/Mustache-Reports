@@ -4,9 +4,9 @@ var Moment = require('moment');
 var JSZip = require('jszip');
 var expressions = require('angular-expressions');
 
-function ReportRender(){}
+function WordRender(){}
 
-ReportRender.prototype.getOptions = function(){
+WordRender.prototype.getOptions = function(){
 	var opts = {}
 	opts.centered = false;
 
@@ -39,7 +39,7 @@ ReportRender.prototype.getOptions = function(){
 };
 
 // todo : I need to find a nice generic way for people to extend this ;)
-ReportRender.prototype.configureAngularExpressions = function(){
+WordRender.prototype.configureAngularExpressions = function(){
 	
 	expressions.filters.upper = function(input) {
 		if(!input) return input;
@@ -102,7 +102,7 @@ ReportRender.prototype.configureAngularExpressions = function(){
 	}
 };
 
-ReportRender.prototype.renderAsBase64 = function(reportTemplateBase64, reportData){
+WordRender.prototype.renderAsBase64 = function(reportTemplateBase64, reportData){
 	var self = this;
 	var opts = self.getOptions();
 	var data = reportData;
@@ -125,4 +125,4 @@ ReportRender.prototype.renderAsBase64 = function(reportTemplateBase64, reportDat
 	return result;
 };
 
-module.exports = ReportRender;
+module.exports = WordRender;

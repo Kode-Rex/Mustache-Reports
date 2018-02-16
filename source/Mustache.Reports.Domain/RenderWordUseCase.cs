@@ -1,5 +1,5 @@
 ﻿using Mustache.Reports.Boundry;
-using Mustache.Reports.Boundry.Report;
+using Mustache.Reports.Boundry.Report.Word;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 

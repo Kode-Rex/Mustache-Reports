@@ -1,4 +1,4 @@
-﻿namespace Mustache.Reports.Boundry.Report
+﻿namespace Mustache.Reports.Boundry.Report.Word
 {
     public interface IWordTemplaterGateway
     {
