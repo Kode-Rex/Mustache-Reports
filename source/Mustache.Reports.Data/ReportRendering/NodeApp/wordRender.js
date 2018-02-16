@@ -54,37 +54,10 @@ WordRender.prototype.configureAngularExpressions = function(){
 	expressions.filters.formatDate = function(input, format){
 		if(!input) return input;
 		return Moment(input).format(format).toString();
-	}
+    }
 
-	// todo : this should be property on data, to lazy to adjust data model
 	expressions.filters.today = function(input, format){
 		return Moment().format(format).toString();
-	}
-
-	// todo : there should have been model transformations to handle the today, areThereSectionIssues, 
-	// areThereHighPriorityIssues method concerns rather then putting it into the reporting lib.
-	expressions.filters.areThereSectionIssues = function(input){
-		if(!input || Object.prototype.toString.call( input ) !== '[object Array]' ) return false;
-		var result = false;
-		input.forEach(function(element){
-			if(element.hasIssues){
-				 result = true;
-			}
-		});
-		return result;
-	}
-
-	expressions.filters.areThereHighPriorityIssues = function(input){
-		if(!input || Object.prototype.toString.call( input ) !== '[object Array]' ) return false;
-		var result = false;
-		input.forEach(function(section){
-			section.auditAreaSectionIssues.forEach(function(issue){
-				if(section.hasIssues && section.sectionRating <= 3 && issue.notifyLandlord === true){
-					result = true;
-				}
-			});
-		});
-		return result;
 	}
 
 	expressions.filters.doesStringHaveData = function(input){
