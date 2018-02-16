@@ -1,22 +1,22 @@
 ﻿using Mustache.Reports.Boundry;
-using Mustache.Reports.Boundry.Report.Word;
+using Mustache.Reports.Boundry.Report.Excel;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 
 namespace Mustache.Reports.Domain
 {
-    public class RenderWordUseCase : IRenderWordUseCase
+    public class RenderExcelUseCase : IRenderExcelUseCase
     {
-        private readonly IWordGateway _wordGateway;
+        private readonly IExcelGateway _excelGateway;
 
-        public RenderWordUseCase(IWordGateway wordGateway)
+        public RenderExcelUseCase(IExcelGateway excelGateway)
         {
-            _wordGateway = wordGateway;
+            _excelGateway = excelGateway;
         }
 
-        public void Execute(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
+        public void Execute(RenderExcelInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
         {
-            var result = _wordGateway.CreateReport(inputInput);
+            var result = _excelGateway.CreateReport(inputInput);
 
             if (result.HasErrors())
             {
@@ -27,9 +27,9 @@ namespace Mustache.Reports.Domain
             RespondWithFile(inputInput, presenter, result);
         }
 
-        private static void RespondWithFile(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedDocummentOutput result)
+        private static void RespondWithFile(RenderExcelInput input, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedDocummentOutput result)
         {
-            var reportMessage = new WordFileOutput(inputInput.ReportName, result.FetchDocumentAsByteArray());
+            var reportMessage = new WordFileOutput(input.ReportName, result.FetchDocumentAsByteArray());
 
             presenter.Respond(reportMessage);
         }
