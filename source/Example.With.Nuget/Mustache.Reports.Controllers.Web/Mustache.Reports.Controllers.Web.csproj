@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.1" />
     <PackageReference Include="Mustache.Reports.Boundry" Version="1.0.3" />
-    <PackageReference Include="Mustache.Reports.Data" Version="1.0.2" />
+    <PackageReference Include="Mustache.Reports.Data" Version="1.1.0" />
     <PackageReference Include="Mustache.Reports.Domain" Version="1.0.2" />
     <PackageReference Include="TddBuddy.CleanArchitecture.DotNetCore" Version="3.7.0" />
   </ItemGroup>
