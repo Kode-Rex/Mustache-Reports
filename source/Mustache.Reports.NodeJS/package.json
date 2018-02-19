@@ -13,7 +13,7 @@
     "commander": "^2.9.0",
     "docxtemplater": "3.4.1",
     "docxtemplater-image-module": "3.1.0",
-    "jszip": "3.1.5",
+    "jszip": "2.6.1",
     "moment": "^2.20.1",
     "winston": "^2.3.1",
     "xlsx-template": "^0.2.0"
