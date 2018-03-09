@@ -1,4 +1,6 @@
   <!-- Copy files with package include -->
   1. Edit package with NuGet Package Explorer
   2. Edit Meta-Data Source
-  3. Copy into notepad++ and replace buildAction="Content" with buildAction="None" copyToOuput="true"
+  3. Run NuGet.Formatter and adjust pathing
+  4. Copy .targets.txt file contents 
+  5. Replace Meta-Data and save (May get issue save, save as new name and try editing again)
