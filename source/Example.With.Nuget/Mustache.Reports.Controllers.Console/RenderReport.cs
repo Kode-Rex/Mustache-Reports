@@ -10,7 +10,7 @@ using TddBuddy.CleanArchitecture.Domain.Presenters;
 
 namespace Mustache.Reports.Controllers.Console
 {
-    public class RenderReport
+    public class RenderReport 
     {
         private readonly IRenderWordUseCase _wordUseCase;
         private readonly IRenderDocxToPdfUseCase _pdfUseCase;

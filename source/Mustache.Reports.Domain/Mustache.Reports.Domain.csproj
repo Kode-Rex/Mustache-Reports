@@ -9,6 +9,7 @@
     <Version>1.0.2</Version>
     <AssemblyVersion>1.0.2.0</AssemblyVersion>
     <FileVersion>1.0.2.0</FileVersion>
+    <PackageReleaseNotes>Inital public release</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

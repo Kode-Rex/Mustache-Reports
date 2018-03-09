@@ -1,0 +1,4 @@
+  <!-- Copy files with package include -->
+  1. Edit package with NuGet Package Explorer
+  2. Edit Meta-Data Source
+  3. Copy into notepad++ and replace buildAction="Content" with buildAction="None" copyToOuput="true"
