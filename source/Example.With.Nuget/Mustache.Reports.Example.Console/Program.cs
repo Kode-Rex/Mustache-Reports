@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Mustache.Reports.Controllers.Console;
 using Mustache.Reports.Data;
 using Mustache.Reports.Domain;
 
@@ -21,7 +20,7 @@ namespace Mustache.Reports.Example.Console
             System.Console.ReadLine();
         }
 
-        private static RenderReport CreateReportController(IConfigurationRoot configuration)
+        private static ReportController CreateReportController(IConfigurationRoot configuration)
         {
             var reportGateway = new ReportGateway(configuration);
             var pdfGateway = new PdfGateway(configuration);
@@ -30,7 +29,7 @@ namespace Mustache.Reports.Example.Console
             var renderPdfUseCase = CreateRenderDocxToPdfUseCase(pdfGateway);
             var loggerFactory = CreateLoggerFactory();
 
-            var reportController = new RenderReport(renderReportUseCase, renderPdfUseCase, loggerFactory);
+            var reportController = new ReportController(renderReportUseCase, renderPdfUseCase, loggerFactory);
 
             return reportController;
         }

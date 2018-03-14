@@ -4,14 +4,14 @@ using Mustache.Reports.Boundry.Report.Word;
 using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Presenters;
 
-namespace Mustache.Reports.Controllers.Web
+namespace Mustache.Reports.Example.Web
 {
-    [Route("api/reporting")]
-    public class ReportingController
+    [Route("api/report")]
+    public class ReportController
     {
         private readonly IRenderWordUseCase _usecase;
 
-        public ReportingController(IRenderWordUseCase usecase)
+        public ReportController(IRenderWordUseCase usecase)
         {
             _usecase = usecase;
         }

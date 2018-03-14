@@ -19,6 +19,9 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
+    <PackageReference Include="Mustache.Reports.Boundry" Version="1.0.3" />
+    <PackageReference Include="Mustache.Reports.Data" Version="1.1.1" />
+    <PackageReference Include="Mustache.Reports.Domain" Version="1.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="1.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="1.1.0" />
     <PackageReference Include="TddBuddy.CleanArchitecture.Domain.DotNetCore" Version="3.7.1" />
@@ -26,8 +29,5 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Mustache.Reports.Controllers.Web\Mustache.Reports.Controllers.Web.csproj" />
   </ItemGroup>
 </Project>

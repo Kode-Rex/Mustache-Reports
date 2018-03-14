@@ -8,19 +8,19 @@ using TddBuddy.CleanArchitecture.Domain.Messages;
 using TddBuddy.CleanArchitecture.Domain.Output;
 using TddBuddy.CleanArchitecture.Domain.Presenters;
 
-namespace Mustache.Reports.Controllers.Console
+namespace Mustache.Reports.Example.Console
 {
-    public class RenderReport 
+    public class ReportController
     {
         private readonly IRenderWordUseCase _wordUseCase;
         private readonly IRenderDocxToPdfUseCase _pdfUseCase;
         private readonly ILogger _logger;
 
-        public RenderReport(IRenderWordUseCase wordUseCase, IRenderDocxToPdfUseCase pdfUseCase, ILoggerFactory logFactory)
+        public ReportController(IRenderWordUseCase wordUseCase, IRenderDocxToPdfUseCase pdfUseCase, ILoggerFactory logFactory)
         {
             _wordUseCase = wordUseCase;
             _pdfUseCase = pdfUseCase;
-            _logger = logFactory.CreateLogger<RenderReport>();
+            _logger = logFactory.CreateLogger<ReportController>();
         }
 
         public void Run( string reportOutputDirectory, string reportDataFilePath)
