@@ -30,16 +30,12 @@ namespace Mustache.Reports.Example.Console
 
         private void RenderReportWithImages(string reportOuputDirectory, string reportDataFilePath)
         {
-            var jsonData = File.ReadAllText(reportDataFilePath);
-
-            var inputMessage = new RenderWordInput
-            {
-                TemplateName = "ReportWithImages",
-                ReportName = "ExampleReport",
-                JsonModel = jsonData
-            };
-
+            var jsonData = ReadReportData(reportDataFilePath);
             var docxPresenter = new PropertyPresenter<IFileOutput, ErrorOutputMessage>();
+
+            // todo : refactor into method and 'nicely' handle IsError
+            var inputMessage = CreateWordInputMessage(jsonData);
+
             _wordUseCase.Execute(inputMessage, docxPresenter);
 
             if (docxPresenter.IsErrorResponse())
@@ -48,10 +44,15 @@ namespace Mustache.Reports.Example.Console
                 return;
             }
 
-            var input = CreateRenderPdfInput(docxPresenter);
+            ConvertWordToPdf(reportOuputDirectory, docxPresenter);
+        }
+
+        private void ConvertWordToPdf(string reportOuputDirectory, PropertyPresenter<IFileOutput, ErrorOutputMessage> docxPresenter)
+        {
+            var input = CreatePdfInput(docxPresenter);
 
             var pdfPresenter = new PropertyPresenter<IFileOutput, ErrorOutputMessage>();
-            _pdfUseCase.Execute(input,pdfPresenter);
+            _pdfUseCase.Execute(input, pdfPresenter);
 
             if (pdfPresenter.IsErrorResponse())
             {
@@ -60,13 +61,30 @@ namespace Mustache.Reports.Example.Console
             }
 
             var pdfPath = PersistReport(reportOuputDirectory, pdfPresenter.SuccessContent);
-            
+
             _logger.LogInformation($"Report output to directory [ {pdfPath} ]");
             _logger.LogInformation("");
             _logger.LogInformation("Press enter to exit.");
         }
 
-        private static RenderPdfInput CreateRenderPdfInput(PropertyPresenter<IFileOutput, ErrorOutputMessage> docxPresenter)
+        private static string ReadReportData(string reportDataFilePath)
+        {
+            var jsonData = File.ReadAllText(reportDataFilePath);
+            return jsonData;
+        }
+
+        private static RenderWordInput CreateWordInputMessage(string jsonData)
+        {
+            var inputMessage = new RenderWordInput
+            {
+                TemplateName = "ReportWithImages",
+                ReportName = "ExampleReport",
+                JsonModel = jsonData
+            };
+            return inputMessage;
+        }
+
+        private static RenderPdfInput CreatePdfInput(PropertyPresenter<IFileOutput, ErrorOutputMessage> docxPresenter)
         {
             var input = new RenderPdfInput();
             using (var stream = docxPresenter.SuccessContent.GetStream())
