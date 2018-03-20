@@ -71,7 +71,8 @@ namespace Mustache.Reports.Data
 
         private void WriteTo(string filePath, string data)
         {
-            File.WriteAllText(filePath, data);
+            var decodedData = Convert.FromBase64String(data);
+            File.WriteAllBytes(filePath, decodedData);
         }
 
         private DisposableWorkSpace GetWorkspace()
