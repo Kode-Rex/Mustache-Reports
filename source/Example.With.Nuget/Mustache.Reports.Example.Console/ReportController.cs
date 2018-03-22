@@ -89,12 +89,9 @@ namespace Mustache.Reports.Example.Console
             var input = new RenderPdfInput();
             using (var stream = docxPresenter.SuccessContent.GetStream())
             {
-                using (var memoryStream = new MemoryStream())
-                {
-                    stream.CopyTo(memoryStream);
-                    var reportBytes = memoryStream.ToArray();
-                    input.Base64DocxReport = Convert.ToBase64String(reportBytes);
-                }
+                var memoryStream = new MemoryStream();
+                stream.CopyTo(memoryStream);
+                input.DocumentStream = memoryStream;
             }
             return input;
         }
