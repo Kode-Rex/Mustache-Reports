@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using System.IO;
+using System.Text;
+using Xunit;
 
 namespace Mustache.Reports.Boundry.Tests
 {
@@ -36,7 +38,7 @@ namespace Mustache.Reports.Boundry.Tests
         }
 
         [Fact]
-        public void FetchDocumetnAsByteArray_WhenNullBase64String_ShouldReturnEmptyByteArray()
+        public void FetchDocumetnAsByteArray_WhenNullStream_ShouldReturnEmptyByteArray()
         {
             //---------------Arrange------------------
             var renderedDocumentOutput = new RenderedDocummentOutput();
@@ -46,16 +48,22 @@ namespace Mustache.Reports.Boundry.Tests
         }
 
         [Fact]
-        public void FetchDocumetnAsByteArray_WhenValidBase64String_ShouldReturnByteArray()
+        public void FetchDocumetnAsByteArray_WhenValidStream_ShouldReturnByteArray()
         {
             //---------------Arrange------------------
-            var renderedDocumentOutput = new RenderedDocummentOutput
+            var inputString = "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+            var inputBytes = Encoding.UTF8.GetBytes(inputString);
+            using (var stream = new MemoryStream(inputBytes))
             {
                 //---------------Act----------------------
-                Base64String = "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-            };
-            //---------------Assert-------------------
-            Assert.NotEmpty(renderedDocumentOutput.FetchDocumentAsByteArray());
+                var renderedDocumentOutput = new RenderedDocummentOutput
+                {
+                    DocumentStream = stream
+                };
+
+                //---------------Assert-------------------
+                Assert.Equal(inputBytes, renderedDocumentOutput.FetchDocumentAsByteArray());
+            }
         }
     }
 }

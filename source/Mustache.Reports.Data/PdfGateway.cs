@@ -50,7 +50,7 @@ namespace Mustache.Reports.Data
             var pdfPath = reportPath.Replace(".docx", ".pdf");
             var result = new RenderedDocummentOutput
             {
-                Base64String = Convert.ToBase64String(File.ReadAllBytes(pdfPath))
+                DocumentStream = new MemoryStream(File.ReadAllBytes(pdfPath))
             };
             return result;
         }
@@ -58,7 +58,7 @@ namespace Mustache.Reports.Data
         private string PersistDocxFile(RenderPdfInput inputMessage, DisposableWorkSpace renderDirectory)
         {
             var reportPath = Path.Combine(renderDirectory.TmpPath, "report.docx");
-            WriteTo(reportPath, inputMessage.Base64DocxReport);
+            WriteTo(reportPath, inputMessage.DocumentStream);
             return reportPath;
         }
 
@@ -69,10 +69,14 @@ namespace Mustache.Reports.Data
             return result;
         }
 
-        private void WriteTo(string filePath, string data)
+        private void WriteTo(string filePath, Stream documentStream)
         {
-            var decodedData = Convert.FromBase64String(data);
-            File.WriteAllBytes(filePath, decodedData);
+            using (var tmpStream = new MemoryStream())
+            {
+                documentStream.CopyTo(tmpStream);
+                var bytes = tmpStream.ToArray();
+                File.WriteAllBytes(filePath, bytes);
+            }
         }
 
         private DisposableWorkSpace GetWorkspace()

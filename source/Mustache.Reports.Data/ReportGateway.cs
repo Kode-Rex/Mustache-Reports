@@ -10,6 +10,7 @@ using TddBuddy.Synchronous.Process.Runner;
 using Mustache.Reports.Boundry.Report.Excel;
 using Mustache.Reports.Boundry.Report;
 using System;
+using System.Text;
 using TddBuddy.Synchronous.Process.Runner.PipeLineTask;
 
 namespace Mustache.Reports.Data
@@ -94,7 +95,8 @@ namespace Mustache.Reports.Data
         private RenderedDocummentOutput ReturnRenderedReport(PropertyPresenter<string, ErrorOutputMessage> presenter)
         {
             var base64Report = presenter.SuccessContent.TrimEnd('\r', '\n');
-            return new RenderedDocummentOutput {Base64String = base64Report};
+            var bytes = Convert.FromBase64String(base64Report);
+            return new RenderedDocummentOutput {DocumentStream = new MemoryStream(bytes) };
         }
 
         private RenderedDocummentOutput ReturnErrors(PropertyPresenter<string, ErrorOutputMessage> presenter)

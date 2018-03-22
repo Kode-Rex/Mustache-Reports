@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.Extensions.Configuration;
 using Mustache.Reports.Boundry.Report.Word;
 using Xunit;
@@ -20,7 +21,18 @@ namespace Mustache.Reports.Data.Tests
             var actual = wordGateway.CreateWordReport(input);
             //---------------Assert-------------------
             var expected = File.ReadAllText("Expected\\RenderedWordBase64.txt");
-            Assert.Equal(expected.Substring(0,50), actual.Base64String.Substring(0,50));
+            var actualBase64 = ConvertStreamToBase64String(actual.DocumentStream);
+            Assert.Equal(expected.Substring(0,50), actualBase64.Substring(0,50));
+        }
+
+        private string ConvertStreamToBase64String(Stream documentStream)
+        {
+            using (var stream = new MemoryStream())
+            {
+                documentStream.CopyTo(stream);
+                var bytes =  stream.ToArray();
+                return Convert.ToBase64String(bytes);
+            }
         }
 
         [Fact]
@@ -49,7 +61,8 @@ namespace Mustache.Reports.Data.Tests
             var actual = wordGateway.CreateExcelReport(input);
             //---------------Assert-------------------
             var expected = File.ReadAllText("Expected\\RenderedExcelBase64.txt");
-            Assert.Equal(expected.Substring(0, 50), actual.Base64String.Substring(0, 50));
+            var actualBase64 = ConvertStreamToBase64String(actual.DocumentStream);
+            Assert.Equal(expected.Substring(0, 50), actualBase64.Substring(0, 50));
         }
 
         [Fact]

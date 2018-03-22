@@ -1,8 +1,10 @@
-﻿namespace Mustache.Reports.Boundry.Pdf
+﻿using System.IO;
+
+namespace Mustache.Reports.Boundry.Pdf
 {
     public class RenderPdfInput
     {
-        public string Base64DocxReport { get; set; }
+        public Stream DocumentStream { get; set; }
         public string FileName { get; set; }
 
         public RenderPdfInput()
