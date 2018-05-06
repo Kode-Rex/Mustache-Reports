@@ -57,11 +57,11 @@ namespace Mustache.Reports.Data
 
                 if (InvalidReportTemplatePath(reportTemplatePath))
                 {
-                    return ReturnInvalidReportTemplatePathError(templateName);
+                    return ReturnInvalidReportTemplatePathError(reportTemplatePath.Item1);
                 }
 
                 var presenter = new PropertyPresenter<string, ErrorOutputMessage>();
-                RenderReport(reportTemplatePath, reportJsonPath, taskFactory, presenter);
+                RenderReport(reportTemplatePath.Item1, reportJsonPath, taskFactory, presenter);
 
                 return RenderingErrors(presenter) ? ReturnErrors(presenter) : ReturnRenderedReport(presenter);
             }
@@ -79,16 +79,16 @@ namespace Mustache.Reports.Data
             return presenter.IsErrorResponse();
         }
         
-        private RenderedDocummentOutput ReturnInvalidReportTemplatePathError(string templateName)
+        private RenderedDocummentOutput ReturnInvalidReportTemplatePathError(string templatePath)
         {
             var result = new RenderedDocummentOutput();
-            result.ErrorMessages.Add($"Invalid Report Type [{templateName}]");
+            result.ErrorMessages.Add($"Invalid Report Template [{templatePath}]");
             return result;
         }
 
-        private bool InvalidReportTemplatePath(string reportTemplatePath)
+        private bool InvalidReportTemplatePath(Tuple<string, bool> reportTemplatePath)
         {
-            return string.IsNullOrEmpty(reportTemplatePath);
+            return reportTemplatePath.Item2;
         }
 
         private RenderedDocummentOutput ReturnRenderedReport(PropertyPresenter<string, ErrorOutputMessage> presenter)
@@ -126,11 +126,16 @@ namespace Mustache.Reports.Data
             return new DisposableWorkSpace();
         }
 
-        private string FetchReportTemplatePath(string reportType, string extension)
+        private Tuple<string, bool> FetchReportTemplatePath(string reportType, string extension)
         {
             var path = Path.Combine(_templateLocation, $"{reportType.ToLower()}.{extension}");
             var pathExist = File.Exists(path);
-            return pathExist ? path : string.Empty;
+            if (pathExist)
+            {
+                return new Tuple<string, bool> ( path, true );
+            }
+
+            return new Tuple<string, bool>(path, false);
         }
     }
 }
