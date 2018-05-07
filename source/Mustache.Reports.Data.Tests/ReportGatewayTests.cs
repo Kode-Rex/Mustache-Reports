@@ -3,6 +3,10 @@ using Microsoft.Extensions.Configuration;
 using Mustache.Reports.Boundry.Report.Word;
 using Xunit;
 using Mustache.Reports.Boundry.Report.Excel;
+using Microsoft.Extensions.Options;
+using System.Reflection;
+using NSubstitute;
+using Newtonsoft.Json;
 
 namespace Mustache.Reports.Data.Tests
 {
@@ -21,20 +25,6 @@ namespace Mustache.Reports.Data.Tests
             //---------------Assert-------------------
             var expected = File.ReadAllText("Expected\\RenderedWordBase64.txt");
             Assert.Equal(expected.Substring(0,50), actual.Base64String.Substring(0,50));
-        }
-
-        [Fact]
-        public void CreateWordReport_WhenInvalidTemplateName_ShouldReturnTemplateNameError()
-        {
-            //---------------Arrange------------------
-            var configuration = SetupConfiguration();
-            var wordGateway = new ReportGateway(configuration);
-            var input = new RenderWordInput { JsonModel = "", ReportName = "test.docx", TemplateName = "INVALID_NAME" };
-            //---------------Act----------------------
-            var actual = wordGateway.CreateWordReport(input);
-            //---------------Assert-------------------
-            Assert.True(actual.HasErrors());
-            Assert.Equal("Invalid Report Type [INVALID_NAME]", actual.ErrorMessages[0]);
         }
 
         [Fact]
@@ -63,17 +53,39 @@ namespace Mustache.Reports.Data.Tests
             var actual = wordGateway.CreateExcelReport(input);
             //---------------Assert-------------------
             Assert.True(actual.HasErrors());
-            Assert.Equal("Invalid Report Type [INVALID_NAME]", actual.ErrorMessages[0]);
+            Assert.Contains("Invalid Report Template", actual.ErrorMessages[0]);
+            Assert.Contains("invalid_name.xlsx", actual.ErrorMessages[0]);
         }
 
-        private static IConfigurationRoot SetupConfiguration()
+        private static IOptions<MustacheReportOptions> SetupConfiguration()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             var configuration = builder.Build();
-            return configuration;
+            string data = GetAppSettingJsonData();
+
+            // ustacheReportOptions
+            var reportOptions = JsonConvert.DeserializeObject<MustacheReportOptionsWrapper>(data);
+
+            var result = Substitute.For<IOptions<MustacheReportOptions>>();
+            result.Value.Returns(reportOptions.MustacheReportOptions);
+
+            return result;
+        }
+
+        private static string GetAppSettingJsonData()
+        {
+            var filePath = Directory.GetCurrentDirectory();
+            var settingsPath = Path.Combine(filePath, "appsettings.json");
+            var data = File.ReadAllText(settingsPath);
+            return data;
+        }
+
+        public class MustacheReportOptionsWrapper
+        {
+            public MustacheReportOptions MustacheReportOptions { get; set; }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Mustache.Reports.Boundry;
 using Mustache.Reports.Boundry.Pdf;
 using Mustache.Reports.Data.PdfRendering;
@@ -14,9 +15,9 @@ namespace Mustache.Reports.Data
     {
         private readonly string _libreOffice;
 
-        public PdfGateway(IConfiguration configuration)
+        public PdfGateway(IOptions<MustacheReportOptions> options)
         {
-            _libreOffice = configuration["Reporting:LibreOfficeLocation"];
+            _libreOffice = options.Value.LibreOfficeLocation;
         }
 
         public RenderedDocummentOutput ConvertToPdf(RenderPdfInput inputMessage)

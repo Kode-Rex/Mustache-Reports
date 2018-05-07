@@ -11,18 +11,18 @@ using Mustache.Reports.Boundry.Report.Excel;
 using Mustache.Reports.Boundry.Report;
 using System;
 using TddBuddy.Synchronous.Process.Runner.PipeLineTask;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 
 namespace Mustache.Reports.Data
 {
     public class ReportGateway : IReportGateway
     {
-        private readonly string _templateLocation;
-        private readonly string _nodeAppLocation;
+        private readonly MustacheReportOptions _options;
 
-        public ReportGateway(IConfiguration configuration)
+        public ReportGateway(IOptions<MustacheReportOptions> options)
         {
-            _templateLocation = configuration["Reporting:RelativeReportTemplateLocation"];
-            _nodeAppLocation = configuration["Reporting:RelativeNodeAppLocation"];
+            _options = options.Value;
         }
 
         public RenderedDocummentOutput CreateWordReport(RenderWordInput input)
@@ -57,11 +57,11 @@ namespace Mustache.Reports.Data
 
                 if (InvalidReportTemplatePath(reportTemplatePath))
                 {
-                    return ReturnInvalidReportTemplatePathError(reportTemplatePath.Item1);
+                    return ReturnInvalidReportTemplatePathError(reportTemplatePath);
                 }
 
                 var presenter = new PropertyPresenter<string, ErrorOutputMessage>();
-                RenderReport(reportTemplatePath.Item1, reportJsonPath, taskFactory, presenter);
+                RenderReport(reportTemplatePath, reportJsonPath, taskFactory, presenter);
 
                 return RenderingErrors(presenter) ? ReturnErrors(presenter) : ReturnRenderedReport(presenter);
             }
@@ -86,9 +86,9 @@ namespace Mustache.Reports.Data
             return result;
         }
 
-        private bool InvalidReportTemplatePath(Tuple<string, bool> reportTemplatePath)
+        private bool InvalidReportTemplatePath(string reportTemplatePath)
         {
-            return reportTemplatePath.Item2;
+            return !File.Exists(reportTemplatePath);
         }
 
         private RenderedDocummentOutput ReturnRenderedReport(PropertyPresenter<string, ErrorOutputMessage> presenter)
@@ -109,7 +109,7 @@ namespace Mustache.Reports.Data
                                   Func<string, string, string, NodePipeLineTask> taskFactory, 
                                   IRespondWithSuccessOrError<string, ErrorOutputMessage> presenter)
         {
-            var nodeAppPath = Path.Combine(_nodeAppLocation, "cmdLineRender.js");
+            var nodeAppPath = Path.Combine(_options.NodeApp.RootDirectory, "cmdLineRender.js");
             var task = taskFactory.Invoke(nodeAppPath, reportTemplatePath, reportJsonPath);
 
             var executor = new SynchronousAction(task, new ProcessFactory());
@@ -126,16 +126,14 @@ namespace Mustache.Reports.Data
             return new DisposableWorkSpace();
         }
 
-        private Tuple<string, bool> FetchReportTemplatePath(string reportType, string extension)
+        private string FetchReportTemplatePath(string reportName, string extension)
         {
-            var path = Path.Combine(_templateLocation, $"{reportType.ToLower()}.{extension}");
-            var pathExist = File.Exists(path);
-            if (pathExist)
+            var prefix = string.Empty;
+            if (_options.Template.IsRelative)
             {
-                return new Tuple<string, bool> ( path, true );
+                prefix = Directory.GetCurrentDirectory();
             }
-
-            return new Tuple<string, bool>(path, false);
+            return Path.Combine(prefix, _options.Template.RootDirectory, $"{reportName.ToLower()}.{extension}");
         }
     }
 }
