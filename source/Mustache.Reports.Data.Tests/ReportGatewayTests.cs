@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using System.Reflection;
 using NSubstitute;
 using Newtonsoft.Json;
+using Mustache.Reports.Boundry;
 
 namespace Mustache.Reports.Data.Tests
 {
