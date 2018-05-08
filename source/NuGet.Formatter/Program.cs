@@ -8,7 +8,7 @@ namespace NugetFile.Formater
     {
         static void Main(string[] args)
         {
-            var fileLocation = @"C:\Users\travis\.nuget\packages\mustache.reports.data\1.1.1\mustache.reports.data.nuspec";
+            var fileLocation = @"C:\Users\travis\.nuget\packages\mustache.reports.data\1.2.1\mustache.reports.data.nuspec";
             var fileoutput = @"D:\Systems\Mustache-Reports-Example\nuget-packages\.targets.txt";
             var data = File.ReadAllText(fileLocation);
 
@@ -21,6 +21,20 @@ namespace NugetFile.Formater
                 if (match.Success)
                 {
                     var value = match.Value;
+                    if(value.Contains("/test/") 
+                        || value.Contains("/spec/") 
+                        || value.Contains("/jasmine")
+                        || value.Contains(".travis.yml")
+                        || value.ToUpper().Contains("README.MD")
+                        || value.ToUpper().Contains("/README")
+                        || value.ToUpper().Contains("HISTORY.MD")
+                        )
+                    {
+                        // skip test stuff
+                        match = match.NextMatch();
+                        continue;
+                    }
+
                     value = value.Replace("any/netcoreapp2.0/", "");
                     value = value.Replace("/", "\\");
 

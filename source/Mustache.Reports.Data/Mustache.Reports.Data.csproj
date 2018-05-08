@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <Authors>Travis Frisinger</Authors>
     <Company>StoneAge Technologies</Company>
     <Product>Mustache Reports - Data</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Moved configuration into boundry class</PackageReleaseNotes>
-    <AssemblyVersion>1.2.1.0</AssemblyVersion>
-    <FileVersion>1.2.1.0</FileVersion>
+    <PackageReleaseNotes>Fixed bug with single item array containing object in xlxs-templater application</PackageReleaseNotes>
+    <AssemblyVersion>1.2.2.0</AssemblyVersion>
+    <FileVersion>1.2.2.0</FileVersion>
     <Description>The MustachReports.Data package</Description>
   </PropertyGroup>
 
@@ -34,7 +34,7 @@
   </ItemGroup>
   
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="REM mkdir node_modules directory&#xD;&#xA;rd /S /Q &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;mkdir &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;REM copy node_modules into location IIS Express runs from&#xD;&#xA;xcopy &quot;$(SolutionDir)Mustache.Reports.NodeJS\node_modules&quot; &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; /s /I /y /d" />
+    <Exec Command="REM mkdir node_modules directory&#xD;&#xA;rd /S /Q &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;mkdir &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;REM copy node_modules into location runtime location&#xD;&#xA;xcopy &quot;$(SolutionDir)Mustache.Reports.NodeJS\node_modules&quot; &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; /s /I /y /d" />
   </Target>
 
 </Project>
