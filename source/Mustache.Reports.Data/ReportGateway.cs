@@ -27,33 +27,46 @@ namespace Mustache.Reports.Data
 
         public RenderedDocummentOutput CreateWordReport(RenderWordInput input)
         {
-            Func<string, string, string, NodePipeLineTask> renderFactory = (nodeAppPath, reportTemplatePath, reportJsonPath) =>
+            Func<string, ReportGenerationArguments, NodePipeLineTask> renderFactory = (nodeAppPath, arguements) =>
             {
-                return new WordRender(nodeAppPath, reportTemplatePath, reportJsonPath);
+                return new WordRender(nodeAppPath, arguements.TemplatePath, arguements.JsonPath);
             };
 
-            return CreateReport(input.JsonModel.ToString(), input.TemplateName, "docx", renderFactory);
+            var factoryArguments = new ReportFactoryArguments
+            {
+                ReportJson = input.JsonModel.ToString(),
+                TemplateName = input.TemplateName,
+                Extension = "docx"
+            };
+
+            return CreateReport(factoryArguments, renderFactory);
         }
 
         public RenderedDocummentOutput CreateExcelReport(RenderExcelInput input)
         {
-            Func<string, string, string, NodePipeLineTask> renderFactory = (nodeAppPath, reportTemplatePath, reportJsonPath) =>
+            Func<string, ReportGenerationArguments, NodePipeLineTask> renderFactory = (nodeAppPath, arguments) =>
             {
-                return new ExcelRender(nodeAppPath, reportTemplatePath, reportJsonPath);
+                return new ExcelRender(nodeAppPath, arguments.TemplatePath, arguments.JsonPath, arguments.SheetNumber);
             };
 
-            return CreateReport(input.JsonModel.ToString(), input.TemplateName, "xlsx", renderFactory);
+            var factoryArguments = new ReportFactoryArguments
+            {
+                ReportJson = input.JsonModel.ToString(),
+                TemplateName = input.TemplateName,
+                Extension = "xlsx",
+                SheetNumber = input.SheetNumber
+            };
+
+            return CreateReport(factoryArguments, renderFactory);
         }
 
-        private RenderedDocummentOutput CreateReport(string jsonModel, 
-                                                    string templateName, 
-                                                    string extension, 
-                                                    Func<string, string, string, NodePipeLineTask> taskFactory)
+        private RenderedDocummentOutput CreateReport(ReportFactoryArguments arguements,
+                                                    Func<string, ReportGenerationArguments, NodePipeLineTask> taskFactory)
         {
             using (var renderDirectory = GetWorkspace())
             {
-                var reportJsonPath = PersitReportData(jsonModel, renderDirectory.TmpPath);
-                var reportTemplatePath = FetchReportTemplatePath(templateName, extension);
+                var reportJsonPath = PersitReportData(arguements.ReportJson, renderDirectory.TmpPath);
+                var reportTemplatePath = FetchReportTemplatePath(arguements.TemplateName, arguements.Extension);
 
                 if (InvalidReportTemplatePath(reportTemplatePath))
                 {
@@ -61,7 +74,13 @@ namespace Mustache.Reports.Data
                 }
 
                 var presenter = new PropertyPresenter<string, ErrorOutputMessage>();
-                RenderReport(reportTemplatePath, reportJsonPath, taskFactory, presenter);
+                var reportArguments = new ReportGenerationArguments
+                {
+                    TemplatePath = reportTemplatePath,
+                    JsonPath = reportJsonPath,
+                    SheetNumber = arguements.SheetNumber
+                };
+                RenderReport(reportArguments, taskFactory, presenter);
 
                 return RenderingErrors(presenter) ? ReturnErrors(presenter) : ReturnRenderedReport(presenter);
             }
@@ -104,10 +123,21 @@ namespace Mustache.Reports.Data
             return result;
         }
 
-        private void RenderReport(string reportTemplatePath, 
-                                  string reportJsonPath, 
-                                  Func<string, string, string, NodePipeLineTask> taskFactory, 
+        private void RenderReport(ReportGenerationArguments arguments,
+                                  Func<string, ReportGenerationArguments, NodePipeLineTask> taskFactory, 
                                   IRespondWithSuccessOrError<string, ErrorOutputMessage> presenter)
+        {
+            var nodeAppPath = Path.Combine(_options.NodeApp.RootDirectory, "cmdLineRender.js");
+            var task = taskFactory.Invoke(nodeAppPath, arguments);
+
+            var executor = new SynchronousAction(task, new ProcessFactory());
+            executor.Execute(presenter);
+        }
+
+        private void RenderReport(string reportTemplatePath,
+                                 string reportJsonPath,
+                                 Func<string, string, string, NodePipeLineTask> taskFactory,
+                                 IRespondWithSuccessOrError<string, ErrorOutputMessage> presenter)
         {
             var nodeAppPath = Path.Combine(_options.NodeApp.RootDirectory, "cmdLineRender.js");
             var task = taskFactory.Invoke(nodeAppPath, reportTemplatePath, reportJsonPath);
@@ -133,7 +163,7 @@ namespace Mustache.Reports.Data
             {
                 prefix = Directory.GetCurrentDirectory();
             }
-            return Path.Combine(prefix, _options.Template.RootDirectory, $"{reportName.ToLower()}.{extension}");
+            return Path.Combine(prefix, _options.Template.RootDirectory, $"{reportName}.{extension}");
         }
     }
 }

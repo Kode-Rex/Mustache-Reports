@@ -4,10 +4,11 @@ var excelRender = require('./excelRender.js');
 var program = require('commander');
 
 program
-    .version('2.0.0')
+    .version('2.1.0')
     .option('-t, --template [value]', 'Path to docx or xlsx template')
     .option('-d, --data [value]', 'Path to data file to')
     .option('-r --reportType [word | excel]', 'The report type to run')
+    .option('-n --sheetNumber <n>', 'This option is for when generating excel reports specifying the sheet number to target', parseInt)
     .parse(process.argv);
 
 var stdout = process.stdout;
@@ -27,6 +28,7 @@ if (reportType === 'word') {
 if (reportType === 'excel') {
     var templateContent = fs.readFileSync(program.template, "binary");
     var render = new excelRender();
-    var reportAsBase64String = render.renderAsBase64(templateContent, data);
+
+    var reportAsBase64String = render.renderAsBase64(templateContent, data, program.sheetNumber);
     stdout.write(reportAsBase64String);
 }

@@ -48,14 +48,14 @@ namespace Mustache.Reports.Data.Tests
         {
             //---------------Arrange------------------
             var configuration = SetupConfiguration();
-            var wordGateway = new ReportGateway(configuration);
+            var reportGateway = new ReportGateway(configuration);
             var input = new RenderExcelInput { JsonModel = "", ReportName = "test.xslx", TemplateName = "INVALID_NAME" };
             //---------------Act----------------------
-            var actual = wordGateway.CreateExcelReport(input);
+            var actual = reportGateway.CreateExcelReport(input);
             //---------------Assert-------------------
             Assert.True(actual.HasErrors());
             Assert.Contains("Invalid Report Template", actual.ErrorMessages[0]);
-            Assert.Contains("invalid_name.xlsx", actual.ErrorMessages[0]);
+            Assert.Contains("INVALID_NAME.xlsx", actual.ErrorMessages[0]);
         }
 
         private static IOptions<MustacheReportOptions> SetupConfiguration()

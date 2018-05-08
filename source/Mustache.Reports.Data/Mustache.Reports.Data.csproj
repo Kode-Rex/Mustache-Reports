@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <Version>1.2.2</Version>
+    <Version>1.2.3</Version>
     <Authors>Travis Frisinger</Authors>
     <Company>StoneAge Technologies</Company>
     <Product>Mustache Reports - Data</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Fixed bug with single item array containing object in xlxs-templater application</PackageReleaseNotes>
-    <AssemblyVersion>1.2.2.0</AssemblyVersion>
-    <FileVersion>1.2.2.0</FileVersion>
+    <PackageReleaseNotes>Added ability to specify sheet number when creating excel report</PackageReleaseNotes>
+    <AssemblyVersion>1.2.3.0</AssemblyVersion>
+    <FileVersion>1.2.3.0</FileVersion>
     <Description>The MustachReports.Data package</Description>
   </PropertyGroup>
 
@@ -24,7 +24,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.1" />
-    <PackageReference Include="Mustache.Reports.Boundry" Version="1.0.7" />
+    <PackageReference Include="Mustache.Reports.Boundry" Version="1.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="TddBuddy.Synchronous.Process.Runner.DotNetCore" Version="1.1.0" />
   </ItemGroup>

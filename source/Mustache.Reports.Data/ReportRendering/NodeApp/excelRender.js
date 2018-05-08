@@ -2,14 +2,12 @@ var xlsxTemplate = require('xlsx-template');
 
 function ExcelRender(){}
 
-ExcelRender.prototype.renderAsBase64 = function(templateContent, reportData){
+ExcelRender.prototype.renderAsBase64 = function(templateContent, reportData, sheetNumber){
     var template = new xlsxTemplate(templateContent);
 
-    // Replacements take place on first sheet
-    var sheetNumber = 1;
-
+    var x = 1;
     // Perform substitution
-    template.substitute(sheetNumber, reportData);
+    template.substitute(x, reportData);
 
     // Get data
     var result = template.generate({ type: "base64" });
