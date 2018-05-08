@@ -9,7 +9,7 @@
 
         public RenderExcelInput()
         {
-            ReportName = "report.xslx";
+            ReportName = "report.xlsx";
             SheetNumber = 1;
         }
     }
