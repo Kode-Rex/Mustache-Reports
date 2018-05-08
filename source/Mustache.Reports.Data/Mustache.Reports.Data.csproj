@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <Version>1.2.4</Version>
+    <Version>1.2.5</Version>
     <Authors>Travis Frisinger</Authors>
     <Company>StoneAge Technologies</Company>
     <Product>Mustache Reports - Data</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Added ability to specify sheet number when creating excel report</PackageReleaseNotes>
-    <AssemblyVersion>1.2.4.0</AssemblyVersion>
-    <FileVersion>1.2.4.0</FileVersion>
+    <PackageReleaseNotes>Added ability to specify sheet number when creating excel report and fixed node_moduels pathing issues</PackageReleaseNotes>
+    <AssemblyVersion>1.2.5.0</AssemblyVersion>
+    <FileVersion>1.2.5.0</FileVersion>
     <Description>The MustachReports.Data package</Description>
   </PropertyGroup>
 
@@ -34,7 +34,7 @@
   </ItemGroup>
   
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="REM mkdir node_modules directory&#xD;&#xA;rd /S /Q &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;mkdir &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;REM copy node_modules into location runtime location&#xD;&#xA;xcopy &quot;$(SolutionDir)Mustache.Reports.NodeJS\node_modules&quot; &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; /s /I /y /d" />
+    <Exec Command="REM mkdir node_modules directory&#xD;&#xA;rd /S /Q &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;mkdir &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;REM copy node_modules into location runtime location&#xD;&#xA;xcopy &quot;$(SolutionDir)Mustache.Reports.NodeJS\node_modules&quot; &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; /s /I /y /d&#xD;&#xA;xcopy &quot;$(SolutionDir)Mustache.Reports.NodeJS\*.json&quot; &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp&quot; /s /I /y /d" />
   </Target>
 
 </Project>

@@ -8,8 +8,8 @@ namespace NugetFile.Formater
     {
         static void Main(string[] args)
         {
-            var fileLocation = @"C:\Users\travis\.nuget\packages\mustache.reports.data\1.2.1\mustache.reports.data.nuspec";
-            var fileoutput = @"D:\Systems\Mustache-Reports-Example\nuget-packages\.targets.txt";
+            var fileLocation = @"C:\Users\travis\.nuget\packages\mustache.reports.data\1.2.4\mustache.reports.data.nuspec";
+            var fileoutput = @"D:\Systems\Mustache-Reports-Example\nuget-packages\.targets-2.txt";
             var data = File.ReadAllText(fileLocation);
 
             var itemGroupTemplate = "<ItemGroup> <Content Include=\"$(MSBuildThisFileDirectory)..\\..\\content\\{0}\"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory><Link>{0}</Link><Visible>false</Visible></Content></ItemGroup>";
