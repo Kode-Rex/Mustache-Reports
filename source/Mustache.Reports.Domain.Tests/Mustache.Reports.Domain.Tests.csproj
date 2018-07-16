@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mustache.Reports.Domain\Mustache.Reports.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Update="Microsoft.NETCore.App" Version="2.0.7" />
   </ItemGroup>
 
