@@ -20,8 +20,8 @@ This example makes use of TddBuddy's Clean Architecture and Synchronous Process 
  
 + Synchronous Process Runner - DotNetCore
    - Install-Package TddBuddy.Synchronous.Process.Runner.DotNetCore
-   - Source @ https://github.com/T-rav/Synchronous-Process-Runner-DotNetCore
+   - Source @ https://github.com/StoneAgeTechnologies/Synchronous-Process-Runner-DotNetCore
  
 + Clean Architecture Domain - DotNetCore
    - Install-Package TddBuddy.CleanArchitecture.Domain.DotNetCore
-   - Source @ https://github.com/T-rav/CleanArchitecture-DotNetCore.git
+   - Source @ https://github.com/StoneAgeTechnologies/CleanArchitecture-DotNetCore.git
