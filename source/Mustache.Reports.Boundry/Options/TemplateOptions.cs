@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mustache.Reports.Boundry
+﻿namespace Mustache.Reports.Boundry.Options
 {
     public class TemplateOptions
     {

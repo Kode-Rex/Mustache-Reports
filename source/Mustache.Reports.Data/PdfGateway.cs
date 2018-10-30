@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Mustache.Reports.Boundry;
+using Mustache.Reports.Boundry.Options;
 using Mustache.Reports.Boundry.Pdf;
 using Mustache.Reports.Data.PdfRendering;
-using TddBuddy.CleanArchitecture.Domain.Messages;
-using TddBuddy.CleanArchitecture.Domain.Presenters;
-using TddBuddy.Synchronous.Process.Runner;
+using StoneAge.CleanArchitecture.Domain.Messages;
+using StoneAge.CleanArchitecture.Domain.Presenters;
+using StoneAge.Synchronous.Process.Runner;
 
 namespace Mustache.Reports.Data
 {
@@ -24,7 +24,7 @@ namespace Mustache.Reports.Data
         {
             using (var renderDirectory = GetWorkspace())
             {
-                var pdfPresenter = new PropertyPresenter<string, ErrorOutputMessage>();
+                var pdfPresenter = new PropertyPresenter<string, ErrorOutput>();
 
                 var reportPath = PersistDocxFile(inputMessage, renderDirectory);
 
@@ -34,14 +34,14 @@ namespace Mustache.Reports.Data
             }
         }
 
-        private void CovertToPdf(string reportPath, DisposableWorkSpace renderDirectory, PropertyPresenter<string, ErrorOutputMessage> pdfPresenter)
+        private void CovertToPdf(string reportPath, DisposableWorkSpace renderDirectory, PropertyPresenter<string, ErrorOutput> pdfPresenter)
         {
             var executor = new SynchronousAction(new DocxToPdfTask(_libreOffice, reportPath, renderDirectory.TmpPath),
                 new ProcessFactory());
             executor.Execute(pdfPresenter);
         }
 
-        private bool RenderingErrors(PropertyPresenter<string, ErrorOutputMessage> presenter)
+        private bool RenderingErrors(PropertyPresenter<string, ErrorOutput> presenter)
         {
             return presenter.IsErrorResponse();
         }
@@ -63,7 +63,7 @@ namespace Mustache.Reports.Data
             return reportPath;
         }
 
-        private RenderedDocummentOutput ReturnErrors(PropertyPresenter<string, ErrorOutputMessage> presenter)
+        private RenderedDocummentOutput ReturnErrors(PropertyPresenter<string, ErrorOutput> presenter)
         {
             var result = new RenderedDocummentOutput();
             result.ErrorMessages.AddRange(presenter.ErrorContent.Errors);

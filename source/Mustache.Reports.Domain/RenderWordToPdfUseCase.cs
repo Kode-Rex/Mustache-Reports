@@ -1,8 +1,8 @@
 ﻿using System;
 using Mustache.Reports.Boundry;
 using Mustache.Reports.Boundry.Pdf;
-using TddBuddy.CleanArchitecture.Domain.Messages;
-using TddBuddy.CleanArchitecture.Domain.Output;
+using StoneAge.CleanArchitecture.Domain.Messages;
+using StoneAge.CleanArchitecture.Domain.Output;
 
 namespace Mustache.Reports.Domain
 {
@@ -15,7 +15,7 @@ namespace Mustache.Reports.Domain
             _pdfGateway = pdfGateway ?? throw new ArgumentNullException(nameof(pdfGateway));
         }
 
-        public void Execute(RenderPdfInput inputTo, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
+        public void Execute(RenderPdfInput inputTo, IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter)
         {
             var output = _pdfGateway.ConvertToPdf(inputTo);
 
@@ -27,17 +27,17 @@ namespace Mustache.Reports.Domain
             RespondWithPdf(inputTo, presenter, output);
         }
 
-        private void RespondWithPdf(RenderPdfInput inputTo, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter,
+        private void RespondWithPdf(RenderPdfInput inputTo, IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter,
             RenderedDocummentOutput output)
         {
             presenter.Respond(new PdfFileOutput(inputTo.FileName, output.FetchDocumentAsByteArray()));
         }
 
-        private void RespondWithErrors(IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedDocummentOutput output)
+        private void RespondWithErrors(IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter, RenderedDocummentOutput output)
         {
-            var errorOutputMessage = new ErrorOutputMessage();
-            errorOutputMessage.AddErrors(output.ErrorMessages);
-            presenter.Respond(errorOutputMessage);
+            var errorOutput = new ErrorOutput();
+            errorOutput.AddErrors(output.ErrorMessages);
+            presenter.Respond(errorOutput);
         }
 
         private bool RenderErrors(RenderedDocummentOutput output)

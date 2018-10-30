@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mustache.Reports.Data.ReportRendering
+﻿namespace Mustache.Reports.Data.ReportRendering
 {
     public class ReportGenerationArguments
     {

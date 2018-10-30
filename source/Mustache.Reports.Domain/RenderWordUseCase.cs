@@ -1,9 +1,9 @@
 ﻿using System;
 using Mustache.Reports.Boundry;
 using Mustache.Reports.Boundry.Report.Word;
-using TddBuddy.CleanArchitecture.Domain.Messages;
-using TddBuddy.CleanArchitecture.Domain.Output;
 using Mustache.Reports.Boundry.Report;
+using StoneAge.CleanArchitecture.Domain.Messages;
+using StoneAge.CleanArchitecture.Domain.Output;
 
 namespace Mustache.Reports.Domain
 {
@@ -16,7 +16,7 @@ namespace Mustache.Reports.Domain
             _wordGateway = wordGateway ?? throw new ArgumentNullException(nameof(wordGateway));
         }
 
-        public void Execute(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter)
+        public void Execute(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter)
         {
             var result = _wordGateway.CreateWordReport(inputInput);
 
@@ -29,16 +29,16 @@ namespace Mustache.Reports.Domain
             RespondWithFile(inputInput, presenter, result);
         }
 
-        private void RespondWithFile(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedDocummentOutput result)
+        private void RespondWithFile(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter, RenderedDocummentOutput result)
         {
             var reportMessage = new WordFileOutput(inputInput.ReportName, result.FetchDocumentAsByteArray());
 
             presenter.Respond(reportMessage);
         }
 
-        private void RespondWithErrors(IRespondWithSuccessOrError<IFileOutput, ErrorOutputMessage> presenter, RenderedDocummentOutput result)
+        private void RespondWithErrors(IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter, RenderedDocummentOutput result)
         {
-            var errors = new ErrorOutputMessage();
+            var errors = new ErrorOutput();
             errors.AddErrors(result.ErrorMessages);
             presenter.Respond(errors);
         }

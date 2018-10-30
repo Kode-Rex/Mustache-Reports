@@ -1,5 +1,5 @@
-﻿using TddBuddy.CleanArchitecture.Domain;
-using TddBuddy.CleanArchitecture.Domain.Output;
+﻿using StoneAge.CleanArchitecture.Domain;
+using StoneAge.CleanArchitecture.Domain.Output;
 
 namespace Mustache.Reports.Boundry.Pdf
 {

@@ -5,7 +5,7 @@ namespace Mustache.Reports.Data
 {
     public class DisposableWorkSpace : IDisposable
     {
-        public string TmpPath { get; private set; }
+        public string TmpPath { get; }
 
         public DisposableWorkSpace()
         {

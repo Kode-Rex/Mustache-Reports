@@ -2,15 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <Version>1.2.9</Version>
+    <Version>1.2.11</Version>
     <Authors>Travis Frisinger</Authors>
     <Company>StoneAge Technologies</Company>
     <Product>Mustache Reports - Data</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Targets dotnetcore 2.1</PackageReleaseNotes>
-    <AssemblyVersion>1.2.9.0</AssemblyVersion>
-    <FileVersion>1.2.9.0</FileVersion>
+    <PackageReleaseNotes>Now using StoneAge packages</PackageReleaseNotes>
+    <AssemblyVersion>1.2.11.0</AssemblyVersion>
+    <FileVersion>1.2.11.0</FileVersion>
     <Description>The MustachReports.Data package</Description>
+    <PackageProjectUrl>https://github.com/StoneAgeTechnologies/Mustache-Reports</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,9 +25,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
-    <PackageReference Include="Mustache.Reports.Boundry" Version="1.0.8" />
+    <PackageReference Include="Mustache.Reports.Boundry" Version="1.0.9" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="TddBuddy.Synchronous.Process.Runner.DotNetCore" Version="2.0.2" />
+    <PackageReference Include="StoneAge.Synchronous.Process.Runner.DotNetCore" Version="2.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="StoneAge.CleanArchitecture.Domain">
+      <HintPath>..\..\..\..\Users\travis-pc\.nuget\packages\stoneage.cleanarchitecture.domain.dotnetcore\3.7.2\lib\netcoreapp2.1\StoneAge.CleanArchitecture.Domain.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

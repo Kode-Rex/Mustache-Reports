@@ -1,18 +1,17 @@
 ﻿using System.IO;
-using Microsoft.Extensions.Configuration;
 using Mustache.Reports.Boundry;
 using Mustache.Reports.Boundry.Report.Word;
 using Mustache.Reports.Data.ReportRendering;
-using TddBuddy.CleanArchitecture.Domain.Messages;
-using TddBuddy.CleanArchitecture.Domain.Output;
-using TddBuddy.CleanArchitecture.Domain.Presenters;
-using TddBuddy.Synchronous.Process.Runner;
 using Mustache.Reports.Boundry.Report.Excel;
 using Mustache.Reports.Boundry.Report;
 using System;
-using TddBuddy.Synchronous.Process.Runner.PipeLineTask;
-using Newtonsoft.Json;
 using Microsoft.Extensions.Options;
+using Mustache.Reports.Boundry.Options;
+using StoneAge.CleanArchitecture.Domain.Messages;
+using StoneAge.CleanArchitecture.Domain.Presenters;
+using StoneAge.Synchronous.Process.Runner;
+using StoneAge.Synchronous.Process.Runner.PipeLineTask;
+using StoneAge.CleanArchitecture.Domain.Output;
 
 namespace Mustache.Reports.Data
 {
@@ -73,7 +72,7 @@ namespace Mustache.Reports.Data
                     return ReturnInvalidReportTemplatePathError(reportTemplatePath);
                 }
 
-                var presenter = new PropertyPresenter<string, ErrorOutputMessage>();
+                var presenter = new PropertyPresenter<string, ErrorOutput>();
                 var reportArguments = new ReportGenerationArguments
                 {
                     TemplatePath = reportTemplatePath,
@@ -93,7 +92,7 @@ namespace Mustache.Reports.Data
             return reportJsonPath;
         }
         
-        private bool RenderingErrors(PropertyPresenter<string, ErrorOutputMessage> presenter)
+        private bool RenderingErrors(PropertyPresenter<string, ErrorOutput> presenter)
         {
             return presenter.IsErrorResponse();
         }
@@ -110,13 +109,13 @@ namespace Mustache.Reports.Data
             return !File.Exists(reportTemplatePath);
         }
 
-        private RenderedDocummentOutput ReturnRenderedReport(PropertyPresenter<string, ErrorOutputMessage> presenter)
+        private RenderedDocummentOutput ReturnRenderedReport(PropertyPresenter<string, ErrorOutput> presenter)
         {
             var base64Report = presenter.SuccessContent.TrimEnd('\r', '\n');
             return new RenderedDocummentOutput {Base64String = base64Report};
         }
 
-        private RenderedDocummentOutput ReturnErrors(PropertyPresenter<string, ErrorOutputMessage> presenter)
+        private RenderedDocummentOutput ReturnErrors(PropertyPresenter<string, ErrorOutput> presenter)
         {
             var result = new RenderedDocummentOutput();
             result.ErrorMessages.AddRange(presenter.ErrorContent.Errors);
@@ -125,22 +124,10 @@ namespace Mustache.Reports.Data
 
         private void RenderReport(ReportGenerationArguments arguments,
                                   Func<string, ReportGenerationArguments, NodePipeLineTask> taskFactory, 
-                                  IRespondWithSuccessOrError<string, ErrorOutputMessage> presenter)
+                                  IRespondWithSuccessOrError<string, ErrorOutput> presenter)
         {
             var nodeAppPath = Path.Combine(_options.NodeApp.RootDirectory, "cmdLineRender.js");
             var task = taskFactory.Invoke(nodeAppPath, arguments);
-
-            var executor = new SynchronousAction(task, new ProcessFactory());
-            executor.Execute(presenter);
-        }
-
-        private void RenderReport(string reportTemplatePath,
-                                 string reportJsonPath,
-                                 Func<string, string, string, NodePipeLineTask> taskFactory,
-                                 IRespondWithSuccessOrError<string, ErrorOutputMessage> presenter)
-        {
-            var nodeAppPath = Path.Combine(_options.NodeApp.RootDirectory, "cmdLineRender.js");
-            var task = taskFactory.Invoke(nodeAppPath, reportTemplatePath, reportJsonPath);
 
             var executor = new SynchronousAction(task, new ProcessFactory());
             executor.Execute(presenter);
