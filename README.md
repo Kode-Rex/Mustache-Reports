@@ -1,4 +1,4 @@
-# Mustache-Reports-Example
+# Mustache-Reports
 An example of using the mustache reports server code base to generate reports in docx using node and LibreOffice to convert to PDF.
 
 _You will need to make sure both node and libreoffice 5 are installed on your computer to run this example._
