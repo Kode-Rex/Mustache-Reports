@@ -20,7 +20,7 @@ namespace Mustache.Reports.Data
             _libreOffice = options.Value.LibreOfficeLocation;
         }
 
-        public RenderedDocummentOutput ConvertToPdf(RenderPdfInput inputMessage)
+        public RenderedDocumentOutput ConvertToPdf(RenderPdfInput inputMessage)
         {
             using (var renderDirectory = GetWorkspace())
             {
@@ -46,10 +46,10 @@ namespace Mustache.Reports.Data
             return presenter.IsErrorResponse();
         }
 
-        private RenderedDocummentOutput ReturnPdf(string reportPath)
+        private RenderedDocumentOutput ReturnPdf(string reportPath)
         {
             var pdfPath = reportPath.Replace(".docx", ".pdf");
-            var result = new RenderedDocummentOutput
+            var result = new RenderedDocumentOutput
             {
                 Base64String = Convert.ToBase64String(File.ReadAllBytes(pdfPath))
             };
@@ -63,9 +63,9 @@ namespace Mustache.Reports.Data
             return reportPath;
         }
 
-        private RenderedDocummentOutput ReturnErrors(PropertyPresenter<string, ErrorOutput> presenter)
+        private RenderedDocumentOutput ReturnErrors(PropertyPresenter<string, ErrorOutput> presenter)
         {
-            var result = new RenderedDocummentOutput();
+            var result = new RenderedDocumentOutput();
             result.ErrorMessages.AddRange(presenter.ErrorContent.Errors);
             return result;
         }

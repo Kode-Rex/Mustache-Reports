@@ -11,12 +11,12 @@ WordRender.prototype.getOptions = function(){
 	opts.centered = false;
 
 	function generateTransparent1pxImage(){
-		return new Buffer("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7","base64").toString("binary");
+		return new Buffer.from("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7","base64").toString("binary");
 	}
 
 	opts.getImage = function (tagValue, tagName) {
 		if(tagValue.data){
-			 return new Buffer(tagValue.data,'base64').toString('binary');
+			 return new Buffer.from(tagValue.data,'base64').toString('binary');
 		}
 
 		return generateTransparent1pxImage();

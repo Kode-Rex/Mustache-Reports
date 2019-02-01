@@ -9,7 +9,7 @@ namespace Mustache.Reports.Boundry.Tests
         {
             //---------------Arrange------------------
             //---------------Act----------------------
-            var renderedDocumentOutput = new RenderedDocummentOutput();
+            var renderedDocumentOutput = new RenderedDocumentOutput();
             //---------------Assert-------------------
             Assert.NotNull(renderedDocumentOutput.ErrorMessages);
         }
@@ -19,7 +19,7 @@ namespace Mustache.Reports.Boundry.Tests
         {
             //---------------Arrange------------------
             //---------------Act----------------------
-            var renderedDocumentOutput = new RenderedDocummentOutput();
+            var renderedDocumentOutput = new RenderedDocumentOutput();
             //---------------Assert-------------------
             Assert.False(renderedDocumentOutput.HasErrors());
         }
@@ -28,7 +28,7 @@ namespace Mustache.Reports.Boundry.Tests
         public void HasErrors_Errors_ShouldReturnTrue()
         {
             //---------------Arrange------------------
-            var renderedDocumentOutput = new RenderedDocummentOutput();
+            var renderedDocumentOutput = new RenderedDocumentOutput();
             //---------------Act----------------------
             renderedDocumentOutput.ErrorMessages.Add("error 1");
             //---------------Assert-------------------
@@ -39,7 +39,7 @@ namespace Mustache.Reports.Boundry.Tests
         public void FetchDocumetnAsByteArray_WhenNullBase64String_ShouldReturnEmptyByteArray()
         {
             //---------------Arrange------------------
-            var renderedDocumentOutput = new RenderedDocummentOutput();
+            var renderedDocumentOutput = new RenderedDocumentOutput();
             //---------------Act----------------------
             //---------------Assert-------------------
             Assert.Empty(renderedDocumentOutput.FetchDocumentAsByteArray());
@@ -49,7 +49,7 @@ namespace Mustache.Reports.Boundry.Tests
         public void FetchDocumetnAsByteArray_WhenValidBase64String_ShouldReturnByteArray()
         {
             //---------------Arrange------------------
-            var renderedDocumentOutput = new RenderedDocummentOutput
+            var renderedDocumentOutput = new RenderedDocumentOutput
             {
                 //---------------Act----------------------
                 Base64String = "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"

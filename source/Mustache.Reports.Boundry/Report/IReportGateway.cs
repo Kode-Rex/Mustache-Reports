@@ -5,7 +5,7 @@ namespace Mustache.Reports.Boundry.Report
 {
     public interface IReportGateway
     {
-        RenderedDocummentOutput CreateWordReport(RenderWordInput input);
-        RenderedDocummentOutput CreateExcelReport(RenderExcelInput input);
+        RenderedDocumentOutput CreateWordReport(RenderWordInput input);
+        RenderedDocumentOutput CreateExcelReport(RenderExcelInput input);
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IPdfGateway
     {
-        RenderedDocummentOutput ConvertToPdf(RenderPdfInput inputMessage);
+        RenderedDocumentOutput ConvertToPdf(RenderPdfInput inputMessage);
     }
 }

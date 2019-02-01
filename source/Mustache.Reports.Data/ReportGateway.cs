@@ -24,7 +24,7 @@ namespace Mustache.Reports.Data
             _options = options.Value;
         }
 
-        public RenderedDocummentOutput CreateWordReport(RenderWordInput input)
+        public RenderedDocumentOutput CreateWordReport(RenderWordInput input)
         {
             Func<string, ReportGenerationArguments, NodePipeLineTask> renderFactory = (nodeAppPath, arguements) =>
             {
@@ -41,7 +41,7 @@ namespace Mustache.Reports.Data
             return CreateReport(factoryArguments, renderFactory);
         }
 
-        public RenderedDocummentOutput CreateExcelReport(RenderExcelInput input)
+        public RenderedDocumentOutput CreateExcelReport(RenderExcelInput input)
         {
             Func<string, ReportGenerationArguments, NodePipeLineTask> renderFactory = (nodeAppPath, arguments) =>
             {
@@ -59,7 +59,7 @@ namespace Mustache.Reports.Data
             return CreateReport(factoryArguments, renderFactory);
         }
 
-        private RenderedDocummentOutput CreateReport(ReportFactoryArguments arguements,
+        private RenderedDocumentOutput CreateReport(ReportFactoryArguments arguements,
                                                     Func<string, ReportGenerationArguments, NodePipeLineTask> taskFactory)
         {
             using (var renderDirectory = GetWorkspace())
@@ -97,9 +97,9 @@ namespace Mustache.Reports.Data
             return presenter.IsErrorResponse();
         }
         
-        private RenderedDocummentOutput ReturnInvalidReportTemplatePathError(string templatePath)
+        private RenderedDocumentOutput ReturnInvalidReportTemplatePathError(string templatePath)
         {
-            var result = new RenderedDocummentOutput();
+            var result = new RenderedDocumentOutput();
             result.ErrorMessages.Add($"Invalid Report Template [{templatePath}]");
             return result;
         }
@@ -109,15 +109,15 @@ namespace Mustache.Reports.Data
             return !File.Exists(reportTemplatePath);
         }
 
-        private RenderedDocummentOutput ReturnRenderedReport(PropertyPresenter<string, ErrorOutput> presenter)
+        private RenderedDocumentOutput ReturnRenderedReport(PropertyPresenter<string, ErrorOutput> presenter)
         {
             var base64Report = presenter.SuccessContent.TrimEnd('\r', '\n');
-            return new RenderedDocummentOutput {Base64String = base64Report};
+            return new RenderedDocumentOutput {Base64String = base64Report};
         }
 
-        private RenderedDocummentOutput ReturnErrors(PropertyPresenter<string, ErrorOutput> presenter)
+        private RenderedDocumentOutput ReturnErrors(PropertyPresenter<string, ErrorOutput> presenter)
         {
-            var result = new RenderedDocummentOutput();
+            var result = new RenderedDocumentOutput();
             result.ErrorMessages.AddRange(presenter.ErrorContent.Errors);
             return result;
         }
@@ -126,11 +126,23 @@ namespace Mustache.Reports.Data
                                   Func<string, ReportGenerationArguments, NodePipeLineTask> taskFactory, 
                                   IRespondWithSuccessOrError<string, ErrorOutput> presenter)
         {
-            var nodeAppPath = Path.Combine(_options.NodeApp.RootDirectory, "cmdLineRender.js");
+            var nodeAppPath = Fetch_NodeApp_Path(_options.NodeApp);
+
             var task = taskFactory.Invoke(nodeAppPath, arguments);
 
             var executor = new SynchronousAction(task, new ProcessFactory());
             executor.Execute(presenter);
+        }
+
+        private string Fetch_NodeApp_Path(NodeAppOptions optionsNodeApp)
+        {
+            var prefix = string.Empty;
+            if (_options.Template.IsRelative)
+            {
+                prefix = Directory.GetCurrentDirectory();
+            }
+
+            return Path.Combine(prefix, _options.NodeApp.RootDirectory, "cmdLineRender.js");
         }
 
         private void WriteTo(string filePath, string data)

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Mustache.Reports.Boundry
 {
-    public class RenderedDocummentOutput
+    public class RenderedDocumentOutput
     {
         public string Base64String { get; set; }
         public List<string> ErrorMessages { get; set; }
 
-        public RenderedDocummentOutput()
+        public RenderedDocumentOutput()
         {
             ErrorMessages = new List<string>();
         }
