@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Extensions.Options;
-using Mustache.Reports.Boundry;
-using Mustache.Reports.Boundry.Options;
-using Mustache.Reports.Boundry.Pdf;
+using Mustache.Reports.Boundary;
+using Mustache.Reports.Boundary.Options;
+using Mustache.Reports.Boundary.Pdf;
 using Mustache.Reports.Data.PdfRendering;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Presenters;
@@ -51,7 +51,8 @@ namespace Mustache.Reports.Data
             var pdfPath = reportPath.Replace(".docx", ".pdf");
             var result = new RenderedDocumentOutput
             {
-                Base64String = Convert.ToBase64String(File.ReadAllBytes(pdfPath))
+                Base64String = Convert.ToBase64String(File.ReadAllBytes(pdfPath)),
+                ContentType = ContentTypes.Pdf
             };
             return result;
         }

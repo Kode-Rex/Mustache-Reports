@@ -1,12 +1,12 @@
 ﻿using System.IO;
-using Mustache.Reports.Boundry;
-using Mustache.Reports.Boundry.Report.Word;
 using Mustache.Reports.Data.ReportRendering;
-using Mustache.Reports.Boundry.Report.Excel;
-using Mustache.Reports.Boundry.Report;
 using System;
 using Microsoft.Extensions.Options;
-using Mustache.Reports.Boundry.Options;
+using Mustache.Reports.Boundary;
+using Mustache.Reports.Boundary.Options;
+using Mustache.Reports.Boundary.Report;
+using Mustache.Reports.Boundary.Report.Excel;
+using Mustache.Reports.Boundary.Report.Word;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Presenters;
 using StoneAge.Synchronous.Process.Runner;
@@ -38,7 +38,9 @@ namespace Mustache.Reports.Data
                 Extension = "docx"
             };
 
-            return CreateReport(factoryArguments, renderFactory);
+            var result = CreateReport(factoryArguments, renderFactory);
+            result.ContentType = ContentTypes.Excel;
+            return result;
         }
 
         public RenderedDocumentOutput CreateExcelReport(RenderExcelInput input)
@@ -56,7 +58,9 @@ namespace Mustache.Reports.Data
                 SheetNumber = input.SheetNumber
             };
 
-            return CreateReport(factoryArguments, renderFactory);
+            var result =  CreateReport(factoryArguments, renderFactory);
+            result.ContentType = ContentTypes.Excel;
+            return result;
         }
 
         private RenderedDocumentOutput CreateReport(ReportFactoryArguments arguements,

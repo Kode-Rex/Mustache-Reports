@@ -1,12 +1,7 @@
-﻿using Mustache.Reports.Boundry.Pdf;
-using Mustache.Reports.Boundry.Report.Excel;
-using Mustache.Reports.Boundry.Report.Word;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Mustache.Reports.Boundary.Report.Word;
 using Xunit;
 
-namespace Mustache.Reports.Boundry.Tests.Word
+namespace Mustache.Reports.Boundary.Tests.Word
 {
     public class RenderWordInputTests
     {

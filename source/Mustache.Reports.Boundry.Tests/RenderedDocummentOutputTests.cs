@@ -1,11 +1,11 @@
 ﻿using Xunit;
 
-namespace Mustache.Reports.Boundry.Tests
+namespace Mustache.Reports.Boundary.Tests
 {
-    public class RenderedDocummentOutputTests
+    public class RenderedDocumentOutputTests
     {
         [Fact]
-        public void Ctor_ShouldInitalizeErrorList()
+        public void Ctor_ShouldInitializeErrorList()
         {
             //---------------Arrange------------------
             //---------------Act----------------------

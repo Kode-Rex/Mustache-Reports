@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Mustache.Reports.Boundry
+namespace Mustache.Reports.Boundary
 {
     public class RenderedDocumentOutput
     {
         public string Base64String { get; set; }
         public List<string> ErrorMessages { get; set; }
+        public ContentType ContentType { get; set; }
 
         public RenderedDocumentOutput()
         {

@@ -1,7 +1,7 @@
-﻿using Mustache.Reports.Boundry.Report.Excel;
-using Mustache.Reports.Boundry.Report.Word;
+﻿using Mustache.Reports.Boundary.Report.Excel;
+using Mustache.Reports.Boundary.Report.Word;
 
-namespace Mustache.Reports.Boundry.Report
+namespace Mustache.Reports.Boundary.Report
 {
     public interface IReportGateway
     {

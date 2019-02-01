@@ -1,10 +1,7 @@
-﻿using Mustache.Reports.Boundry.Pdf;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Mustache.Reports.Boundary.Pdf;
 using Xunit;
 
-namespace Mustache.Reports.Boundry.Tests.Pdf
+namespace Mustache.Reports.Boundary.Tests.Pdf
 {
     public class RenderPdfInputTests
     {

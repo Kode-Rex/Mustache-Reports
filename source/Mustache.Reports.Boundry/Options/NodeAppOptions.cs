@@ -1,4 +1,4 @@
-﻿namespace Mustache.Reports.Boundry.Options
+﻿namespace Mustache.Reports.Boundary.Options
 {
     public class NodeAppOptions
     {

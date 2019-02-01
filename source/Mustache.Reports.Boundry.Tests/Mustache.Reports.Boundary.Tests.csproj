@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mustache.Reports.Boundry\Mustache.Reports.Boundry.csproj" />
+    <ProjectReference Include="..\Mustache.Reports.Boundry\Mustache.Reports.Boundary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

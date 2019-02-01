@@ -1,4 +1,4 @@
-﻿namespace Mustache.Reports.Boundry.Report.Excel
+﻿namespace Mustache.Reports.Boundary.Report.Excel
 {
     public class RenderExcelInput
     {

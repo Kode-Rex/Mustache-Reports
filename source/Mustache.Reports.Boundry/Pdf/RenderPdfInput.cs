@@ -1,4 +1,4 @@
-﻿namespace Mustache.Reports.Boundry.Pdf
+﻿namespace Mustache.Reports.Boundary.Pdf
 {
     public class RenderPdfInput
     {
