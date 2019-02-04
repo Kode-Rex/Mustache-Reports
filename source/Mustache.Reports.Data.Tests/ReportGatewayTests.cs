@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using Microsoft.Extensions.Configuration;
-using Mustache.Reports.Boundry.Report.Word;
 using Xunit;
-using Mustache.Reports.Boundry.Report.Excel;
 using Microsoft.Extensions.Options;
-using Mustache.Reports.Boundry.Options;
+using Mustache.Reports.Boundary.Options;
+using Mustache.Reports.Boundary.Report.Excel;
+using Mustache.Reports.Boundary.Report.Word;
 using NSubstitute;
 using Newtonsoft.Json;
 
