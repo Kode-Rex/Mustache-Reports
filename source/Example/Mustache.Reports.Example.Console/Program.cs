@@ -9,6 +9,7 @@ using Mustache.Reports.Boundary.Report.Excel;
 using Mustache.Reports.Boundary.Report.Word;
 using Mustache.Reports.Data;
 using Mustache.Reports.Domain;
+using Mustache.Reports.Example.Console.Presenter;
 
 namespace Mustache.Reports.Example.Console
 {
@@ -36,6 +37,8 @@ namespace Mustache.Reports.Example.Console
                 .AddScoped<IRenderWordUseCase, RenderWordUseCase>()
                 .AddScoped<IRenderExcelUseCase, RenderExcelUseCase>()
                 .AddScoped<IRenderDocxToPdfUseCase, RenderWordToPdfUseCase>()
+                .AddScoped<IRenderAsWordThenPdfUseCase, RenderAsWordThenPdfUseCase>()
+                .AddScoped<IConsolePresenter,ConsolePresenter>()
                 .AddScoped<ReportController, ReportController>()
                 .Configure<MustacheReportOptions>(configuration.GetSection("MustacheReportOptions"))
                 .AddLogging();

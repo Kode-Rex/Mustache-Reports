@@ -30,14 +30,14 @@ namespace Mustache.Reports.Domain
         }
 
         private void Respond_With_Pdf(RenderPdfInput inputTo, 
-                                    IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter,
-                                    RenderedDocumentOutput output)
+                                      IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter,
+                                      RenderedDocumentOutput output)
         {
             presenter.Respond(new PdfFileOutput(inputTo.FileName, output.FetchDocumentAsByteArray()));
         }
 
         private void Respond_With_Errors(IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter, 
-                                       RenderedDocumentOutput output)
+                                         RenderedDocumentOutput output)
         {
             var errorOutput = new ErrorOutput();
             errorOutput.AddErrors(output.ErrorMessages);

@@ -27,11 +27,13 @@ namespace Mustache.Reports.Domain.Tests
         public void Execute_WhenValidInputTo_ShouldRespondWithPdfContentType()
         {
             //---------------Arrange-------------------
-            var pdfGateway = Substitute.For<IPdfGateway>();
-            pdfGateway.ConvertToPdf(Arg.Any<RenderPdfInput>()).Returns(new RenderedDocumentOutput{Base64String = "eA==" });
-            var usecase = new RenderWordToPdfUseCase(pdfGateway);
+            var gatewayResult = new RenderedDocumentOutput {Base64String = "eA=="};
+            var pdfGateway = Create_Report_Gateway(gatewayResult);
+           
             var input = new RenderPdfInput {Base64DocxReport = "cHVzc3k=", FileName = "report.docx"};
             var presenter = new PropertyPresenter<IFileOutput, ErrorOutput>();
+
+            var usecase = new RenderWordToPdfUseCase(pdfGateway);
             //---------------Act----------------------
             usecase.Execute(input, presenter);
             //---------------Assert-----------------------
@@ -42,15 +44,24 @@ namespace Mustache.Reports.Domain.Tests
         public void Execute_WhenRenderErrors_ShouldRespondWithErrors()
         {
             //---------------Arrange-------------------
-            var pdfGateway = Substitute.For<IPdfGateway>();
-            pdfGateway.ConvertToPdf(Arg.Any<RenderPdfInput>()).Returns(new RenderedDocumentOutput { ErrorMessages = new List<string>{"error"}});
-            var usecase = new RenderWordToPdfUseCase(pdfGateway);
+            var gatewayResult = new RenderedDocumentOutput {ErrorMessages = new List<string> {"error"}};
+            var pdfGateway = Create_Report_Gateway(gatewayResult);
+            
             var input = new RenderPdfInput { Base64DocxReport = "cHVzc3k=", FileName = "report.docx" };
             var presenter = new PropertyPresenter<IFileOutput, ErrorOutput>();
+
+            var usecase = new RenderWordToPdfUseCase(pdfGateway);
             //---------------Act----------------------
             usecase.Execute(input, presenter);
             //---------------Assert-----------------------
             Assert.True(presenter.IsErrorResponse());
+        }
+
+        private static IPdfGateway Create_Report_Gateway(RenderedDocumentOutput gatewayResult)
+        {
+            var gateway = Substitute.For<IPdfGateway>();
+            gateway.ConvertToPdf(Arg.Any<RenderPdfInput>()).Returns(gatewayResult);
+            return gateway;
         }
     }
 }

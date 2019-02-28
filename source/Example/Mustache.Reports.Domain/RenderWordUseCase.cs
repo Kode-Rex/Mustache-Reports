@@ -16,10 +16,10 @@ namespace Mustache.Reports.Domain
             _wordGateway = wordGateway ?? throw new ArgumentNullException(nameof(wordGateway));
         }
 
-        public void Execute(RenderWordInput inputInput, 
+        public void Execute(RenderWordInput inputTo, 
                             IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter)
         {
-            var result = _wordGateway.CreateWordReport(inputInput);
+            var result = _wordGateway.CreateWordReport(inputTo);
 
             if (result.HasErrors())
             {
@@ -27,7 +27,7 @@ namespace Mustache.Reports.Domain
                 return;
             }
 
-            Respond_With_File(inputInput, presenter, result);
+            Respond_With_File(inputTo, presenter, result);
         }
 
         private void Respond_With_File(RenderWordInput inputInput, 

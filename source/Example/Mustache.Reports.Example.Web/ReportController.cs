@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Mvc;
-using Mustache.Reports.Boundary.Pdf;
 using Mustache.Reports.Boundary.Report.Word;
+using Mustache.Reports.Domain;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Presenters;
 
@@ -11,9 +11,9 @@ namespace Mustache.Reports.Example.Web
     public class ReportController
     {
         private readonly IRenderWordUseCase _wordUsecase;
-        private readonly IRenderDocxToPdfUseCase _pdfUsecase;
+        private readonly IRenderAsWordThenPdfUseCase _pdfUsecase;
 
-        public ReportController(IRenderWordUseCase wordUsecase, IRenderDocxToPdfUseCase pdfUsecase)
+        public ReportController(IRenderWordUseCase wordUsecase, IRenderAsWordThenPdfUseCase pdfUsecase)
         {
             _wordUsecase = wordUsecase;
             _pdfUsecase = pdfUsecase;
@@ -51,8 +51,9 @@ namespace Mustache.Reports.Example.Web
                 JsonModel = jsonData
             };
             var presenter = new DownloadFilePresenter();
-            _wordUsecase.Execute(inputMessage, presenter);
+            _pdfUsecase.Execute(inputMessage, presenter);
             return presenter.Render();
         }
+
     }
 }

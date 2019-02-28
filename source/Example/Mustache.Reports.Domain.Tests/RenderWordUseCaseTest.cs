@@ -28,11 +28,13 @@ namespace Mustache.Reports.Domain.Tests
         public void Execute_WhenValidInputTo_ShouldRespondWithWordContentType()
         {
             //---------------Arrange-------------------
-            var gateway = Substitute.For<IReportGateway>();
-            gateway.CreateWordReport(Arg.Any<RenderWordInput>()).Returns(new RenderedDocumentOutput{Base64String = "eA==" });
-            var usecase = new RenderWordUseCase(gateway);
+            var gatewayResult = new RenderedDocumentOutput {Base64String = "eA=="};
+            var gateway = Create_Report_Gateway(gatewayResult);
+
             var input = new RenderWordInput {JsonModel = "", ReportName = "Test.docx", TemplateName = "Test"};
             var presenter = new PropertyPresenter<IFileOutput, ErrorOutput>();
+
+            var usecase = new RenderWordUseCase(gateway);
             //---------------Act----------------------
             usecase.Execute(input, presenter);
             //---------------Assert-----------------------
@@ -44,15 +46,24 @@ namespace Mustache.Reports.Domain.Tests
         public void Execute_WhenRenderErrors_ShouldRespondWithErrors()
         {
             //---------------Arrange-------------------
-            var gateway = Substitute.For<IReportGateway>();
-            gateway.CreateWordReport(Arg.Any<RenderWordInput>()).Returns(new RenderedDocumentOutput { ErrorMessages = new List<string>{"error"}});
-            var usecase = new RenderWordUseCase(gateway);
+            var gatewayResult = new RenderedDocumentOutput { ErrorMessages = new List<string> { "error" }};
+            var gateway = Create_Report_Gateway(gatewayResult);
+            
             var input = new RenderWordInput { JsonModel = "", ReportName = "Test.docx", TemplateName = "Test" };
             var presenter = new PropertyPresenter<IFileOutput, ErrorOutput>();
+
+            var usecase = new RenderWordUseCase(gateway);
             //---------------Act----------------------
             usecase.Execute(input, presenter);
             //---------------Assert-----------------------
             Assert.True(presenter.IsErrorResponse());
+        }
+
+        private static IReportGateway Create_Report_Gateway(RenderedDocumentOutput gatewayResult)
+        {
+            var gateway = Substitute.For<IReportGateway>();
+            gateway.CreateWordReport(Arg.Any<RenderWordInput>()).Returns(gatewayResult);
+            return gateway;
         }
     }
 }
