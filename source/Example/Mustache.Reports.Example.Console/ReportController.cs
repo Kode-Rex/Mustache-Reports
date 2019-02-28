@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Microsoft.Extensions.Logging;
-using Mustache.Reports.Boundry.Pdf;
-using Mustache.Reports.Boundry.Report.Word;
-using TddBuddy.CleanArchitecture.Domain.Messages;
-using TddBuddy.CleanArchitecture.Domain.Output;
-using TddBuddy.CleanArchitecture.Domain.Presenters;
+using Mustache.Reports.Boundary.Pdf;
+using Mustache.Reports.Boundary.Report.Word;
+using StoneAge.CleanArchitecture.Domain.Messages;
+using StoneAge.CleanArchitecture.Domain.Output;
+using StoneAge.CleanArchitecture.Domain.Presenters;
 
 namespace Mustache.Reports.Example.Console
 {
@@ -16,25 +17,28 @@ namespace Mustache.Reports.Example.Console
         private readonly IRenderDocxToPdfUseCase _pdfUseCase;
         private readonly ILogger _logger;
 
-        public ReportController(IRenderWordUseCase wordUseCase, IRenderDocxToPdfUseCase pdfUseCase, ILoggerFactory logFactory)
+        public ReportController(IRenderWordUseCase wordUseCase, 
+                                IRenderDocxToPdfUseCase pdfUseCase, 
+                                ILogger<ReportController> logger)
         {
             _wordUseCase = wordUseCase;
             _pdfUseCase = pdfUseCase;
-            _logger = logFactory.CreateLogger<ReportController>();
+            _logger = logger;
         }
 
-        public void Run( string reportOutputDirectory, string reportDataFilePath)
+        public void Run(string reportOutputDirectory, 
+                        string reportDataFilePath)
         {
-            RenderReportWithImages(reportOutputDirectory, reportDataFilePath);
+            Render_Report_With_Images(reportOutputDirectory, reportDataFilePath);
         }
 
-        private void RenderReportWithImages(string reportOuputDirectory, string reportDataFilePath)
+        private void Render_Report_With_Images(string reportOuputDirectory, 
+                                               string reportDataFilePath)
         {
-            var jsonData = ReadReportData(reportDataFilePath);
-            var docxPresenter = new PropertyPresenter<IFileOutput, ErrorOutputMessage>();
+            var jsonData = Read_Report_Data(reportDataFilePath);
+            var docxPresenter = new PropertyPresenter<IFileOutput, ErrorOutput>();
 
-            // todo : refactor into method and 'nicely' handle IsError
-            var inputMessage = CreateWordInputMessage(jsonData);
+            var inputMessage = Create_Word_Input_Message(jsonData);
 
             _wordUseCase.Execute(inputMessage, docxPresenter);
 
@@ -44,14 +48,15 @@ namespace Mustache.Reports.Example.Console
                 return;
             }
 
-            ConvertWordToPdf(reportOuputDirectory, docxPresenter);
+            Convert_Word_To_Pdf(reportOuputDirectory, docxPresenter);
         }
 
-        private void ConvertWordToPdf(string reportOuputDirectory, PropertyPresenter<IFileOutput, ErrorOutputMessage> docxPresenter)
+        private void Convert_Word_To_Pdf(string reportOuputDirectory, 
+                                         PropertyPresenter<IFileOutput, ErrorOutput> docxPresenter)
         {
-            var input = CreatePdfInput(docxPresenter);
+            var input = Create_Pdf_Input(docxPresenter);
 
-            var pdfPresenter = new PropertyPresenter<IFileOutput, ErrorOutputMessage>();
+            var pdfPresenter = new PropertyPresenter<IFileOutput, ErrorOutput>();
             _pdfUseCase.Execute(input, pdfPresenter);
 
             if (pdfPresenter.IsErrorResponse())
@@ -60,20 +65,23 @@ namespace Mustache.Reports.Example.Console
                 return;
             }
 
-            var pdfPath = PersistReport(reportOuputDirectory, pdfPresenter.SuccessContent);
+            var pdfPath = Persist_Report(reportOuputDirectory, pdfPresenter.SuccessContent);
 
             _logger.LogInformation($"Report output to directory [ {pdfPath} ]");
             _logger.LogInformation("");
             _logger.LogInformation("Press enter to exit.");
         }
 
-        private static string ReadReportData(string reportDataFilePath)
+        private static string Read_Report_Data(string reportDataFilePath)
         {
-            var jsonData = File.ReadAllText(reportDataFilePath);
+            var baseLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var readPath = Path.Combine(baseLocation, reportDataFilePath);
+
+            var jsonData = File.ReadAllText(readPath);
             return jsonData;
         }
 
-        private static RenderWordInput CreateWordInputMessage(string jsonData)
+        private static RenderWordInput Create_Word_Input_Message(string jsonData)
         {
             var inputMessage = new RenderWordInput
             {
@@ -84,7 +92,7 @@ namespace Mustache.Reports.Example.Console
             return inputMessage;
         }
 
-        private static RenderPdfInput CreatePdfInput(PropertyPresenter<IFileOutput, ErrorOutputMessage> docxPresenter)
+        private static RenderPdfInput Create_Pdf_Input(PropertyPresenter<IFileOutput, ErrorOutput> docxPresenter)
         {
             var input = new RenderPdfInput();
             using (var stream = docxPresenter.SuccessContent.GetStream())
@@ -99,7 +107,7 @@ namespace Mustache.Reports.Example.Console
             return input;
         }
 
-        private void WriteErrorsToConsole<T>(PropertyPresenter<T, ErrorOutputMessage> presenter)
+        private void WriteErrorsToConsole<T>(PropertyPresenter<T, ErrorOutput> presenter)
         {
             _logger.LogError("The following errors occured: ");
             _logger.LogError(string.Join(", ", (IEnumerable<string>)presenter.ErrorContent.Errors));
@@ -107,19 +115,19 @@ namespace Mustache.Reports.Example.Console
             _logger.LogError("Press enter to exit.");
         }
 
-        private string PersistReport(string reportOuputDirectory, IFileOutput successContent)
+        private string Persist_Report(string reportOutputDirectory, IFileOutput successContent)
         {
-            EnsureDirectory(reportOuputDirectory);
+            Ensure_Directory(reportOutputDirectory);
 
-            var reportPath = Path.Combine(reportOuputDirectory, $"{successContent.FileName}.pdf");
-            RemoveOldReport(reportPath);
+            var reportPath = Path.Combine(reportOutputDirectory, $"{successContent.FileName}.pdf");
+            Remove_Old_Report(reportPath);
 
-            WriteReport(successContent, reportPath);
+            Write_Report(successContent, reportPath);
 
             return reportPath;
         }
 
-        private void WriteReport(IFileOutput successContent, string reportPath)
+        private void Write_Report(IFileOutput successContent, string reportPath)
         {
             using (var stream = successContent.GetStream())
             {
@@ -132,7 +140,7 @@ namespace Mustache.Reports.Example.Console
             }
         }
 
-        private void RemoveOldReport(string reportPath)
+        private void Remove_Old_Report(string reportPath)
         {
             if (File.Exists(reportPath))
             {
@@ -140,11 +148,11 @@ namespace Mustache.Reports.Example.Console
             }
         }
 
-        private void EnsureDirectory(string reportOuputDirectory)
+        private void Ensure_Directory(string reportOutputDirectory)
         {
-            if (!Directory.Exists(reportOuputDirectory))
+            if (!Directory.Exists(reportOutputDirectory))
             {
-                Directory.CreateDirectory(reportOuputDirectory);
+                Directory.CreateDirectory(reportOutputDirectory);
             }
         }
     }

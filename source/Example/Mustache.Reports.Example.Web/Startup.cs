@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mustache.Reports.Boundry.Pdf;
-using Mustache.Reports.Boundry.Report;
-using Mustache.Reports.Boundry.Report.Word;
+using Mustache.Reports.Boundary.Pdf;
+using Mustache.Reports.Boundary.Report;
+using Mustache.Reports.Boundary.Report.Word;
 using Mustache.Reports.Data;
 using Mustache.Reports.Domain;
 using Swashbuckle.AspNetCore.Swagger;
@@ -28,33 +28,12 @@ namespace Mustache.Reports.Example.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            RegisterFrameworkDepenedencies(services);
-            RegisterApplicationDepenedencies(services);
+            Register_Mvc(services);
+            Register_Application_Dependencies(services);
 
             RegisterSwagger(services);
         }
-
-        private void RegisterSwagger(IServiceCollection services)
-        {
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info {Title = "Mustache.Reports.Example", Version = "v1"});
-            });
-        }
-
-        private void RegisterFrameworkDepenedencies(IServiceCollection services)
-        {
-            services.AddMvc();
-        }
-
-        private void RegisterApplicationDepenedencies(IServiceCollection services)
-        {
-            services.AddSingleton<IConfiguration>(Configuration);
-            services.AddTransient<IReportGateway, ReportGateway>();
-            services.AddTransient<IPdfGateway, PdfGateway>();
-            services.AddTransient<IRenderWordUseCase, RenderWordUseCase>();
-        }
-
+        
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -68,6 +47,27 @@ namespace Mustache.Reports.Example.Web
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mustache.Reports");
             });
+        }
+
+        private void RegisterSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Mustache.Reports.Example", Version = "v1" });
+            });
+        }
+
+        private void Register_Mvc(IServiceCollection services)
+        {
+            services.AddMvc();
+        }
+
+        private void Register_Application_Dependencies(IServiceCollection services)
+        {
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddTransient<IReportGateway, ReportGateway>();
+            services.AddTransient<IPdfGateway, PdfGateway>();
+            services.AddTransient<IRenderWordUseCase, RenderWordUseCase>();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Mustache.Reports.Boundry;
-using Mustache.Reports.Boundry.Pdf;
+using Mustache.Reports.Boundary;
+using Mustache.Reports.Boundary.Pdf;
 using NSubstitute;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Output;
@@ -28,7 +28,7 @@ namespace Mustache.Reports.Domain.Tests
         {
             //---------------Arrange-------------------
             var pdfGateway = Substitute.For<IPdfGateway>();
-            pdfGateway.ConvertToPdf(Arg.Any<RenderPdfInput>()).Returns(new RenderedDocummentOutput{Base64String = "eA==" });
+            pdfGateway.ConvertToPdf(Arg.Any<RenderPdfInput>()).Returns(new RenderedDocumentOutput{Base64String = "eA==" });
             var usecase = new RenderWordToPdfUseCase(pdfGateway);
             var input = new RenderPdfInput {Base64DocxReport = "cHVzc3k=", FileName = "report.docx"};
             var presenter = new PropertyPresenter<IFileOutput, ErrorOutput>();
@@ -43,7 +43,7 @@ namespace Mustache.Reports.Domain.Tests
         {
             //---------------Arrange-------------------
             var pdfGateway = Substitute.For<IPdfGateway>();
-            pdfGateway.ConvertToPdf(Arg.Any<RenderPdfInput>()).Returns(new RenderedDocummentOutput { ErrorMessages = new List<string>{"error"}});
+            pdfGateway.ConvertToPdf(Arg.Any<RenderPdfInput>()).Returns(new RenderedDocumentOutput { ErrorMessages = new List<string>{"error"}});
             var usecase = new RenderWordToPdfUseCase(pdfGateway);
             var input = new RenderPdfInput { Base64DocxReport = "cHVzc3k=", FileName = "report.docx" };
             var presenter = new PropertyPresenter<IFileOutput, ErrorOutput>();

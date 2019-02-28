@@ -1,7 +1,7 @@
 ﻿using System;
-using Mustache.Reports.Boundry;
-using Mustache.Reports.Boundry.Report.Word;
-using Mustache.Reports.Boundry.Report;
+using Mustache.Reports.Boundary;
+using Mustache.Reports.Boundary.Report;
+using Mustache.Reports.Boundary.Report.Word;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Output;
 
@@ -16,27 +16,31 @@ namespace Mustache.Reports.Domain
             _wordGateway = wordGateway ?? throw new ArgumentNullException(nameof(wordGateway));
         }
 
-        public void Execute(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter)
+        public void Execute(RenderWordInput inputInput, 
+                            IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter)
         {
             var result = _wordGateway.CreateWordReport(inputInput);
 
             if (result.HasErrors())
             {
-                RespondWithErrors(presenter, result);
+                Respond_With_Errors(presenter, result);
                 return;
             }
 
-            RespondWithFile(inputInput, presenter, result);
+            Respond_With_File(inputInput, presenter, result);
         }
 
-        private void RespondWithFile(RenderWordInput inputInput, IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter, RenderedDocummentOutput result)
+        private void Respond_With_File(RenderWordInput inputInput, 
+                                       IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter, 
+                                       RenderedDocumentOutput result)
         {
             var reportMessage = new WordFileOutput(inputInput.ReportName, result.FetchDocumentAsByteArray());
 
             presenter.Respond(reportMessage);
         }
 
-        private void RespondWithErrors(IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter, RenderedDocummentOutput result)
+        private void Respond_With_Errors(IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter, 
+                                         RenderedDocumentOutput result)
         {
             var errors = new ErrorOutput();
             errors.AddErrors(result.ErrorMessages);

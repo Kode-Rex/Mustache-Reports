@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mustache.Reports.Boundry" Version="1.0.9" />
+    <PackageReference Include="Mustache.Reports.Boundary" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Mustache.Reports.Boundry;
-using Mustache.Reports.Boundry.Report.Word;
+using Mustache.Reports.Boundary;
+using Mustache.Reports.Boundary.Report;
+using Mustache.Reports.Boundary.Report.Word;
 using NSubstitute;
 using Xunit;
-using Mustache.Reports.Boundry.Report;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Output;
 using StoneAge.CleanArchitecture.Domain.Presenters;
@@ -29,7 +29,7 @@ namespace Mustache.Reports.Domain.Tests
         {
             //---------------Arrange-------------------
             var gateway = Substitute.For<IReportGateway>();
-            gateway.CreateWordReport(Arg.Any<RenderWordInput>()).Returns(new RenderedDocummentOutput{Base64String = "eA==" });
+            gateway.CreateWordReport(Arg.Any<RenderWordInput>()).Returns(new RenderedDocumentOutput{Base64String = "eA==" });
             var usecase = new RenderWordUseCase(gateway);
             var input = new RenderWordInput {JsonModel = "", ReportName = "Test.docx", TemplateName = "Test"};
             var presenter = new PropertyPresenter<IFileOutput, ErrorOutput>();
@@ -45,7 +45,7 @@ namespace Mustache.Reports.Domain.Tests
         {
             //---------------Arrange-------------------
             var gateway = Substitute.For<IReportGateway>();
-            gateway.CreateWordReport(Arg.Any<RenderWordInput>()).Returns(new RenderedDocummentOutput { ErrorMessages = new List<string>{"error"}});
+            gateway.CreateWordReport(Arg.Any<RenderWordInput>()).Returns(new RenderedDocumentOutput { ErrorMessages = new List<string>{"error"}});
             var usecase = new RenderWordUseCase(gateway);
             var input = new RenderWordInput { JsonModel = "", ReportName = "Test.docx", TemplateName = "Test" };
             var presenter = new PropertyPresenter<IFileOutput, ErrorOutput>();
