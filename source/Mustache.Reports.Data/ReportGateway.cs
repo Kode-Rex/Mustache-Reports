@@ -39,7 +39,7 @@ namespace Mustache.Reports.Data
             };
 
             var result = CreateReport(factoryArguments, renderFactory);
-            result.ContentType = ContentTypes.Excel;
+            result.ContentType = ContentTypes.Word;
             return result;
         }
 
