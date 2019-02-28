@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
+using Microsoft.Extensions.Options;
 using Mustache.Reports.Boundary.Report.Word;
 using Mustache.Reports.Domain;
 using Mustache.Reports.Example.Console.Presenter;

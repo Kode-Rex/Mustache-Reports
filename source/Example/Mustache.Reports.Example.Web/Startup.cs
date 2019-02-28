@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mustache.Reports.Boundary.Options;
 using Mustache.Reports.Boundary.Pdf;
 using Mustache.Reports.Boundary.Report;
 using Mustache.Reports.Boundary.Report.Word;
@@ -30,10 +31,16 @@ namespace Mustache.Reports.Example.Web
         {
             Register_Mvc(services);
             Register_Application_Dependencies(services);
-
+            Register_Configuration(services);
             RegisterSwagger(services);
         }
-        
+
+        private void Register_Configuration(IServiceCollection services)
+        {
+            services.Configure<MustacheReportOptions>(Configuration.GetSection("MustacheReportOptions"));
+            services.Configure<DemoOptions>(Configuration.GetSection("DemoOptions"));
+        }
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -68,6 +75,8 @@ namespace Mustache.Reports.Example.Web
             services.AddTransient<IReportGateway, ReportGateway>();
             services.AddTransient<IPdfGateway, PdfGateway>();
             services.AddTransient<IRenderWordUseCase, RenderWordUseCase>();
+            services.AddTransient<IRenderDocxToPdfUseCase, RenderWordToPdfUseCase>();
+            services.AddTransient<IRenderAsWordThenPdfUseCase, RenderAsWordThenPdfUseCase>();
         }
     }
 }
