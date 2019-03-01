@@ -6,7 +6,7 @@ using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Output;
 using StoneAge.CleanArchitecture.Domain.Presenters;
 
-namespace Mustache.Reports.Domain
+namespace Mustache.Reports.Domain.Pdf
 {
     public class RenderAsWordThenPdfUseCase : IRenderAsWordThenPdfUseCase
     {

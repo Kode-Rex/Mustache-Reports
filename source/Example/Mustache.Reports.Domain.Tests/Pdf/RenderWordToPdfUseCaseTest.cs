@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Mustache.Reports.Boundary;
 using Mustache.Reports.Boundary.Pdf;
+using Mustache.Reports.Domain.Pdf;
 using NSubstitute;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Output;

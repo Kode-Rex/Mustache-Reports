@@ -4,7 +4,7 @@ using Mustache.Reports.Boundary.Pdf;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Output;
 
-namespace Mustache.Reports.Domain
+namespace Mustache.Reports.Domain.Pdf
 {
     public class RenderWordToPdfUseCase : IRenderDocxToPdfUseCase
     {

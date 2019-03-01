@@ -2,6 +2,8 @@
 using Mustache.Reports.Boundary.Pdf;
 using Mustache.Reports.Boundary.Report;
 using Mustache.Reports.Boundary.Report.Word;
+using Mustache.Reports.Domain.Pdf;
+using Mustache.Reports.Domain.Word;
 using NSubstitute;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Output;

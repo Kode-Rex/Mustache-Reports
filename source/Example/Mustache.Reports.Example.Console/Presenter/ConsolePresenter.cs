@@ -57,7 +57,7 @@ namespace Mustache.Reports.Example.Console.Presenter
             _logger.LogError("Press enter to exit.");
         }
 
-        private string Persist_Report(string reportOutputDirectory, IFileOutput successContent)
+        private void Persist_Report(string reportOutputDirectory, IFileOutput successContent)
         {
             Ensure_Directory(reportOutputDirectory);
 
@@ -66,7 +66,7 @@ namespace Mustache.Reports.Example.Console.Presenter
 
             Write_Report(successContent, reportPath);
 
-            return reportPath;
+            return;
         }
 
         private void Write_Report(IFileOutput successContent, string reportPath)

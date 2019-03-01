@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Mustache.Reports.Boundary.Report.Word;
 using Mustache.Reports.Domain;
+using Mustache.Reports.Domain.Pdf;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Presenters;
 

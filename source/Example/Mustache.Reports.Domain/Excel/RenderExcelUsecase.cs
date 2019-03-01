@@ -4,7 +4,7 @@ using Mustache.Reports.Boundary.Report.Excel;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Output;
 
-namespace Mustache.Reports.Domain
+namespace Mustache.Reports.Domain.Excel
 {
     public class RenderExcelUseCase : IRenderExcelUseCase
     {

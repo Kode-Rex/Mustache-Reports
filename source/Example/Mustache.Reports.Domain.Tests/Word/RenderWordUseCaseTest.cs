@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Mustache.Reports.Boundary;
 using Mustache.Reports.Boundary.Report;
 using Mustache.Reports.Boundary.Report.Word;
+using Mustache.Reports.Domain.Word;
 using NSubstitute;
 using Xunit;
 using StoneAge.CleanArchitecture.Domain.Messages;

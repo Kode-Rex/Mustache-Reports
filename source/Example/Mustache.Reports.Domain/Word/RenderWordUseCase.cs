@@ -5,7 +5,7 @@ using Mustache.Reports.Boundary.Report.Word;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Output;
 
-namespace Mustache.Reports.Domain
+namespace Mustache.Reports.Domain.Word
 {
     public class RenderWordUseCase : IRenderWordUseCase
     {
