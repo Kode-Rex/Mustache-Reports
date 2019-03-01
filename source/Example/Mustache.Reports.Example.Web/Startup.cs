@@ -34,7 +34,7 @@ namespace Mustache.Reports.Example.Web
             Register_Mvc(services);
             Register_Application_Dependencies(services);
             Register_Configuration(services);
-            RegisterSwagger(services);
+            Register_Swagger(services);
         }
 
         private void Register_Configuration(IServiceCollection services)
@@ -58,7 +58,7 @@ namespace Mustache.Reports.Example.Web
             });
         }
 
-        private void RegisterSwagger(IServiceCollection services)
+        private void Register_Swagger(IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {

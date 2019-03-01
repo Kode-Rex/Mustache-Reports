@@ -19,7 +19,7 @@
     "Simple.Report.Server.Api.Example": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "api/reports/v1/create/pdf",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

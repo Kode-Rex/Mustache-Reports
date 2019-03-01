@@ -8,7 +8,6 @@ using Mustache.Reports.Boundary.Report;
 using Mustache.Reports.Boundary.Report.Excel;
 using Mustache.Reports.Boundary.Report.Word;
 using Mustache.Reports.Data;
-using Mustache.Reports.Domain;
 using Mustache.Reports.Domain.Excel;
 using Mustache.Reports.Domain.Pdf;
 using Mustache.Reports.Domain.Word;

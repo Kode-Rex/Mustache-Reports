@@ -1,8 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
-using Microsoft.Extensions.Options;
 using Mustache.Reports.Boundary.Report.Word;
-using Mustache.Reports.Domain;
 using Mustache.Reports.Domain.Pdf;
 using Mustache.Reports.Example.Console.Presenter;
 
@@ -26,7 +24,7 @@ namespace Mustache.Reports.Example.Console
             Render_Report_With_Images(reportOutputDirectory, reportDataFilePath);
         }
 
-        private void Render_Report_With_Images(string reportOuputDirectory, 
+        private void Render_Report_With_Images(string reportOutputDirectory, 
                                                string reportDataFilePath)
         {
             var jsonData = Read_Report_Data(reportDataFilePath);
@@ -34,7 +32,7 @@ namespace Mustache.Reports.Example.Console
 
             _usecase.Execute(inputMessage, _presenter);
     
-            _presenter.Render(reportOuputDirectory);
+            _presenter.Render(reportOutputDirectory);
         }
 
         private static string Read_Report_Data(string reportDataFilePath)
