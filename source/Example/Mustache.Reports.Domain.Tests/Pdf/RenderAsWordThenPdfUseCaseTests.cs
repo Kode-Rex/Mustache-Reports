@@ -15,14 +15,17 @@ namespace Mustache.Reports.Domain.Tests.Pdf
     public class RenderAsWordThenPdfUseCaseTests
     {
         [Fact]
-        public void Test()
+        public void Execute_WhenValidInputTo_ShouldRespondWithPdfContentType()
         {
             //---------------Arrange-------------------
             var input = new RenderWordInput { JsonModel = "{}", ReportName = "Test.docx", TemplateName = "Test" };
+            var reportResult = new RenderedDocumentOutput {Base64String = "", ContentType = ContentTypes.Word};
+            var pdfResult = new RenderedDocumentOutput {Base64String = "", ContentType = ContentTypes.Pdf};
+
             var presenter = new PropertyPresenter<IFileOutput, ErrorOutput>();
 
-            var reportGateway = Create_Report_Gateway(null);
-            var pdfGateway = Create_Pdf_Gateway(null);
+            var reportGateway = Create_Report_Gateway(reportResult);
+            var pdfGateway = Create_Pdf_Gateway(pdfResult);
 
             var wordUsecase = new RenderWordUseCase(reportGateway);
             var pdfUsecase = new RenderWordToPdfUseCase(pdfGateway);
