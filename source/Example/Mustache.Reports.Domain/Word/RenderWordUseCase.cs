@@ -30,11 +30,11 @@ namespace Mustache.Reports.Domain.Word
             Respond_With_File(inputTo, presenter, result);
         }
 
-        private void Respond_With_File(RenderWordInput inputInput, 
+        private void Respond_With_File(RenderWordInput inputTo, 
                                        IRespondWithSuccessOrError<IFileOutput, ErrorOutput> presenter, 
                                        RenderedDocumentOutput result)
         {
-            var reportMessage = new WordFileOutput(inputInput.ReportName, result.FetchDocumentAsByteArray());
+            var reportMessage = new WordFileOutput(inputTo.ReportName, result.FetchDocumentAsByteArray());
 
             presenter.Respond(reportMessage);
         }

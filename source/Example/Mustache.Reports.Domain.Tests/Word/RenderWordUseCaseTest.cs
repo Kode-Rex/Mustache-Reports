@@ -5,12 +5,12 @@ using Mustache.Reports.Boundary.Report;
 using Mustache.Reports.Boundary.Report.Word;
 using Mustache.Reports.Domain.Word;
 using NSubstitute;
-using Xunit;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Output;
 using StoneAge.CleanArchitecture.Domain.Presenters;
+using Xunit;
 
-namespace Mustache.Reports.Domain.Tests
+namespace Mustache.Reports.Domain.Tests.Word
 {
     public class RenderWordUseCaseTest
     {

@@ -10,7 +10,7 @@ using StoneAge.CleanArchitecture.Domain.Output;
 using StoneAge.CleanArchitecture.Domain.Presenters;
 using Xunit;
 
-namespace Mustache.Reports.Domain.Tests
+namespace Mustache.Reports.Domain.Tests.Pdf
 {
     public class RenderAsWordThenPdfUseCaseTests
     {
