@@ -68,7 +68,7 @@ namespace Mustache.Reports.Data
         {
             using (var renderDirectory = GetWorkspace())
             {
-                var reportJsonPath = PersitReportData(arguements.ReportJson, renderDirectory.TmpPath);
+                var reportJsonPath = PersistReportData(arguements.ReportJson, renderDirectory.TmpPath);
                 var reportTemplatePath = FetchReportTemplatePath(arguements.TemplateName, arguements.Extension);
 
                 if (InvalidReportTemplatePath(reportTemplatePath))
@@ -89,7 +89,7 @@ namespace Mustache.Reports.Data
             }
         }
 
-        private string PersitReportData(string reportData, string renderDirectory)
+        private string PersistReportData(string reportData, string renderDirectory)
         {
             var reportJsonPath = Path.Combine(renderDirectory, "reportData.json");
             WriteTo(reportJsonPath, reportData);
