@@ -2,7 +2,7 @@
 using System.Reflection;
 using Mustache.Reports.Boundary.Report.Word;
 using Mustache.Reports.Domain.Pdf;
-using Mustache.Reports.Example.Console.Presenter;
+using Mustache.Reports.Example.Console.Domain;
 
 namespace Mustache.Reports.Example.Console
 {

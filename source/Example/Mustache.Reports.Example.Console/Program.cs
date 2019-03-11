@@ -11,6 +11,7 @@ using Mustache.Reports.Data;
 using Mustache.Reports.Domain.Excel;
 using Mustache.Reports.Domain.Pdf;
 using Mustache.Reports.Domain.Word;
+using Mustache.Reports.Example.Console.Domain;
 using Mustache.Reports.Example.Console.Presenter;
 
 namespace Mustache.Reports.Example.Console

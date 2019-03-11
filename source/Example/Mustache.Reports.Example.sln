@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Domain.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mustache.Reports.Example.Web", "Mustache.Reports.Example.Web\Mustache.Reports.Example.Web.csproj", "{FF7A3CA8-877C-4EEC-9861-5B4783CEB45B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mustache.Reports.Example.Console.Domain", "Mustache.Reports.Example.Console.Domain\Mustache.Reports.Example.Console.Domain.csproj", "{F5E0518E-A303-4A60-8244-5DC24BE68D56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FF7A3CA8-877C-4EEC-9861-5B4783CEB45B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF7A3CA8-877C-4EEC-9861-5B4783CEB45B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF7A3CA8-877C-4EEC-9861-5B4783CEB45B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5E0518E-A303-4A60-8244-5DC24BE68D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5E0518E-A303-4A60-8244-5DC24BE68D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5E0518E-A303-4A60-8244-5DC24BE68D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5E0518E-A303-4A60-8244-5DC24BE68D56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

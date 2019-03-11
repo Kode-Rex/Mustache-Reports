@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mustache.Reports.Domain\Mustache.Reports.Domain.csproj" />
+    <ProjectReference Include="..\Mustache.Reports.Example.Console.Domain\Mustache.Reports.Example.Console.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
