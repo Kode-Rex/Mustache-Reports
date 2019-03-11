@@ -2,39 +2,38 @@
 using System.IO;
 using Microsoft.Extensions.Options;
 using Mustache.Reports.Boundary;
+using Mustache.Reports.Boundary.Csv;
 using Mustache.Reports.Boundary.Options;
-using Mustache.Reports.Boundary.Pdf;
-using Mustache.Reports.Data.Csv;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Presenters;
 using StoneAge.Synchronous.Process.Runner;
 
-namespace Mustache.Reports.Data
+namespace Mustache.Reports.Data.Csv
 {
-    public class PdfGateway : IPdfGateway
+    public class CsvGateway : ICsvGateway
     {
         private readonly string _libreOffice;
 
-        public PdfGateway(IOptions<MustacheReportOptions> options)
+        public CsvGateway(IOptions<MustacheReportOptions> options)
         {
             _libreOffice = options.Value.LibreOfficeLocation;
         }
 
-        public RenderedDocumentOutput ConvertToPdf(RenderPdfInput inputMessage)
+        public RenderedDocumentOutput ConvertToCsv(RenderCsvInput inputMessage)
         {
             using (var renderDirectory = GetWorkspace())
             {
                 var pdfPresenter = new PropertyPresenter<string, ErrorOutput>();
 
-                var reportPath = PersistDocxFile(inputMessage, renderDirectory);
+                var reportPath = PresistFile(inputMessage, renderDirectory);
 
-                CovertToPdf(reportPath, renderDirectory, pdfPresenter);
+                CovertToCsv(reportPath, renderDirectory, pdfPresenter);
 
                 return RenderingErrors(pdfPresenter) ? ReturnErrors(pdfPresenter) : ReturnPdf(reportPath);
             }
         }
 
-        private void CovertToPdf(string reportPath, DisposableWorkSpace renderDirectory, PropertyPresenter<string, ErrorOutput> pdfPresenter)
+        private void CovertToCsv(string reportPath, DisposableWorkSpace renderDirectory, PropertyPresenter<string, ErrorOutput> pdfPresenter)
         {
             var executor = new SynchronousAction(new XlsxToCsvTask(_libreOffice, reportPath, renderDirectory.TmpPath),
                 new ProcessFactory());
@@ -48,19 +47,19 @@ namespace Mustache.Reports.Data
 
         private RenderedDocumentOutput ReturnPdf(string reportPath)
         {
-            var pdfPath = reportPath.Replace(".docx", ".pdf");
+            var filePath = reportPath.Replace(".xlsx", ".csv");
             var result = new RenderedDocumentOutput
             {
-                Base64String = Convert.ToBase64String(File.ReadAllBytes(pdfPath)),
+                Base64String = Convert.ToBase64String(File.ReadAllBytes(filePath)),
                 ContentType = ContentTypes.Pdf
             };
             return result;
         }
 
-        private string PersistDocxFile(RenderPdfInput inputMessage, DisposableWorkSpace renderDirectory)
+        private string PresistFile(RenderCsvInput inputMessage, DisposableWorkSpace renderDirectory)
         {
-            var reportPath = Path.Combine(renderDirectory.TmpPath, "report.docx");
-            WriteTo(reportPath, inputMessage.Base64DocxReport);
+            var reportPath = Path.Combine(renderDirectory.TmpPath, "report.xlsx");
+            WriteTo(reportPath, inputMessage.Base64ExcelFile);
             return reportPath;
         }
 
