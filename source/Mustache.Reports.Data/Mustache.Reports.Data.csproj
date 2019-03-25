@@ -2,15 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <Version>2.2.1</Version>
+    <Version>2.2.2</Version>
     <Authors>Travis Frisinger</Authors>
     <Company>StoneAge Technologies</Company>
     <Product>Mustache Reports - Data</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Added XlsxToCsvTask to convert xlsx documents to csv.
-Added missing CsvGateway implementation</PackageReleaseNotes>
-    <AssemblyVersion>2.2.1.0</AssemblyVersion>
-    <FileVersion>2.2.1.0</FileVersion>
+    <PackageReleaseNotes>Fixed Pdf Conversion bug</PackageReleaseNotes>
+    <AssemblyVersion>2.2.2.0</AssemblyVersion>
+    <FileVersion>2.2.2.0</FileVersion>
     <Description>The MustachReports.Data package</Description>
     <PackageProjectUrl>https://github.com/StoneAgeTechnologies/Mustache-Reports</PackageProjectUrl>
   </PropertyGroup>
@@ -30,12 +29,6 @@ Added missing CsvGateway implementation</PackageReleaseNotes>
     <PackageReference Include="Mustache.Reports.Boundary" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="StoneAge.Synchronous.Process.Runner.DotNetCore" Version="2.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="StoneAge.CleanArchitecture.Domain">
-      <HintPath>..\..\..\..\Users\travis-pc\.nuget\packages\stoneage.cleanarchitecture.domain.dotnetcore\3.7.2\lib\netcoreapp2.1\StoneAge.CleanArchitecture.Domain.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

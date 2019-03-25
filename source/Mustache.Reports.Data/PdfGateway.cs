@@ -5,6 +5,7 @@ using Mustache.Reports.Boundary;
 using Mustache.Reports.Boundary.Options;
 using Mustache.Reports.Boundary.Pdf;
 using Mustache.Reports.Data.Csv;
+using Mustache.Reports.Data.PdfRendering;
 using StoneAge.CleanArchitecture.Domain.Messages;
 using StoneAge.CleanArchitecture.Domain.Presenters;
 using StoneAge.Synchronous.Process.Runner;
@@ -36,7 +37,7 @@ namespace Mustache.Reports.Data
 
         private void CovertToPdf(string reportPath, DisposableWorkSpace renderDirectory, PropertyPresenter<string, ErrorOutput> pdfPresenter)
         {
-            var executor = new SynchronousAction(new XlsxToCsvTask(_libreOffice, reportPath, renderDirectory.TmpPath),
+            var executor = new SynchronousAction(new DocxToPdfTask(_libreOffice, reportPath, renderDirectory.TmpPath), 
                 new ProcessFactory());
             executor.Execute(pdfPresenter);
         }
