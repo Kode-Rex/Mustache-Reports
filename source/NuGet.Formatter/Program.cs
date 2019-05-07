@@ -2,10 +2,12 @@
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace NugetFile.Formater
+namespace NugetFile.Formatter
 {
     class Program
     {
+        // todo : edit existing package - replace the node_modules with updated ones
+        // todo : then reference package so it persist to file system unpacked
         static void Main(string[] args)
         {
             var fileLocation = @"C:\Users\travis\.nuget\packages\mustache.reports.data\1.2.4\mustache.reports.data.nuspec";
