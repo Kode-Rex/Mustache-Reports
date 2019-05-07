@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StoneAge.CleanArchitecture.Domain.DotNetCore" Version="3.7.5" />
+    <PackageReference Include="StoneAge.CleanArchitecture.Domain.DotNetCore" Version="3.7.8" />
   </ItemGroup>
 
   <ItemGroup>
