@@ -2,22 +2,21 @@ var Docxtemplater = require('docxtemplater');
 var ImageModule = require('docxtemplater-image-module');
 var Moment = require('moment');
 var JSZip = require('jszip');
-var fs = require('fs');
 var expressions = require('angular-expressions');
 
-function ReportRender(){}
+function WordRender(){}
 
-ReportRender.prototype.getOptions = function(){
+WordRender.prototype.getOptions = function(){
 	var opts = {}
 	opts.centered = false;
 
 	function generateTransparent1pxImage(){
-		return new Buffer("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7","base64").toString("binary");
+		return new Buffer.from("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7","base64").toString("binary");
 	}
 
 	opts.getImage = function (tagValue, tagName) {
 		if(tagValue.data){
-			return new Buffer(tagValue.data,'base64').toString('binary');
+			 return new Buffer.from(tagValue.data,'base64').toString('binary');
 		}
 
 		return generateTransparent1pxImage();
@@ -39,7 +38,8 @@ ReportRender.prototype.getOptions = function(){
 	return opts;
 };
 
-ReportRender.prototype.configureAngularExpressions = function(){
+// todo : I need to find a nice generic way for people to extend this ;)
+WordRender.prototype.configureAngularExpressions = function(){
 	
 	expressions.filters.upper = function(input) {
 		if(!input) return input;
@@ -54,37 +54,10 @@ ReportRender.prototype.configureAngularExpressions = function(){
 	expressions.filters.formatDate = function(input, format){
 		if(!input) return input;
 		return Moment(input).format(format).toString();
-	}
+    }
 
-	// todo : this should be property on data, to lazy to adjust data model
 	expressions.filters.today = function(input, format){
 		return Moment().format(format).toString();
-	}
-
-	// todo : there should have been model transformations to handle the today, areThereSectionIssues, 
-	// areThereHighPriorityIssues method concerns rather then putting it into the reporting lib.
-	expressions.filters.areThereSectionIssues = function(input){
-		if(!input || Object.prototype.toString.call( input ) !== '[object Array]' ) return false;
-		var result = false;
-		input.forEach(function(element){
-			if(element.hasIssues){
-				 result = true;
-			}
-		});
-		return result;
-	}
-
-	expressions.filters.areThereHighPriorityIssues = function(input){
-		if(!input || Object.prototype.toString.call( input ) !== '[object Array]' ) return false;
-		var result = false;
-		input.forEach(function(section){
-			section.auditAreaSectionIssues.forEach(function(issue){
-				if(section.hasIssues && section.sectionRating <= 3 && issue.notifyLandlord === true){
-					result = true;
-				}
-			});
-		});
-		return result;
 	}
 
 	expressions.filters.doesStringHaveData = function(input){
@@ -102,7 +75,7 @@ ReportRender.prototype.configureAngularExpressions = function(){
 	}
 };
 
-ReportRender.prototype.renderAsBase64 = function(reportTemplateBase64, reportData){
+WordRender.prototype.renderAsBase64 = function(reportTemplateBase64, reportData){
 	var self = this;
 	var opts = self.getOptions();
 	var data = reportData;
@@ -125,4 +98,4 @@ ReportRender.prototype.renderAsBase64 = function(reportTemplateBase64, reportDat
 	return result;
 };
 
-module.exports = ReportRender;
+module.exports = WordRender;

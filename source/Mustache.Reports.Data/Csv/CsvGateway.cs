@@ -51,7 +51,7 @@ namespace Mustache.Reports.Data.Csv
             var result = new RenderedDocumentOutput
             {
                 Base64String = Convert.ToBase64String(File.ReadAllBytes(filePath)),
-                ContentType = ContentTypes.Pdf
+                ContentType = ContentTypes.Csv
             };
             return result;
         }
