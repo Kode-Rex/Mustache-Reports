@@ -5,9 +5,8 @@ function ExcelRender(){}
 ExcelRender.prototype.renderAsBase64 = function(templateContent, reportData, sheetNumber){
     var template = new xlsxTemplate(templateContent);
 
-    var x = 1;
     // Perform substitution
-    template.substitute(x, reportData);
+    template.substitute(sheetNumber, reportData);
 
     // Get data
     var result = template.generate({ type: "base64" });

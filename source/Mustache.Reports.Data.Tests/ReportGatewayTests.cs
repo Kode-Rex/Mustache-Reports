@@ -57,6 +57,22 @@ namespace Mustache.Reports.Data.Tests
             Assert.Contains("INVALID_NAME.xlsx", actual.ErrorMessages[0]);
         }
 
+        [Fact]
+        public void CreateExcelReport_GivenTemplate_Has_Dynamic_Chart_ShouldReturnRenderedReport()
+        {
+            //---------------Arrange------------------
+            var configuration = SetupConfiguration();
+            var reportData = File.ReadAllText("ExampleData\\dynamic-chart-range.json");
+            var wordGateway = new ReportGateway(configuration);
+            var input = new RenderExcelInput { JsonModel = reportData, ReportName = "test.xslx", TemplateName = "dynamic-chart", SheetNumber = 1};
+            //---------------Act----------------------
+            var actual = wordGateway.CreateExcelReport(input);
+            //---------------Assert-------------------
+            File.WriteAllBytes("C:\\tmp\\dynamic.xlsx", actual.FetchDocumentAsByteArray());
+            //var expected = File.ReadAllText("Expected\\RenderedExcelBase64.txt");
+            //Assert.Equal(expected.Substring(0, 50), actual.Base64String.Substring(0, 50));
+        }
+
         private static IOptions<MustacheReportOptions> SetupConfiguration()
         {
             var builder = new ConfigurationBuilder()

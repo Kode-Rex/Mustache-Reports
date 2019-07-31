@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <Version>2.2.5</Version>
+    <Version>2.2.7</Version>
     <Authors>Travis Frisinger</Authors>
     <Company>StoneAge Technologies</Company>
     <Product>Mustache Reports - Data</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>Updated npm packages</PackageReleaseNotes>
-    <AssemblyVersion>2.2.5.0</AssemblyVersion>
-    <FileVersion>2.2.5.0</FileVersion>
+    <AssemblyVersion>2.2.7.0</AssemblyVersion>
+    <FileVersion>2.2.7.0</FileVersion>
     <Description>The MustachReports.Data package</Description>
     <PackageProjectUrl>https://github.com/StoneAgeTechnologies/Mustache-Reports</PackageProjectUrl>
   </PropertyGroup>
@@ -36,7 +36,7 @@
   </ItemGroup>
   
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="REM mkdir node_modules directory&#xD;&#xA;rd /S /Q &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;mkdir &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;REM copy node_modules into location runtime location&#xD;&#xA;xcopy &quot;$(SolutionDir)Mustache.Reports.NodeJS\node_modules&quot; &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; /s /I /y /d&#xD;&#xA;xcopy &quot;$(SolutionDir)Mustache.Reports.NodeJS\*.json&quot; &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp&quot; /s /I /y /d" />
+    <Exec Command="rd /S /Q &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;mkdir &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; 2&gt; NUL&#xD;&#xA;xcopy &quot;$(SolutionDir)Mustache.Reports.NodeJS\node_modules&quot; &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp\node_modules&quot; /s /I /y /d&#xD;&#xA;xcopy &quot;$(SolutionDir)Mustache.Reports.NodeJS\*.json&quot; &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp&quot; /s /I /y /d&#xD;&#xA;xcopy &quot;$(SolutionDir)Mustache.Reports.NodeJS\*.js&quot; &quot;$(SolutionDir)Mustache.Reports.Data\ReportRendering\NodeApp&quot; /s /I /y /d" />
   </Target>
 
 </Project>

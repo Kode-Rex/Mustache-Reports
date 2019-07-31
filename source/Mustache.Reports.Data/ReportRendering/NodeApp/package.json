@@ -4,15 +4,15 @@
   "description": "Service to generate reports using docx-templater",
   "main": "cmdLineRender.js",
   "dependencies": {
-    "angular-expressions": "^1.0.0",
+    "angular-expressions": "^0.3.0",
     "base-64": "^0.1.0",
-    "body-parser": "^1.19.0",
-    "commander": "^2.20.0",
-    "docxtemplater": "3.10.1",
+    "body-parser": "^1.8.1",
+    "commander": "^2.9.0",
+    "docxtemplater": "3.4.1",
     "docxtemplater-image-module": "3.1.0",
-    "jszip": "3.2.1",
-    "moment": "^2.24.0",
-    "winston": "^2.4.4",
+    "jszip": "2.6.1",
+    "moment": "^2.20.1",
+    "winston": "^2.3.1",
     "xlsx-template": "git://github.com/T-rav/xlsx-template.git"
   },
   "engines": {
