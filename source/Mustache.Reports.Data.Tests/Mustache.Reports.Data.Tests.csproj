@@ -34,6 +34,9 @@
     <None Update="ExampleData\WithImagesSampleData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Expected\RenderedDynamicChartExcelBase64.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Expected\RenderedExcelBase64.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

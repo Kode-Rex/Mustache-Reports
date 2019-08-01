@@ -68,9 +68,8 @@ namespace Mustache.Reports.Data.Tests
             //---------------Act----------------------
             var actual = wordGateway.CreateExcelReport(input);
             //---------------Assert-------------------
-            File.WriteAllBytes("C:\\tmp\\dynamic.xlsx", actual.FetchDocumentAsByteArray());
-            //var expected = File.ReadAllText("Expected\\RenderedExcelBase64.txt");
-            //Assert.Equal(expected.Substring(0, 50), actual.Base64String.Substring(0, 50));
+            var expected = File.ReadAllText("Expected\\RenderedDynamicChartExcelBase64.txt");
+            Assert.Equal(expected.Substring(0, 50), actual.Base64String.Substring(0, 50));
         }
 
         private static IOptions<MustacheReportOptions> SetupConfiguration()
@@ -80,7 +79,7 @@ namespace Mustache.Reports.Data.Tests
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             var configuration = builder.Build();
-            string data = GetAppSettingJsonData();
+            var data = GetAppSettingJsonData();
 
             // ustacheReportOptions
             var reportOptions = JsonConvert.DeserializeObject<MustacheReportOptionsWrapper>(data);
