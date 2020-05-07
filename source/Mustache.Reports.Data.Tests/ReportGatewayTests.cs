@@ -72,6 +72,21 @@ namespace Mustache.Reports.Data.Tests
             Assert.Equal(expected.Substring(0, 50), actual.Base64String.Substring(0, 50));
         }
 
+        [Fact]
+        public void CreateExcelReport_When_Multiple_Sheets_Expect_Both_Populated()
+        {
+            //---------------Arrange------------------
+            var configuration = SetupConfiguration();
+            var reportData = File.ReadAllText("ExampleData\\dynamic-chart-range.json");
+            var wordGateway = new ReportGateway(configuration);
+            var input = new RenderExcelInput { JsonModel = reportData, ReportName = "test.xslx", TemplateName = "dynamic-chart", SheetNumber = 1 };
+            //---------------Act----------------------
+            var actual = wordGateway.CreateExcelReport(input);
+            //---------------Assert-------------------
+            var expected = File.ReadAllText("Expected\\RenderedDynamicChartExcelBase64.txt");
+            Assert.Equal(expected.Substring(0, 50), actual.Base64String.Substring(0, 50));
+        }
+
         private static IOptions<MustacheReportOptions> SetupConfiguration()
         {
             var builder = new ConfigurationBuilder()

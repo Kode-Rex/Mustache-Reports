@@ -7,5 +7,10 @@ namespace Mustache.Reports.Data.Csv
         public XlsxToCsvTask(string libreOfficePath, string xlsxPath, string ouputDirectory) : base(libreOfficePath, $"--norestore --nofirststartwizard --headless --convert-to csv \"{xlsxPath}\" --outdir \"{ouputDirectory}\"")
         {
         }
+
+        public override int ProcessTimeout()
+        {
+            return -1;
+        }
     }
 }

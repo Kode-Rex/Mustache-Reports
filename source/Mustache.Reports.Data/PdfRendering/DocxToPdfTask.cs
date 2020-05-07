@@ -7,5 +7,10 @@ namespace Mustache.Reports.Data.PdfRendering
         public DocxToPdfTask(string libreOfficePath, string docxPath, string ouputDirectory) : base(libreOfficePath, $"--norestore --nofirststartwizard --headless --convert-to pdf \"{docxPath}\" --outdir \"{ouputDirectory}\"")
         {
         }
+
+        public override int ProcessTimeout()
+        {
+            return -1;
+        }
     }
 }

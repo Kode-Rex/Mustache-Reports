@@ -8,5 +8,10 @@ namespace Mustache.Reports.Data.ReportRendering
             : base(applicationPath, $"-t \"{templatePath}\" -d \"{templateData}\" -r \"word\" ")
         {
         }
+
+        public override int ProcessTimeout()
+        {
+            return -1;
+        }
     }
 }
