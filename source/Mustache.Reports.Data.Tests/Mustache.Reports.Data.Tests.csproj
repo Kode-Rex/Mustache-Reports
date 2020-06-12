@@ -25,6 +25,9 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="ExampleData\CampaignDetailedReport.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="ExampleData\dynamic-chart-range.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -37,10 +40,16 @@
     <None Update="Expected\RenderedDynamicChartExcelBase64.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Expected\RenderedCampaignDetailedReportBase64.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Expected\RenderedExcelBase64.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Expected\RenderedWordBase64.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Templates\CampaignDetailedReport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Templates\dynamic-chart.xlsx">

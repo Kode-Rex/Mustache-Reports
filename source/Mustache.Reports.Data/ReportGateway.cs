@@ -47,7 +47,7 @@ namespace Mustache.Reports.Data
         {
             Func<string, ReportGenerationArguments, NodePipeLineTask> renderFactory = (nodeAppPath, arguments) =>
             {
-                return new ExcelRender(nodeAppPath, arguments.TemplatePath, arguments.JsonPath, arguments.SheetNumber);
+                return new ExcelRender(nodeAppPath, arguments.TemplatePath, arguments.JsonPath, arguments.SheetNumbers);
             };
 
             var factoryArguments = new ReportFactoryArguments
@@ -55,7 +55,7 @@ namespace Mustache.Reports.Data
                 ReportJson = input.JsonModel.ToString(),
                 TemplateName = input.TemplateName,
                 Extension = "xlsx",
-                SheetNumber = input.SheetNumber
+                SheetNumbers = input.SheetNumbers
             };
 
             var result =  CreateReport(factoryArguments, renderFactory);
@@ -81,7 +81,7 @@ namespace Mustache.Reports.Data
                 {
                     TemplatePath = reportTemplatePath,
                     JsonPath = reportJsonPath,
-                    SheetNumber = arguements.SheetNumber
+                    SheetNumbers = arguements.SheetNumbers
                 };
                 RenderReport(reportArguments, taskFactory, presenter);
 

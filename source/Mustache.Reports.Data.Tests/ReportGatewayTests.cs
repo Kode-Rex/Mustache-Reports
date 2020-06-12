@@ -7,6 +7,7 @@ using Mustache.Reports.Boundary.Report.Excel;
 using Mustache.Reports.Boundary.Report.Word;
 using NSubstitute;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Mustache.Reports.Data.Tests
 {
@@ -64,7 +65,13 @@ namespace Mustache.Reports.Data.Tests
             var configuration = SetupConfiguration();
             var reportData = File.ReadAllText("ExampleData\\dynamic-chart-range.json");
             var wordGateway = new ReportGateway(configuration);
-            var input = new RenderExcelInput { JsonModel = reportData, ReportName = "test.xslx", TemplateName = "dynamic-chart", SheetNumber = 1};
+            var input = new RenderExcelInput
+            {
+                JsonModel = reportData,
+                ReportName = "test.xslx",
+                TemplateName = "dynamic-chart",
+                SheetNumber = 1
+            };
             //---------------Act----------------------
             var actual = wordGateway.CreateExcelReport(input);
             //---------------Assert-------------------
@@ -77,13 +84,21 @@ namespace Mustache.Reports.Data.Tests
         {
             //---------------Arrange------------------
             var configuration = SetupConfiguration();
-            var reportData = File.ReadAllText("ExampleData\\dynamic-chart-range.json");
+            var reportData = File.ReadAllText("ExampleData\\CampaignDetailedReport.json");
             var wordGateway = new ReportGateway(configuration);
-            var input = new RenderExcelInput { JsonModel = reportData, ReportName = "test.xslx", TemplateName = "dynamic-chart", SheetNumber = 1 };
+            
+            var input = new RenderExcelInput
+            {
+                JsonModel = reportData,
+                ReportName = "test.xslx",
+                TemplateName = "CampaignDetailedReport",
+                SheetNumbers = new List<int> { 1, 2 }
+            };
             //---------------Act----------------------
             var actual = wordGateway.CreateExcelReport(input);
             //---------------Assert-------------------
-            var expected = File.ReadAllText("Expected\\RenderedDynamicChartExcelBase64.txt");
+            File.WriteAllBytes("c:\\tmp\\two-tab.xlsx",actual.FetchDocumentAsByteArray());
+            var expected = File.ReadAllText("Expected\\RenderedCampaignDetailedReportBase64.txt");
             Assert.Equal(expected.Substring(0, 50), actual.Base64String.Substring(0, 50));
         }
 

@@ -8,7 +8,7 @@ program
     .option('-t, --template [value]', 'Path to docx or xlsx template')
     .option('-d, --data [value]', 'Path to data file to')
     .option('-r --reportType [word | excel]', 'The report type to run')
-    .option('-n --sheetNumber <n>', 'This option is for when generating excel reports specifying the sheet number to target', parseInt)
+    .option('-n --sheetNumbers <n,n>', 'This option is for when generating excel reports specifying the sheet number to target')
     .parse(process.argv);
 
 var stdout = process.stdout;
@@ -29,6 +29,6 @@ if (reportType === 'excel') {
     var templateContent = fs.readFileSync(program.template, "binary");
     var render = new excelRender();
 
-    var reportAsBase64String = render.renderAsBase64(templateContent, data, program.sheetNumber);
+    var reportAsBase64String = render.renderAsBase64(templateContent, data, program.sheetNumbers);
     stdout.write(reportAsBase64String);
 }

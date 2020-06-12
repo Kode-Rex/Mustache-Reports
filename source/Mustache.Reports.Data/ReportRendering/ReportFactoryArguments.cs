@@ -1,4 +1,6 @@
-﻿namespace Mustache.Reports.Data.ReportRendering
+﻿using System.Collections.Generic;
+
+namespace Mustache.Reports.Data.ReportRendering
 {
     public class ReportFactoryArguments
     {
@@ -6,6 +8,6 @@
         public string TemplateName { get; set; }
 
         public string ReportJson { get; set; }
-        public int SheetNumber { get; internal set; }
+        public List<int> SheetNumbers { get; internal set; }
     }
 }
