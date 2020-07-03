@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <Version>2.4.0</Version>
+    <Version>2.4.1</Version>
     <Authors>Travis Frisinger</Authors>
     <Company>StoneAge Technologies</Company>
     <Product>Mustache Reports - Data</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Implemented multiple sheet renedering with Excel documents</PackageReleaseNotes>
-    <AssemblyVersion>2.4.0.0</AssemblyVersion>
-    <FileVersion>2.4.0.0</FileVersion>
+    <PackageReleaseNotes>Fixed some build errors caused by missing files</PackageReleaseNotes>
+    <AssemblyVersion>2.4.1.0</AssemblyVersion>
+    <FileVersion>2.4.1.0</FileVersion>
     <Description>The MustachReports.Data package</Description>
     <PackageProjectUrl>https://github.com/StoneAgeTechnologies/Mustache-Reports</PackageProjectUrl>
   </PropertyGroup>
