@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <Version>2.2.1</Version>
+    <TargetFramework>net5.0</TargetFramework>
+    <Version>5.0.0</Version>
     <Authors>Travis Frisinger</Authors>
     <Company>StoneAge Technologies</Company>
     <Product>Mustache Reports - Boundary</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>2.2.1.0</AssemblyVersion>
-    <FileVersion>2.2.1.0</FileVersion>
-    <PackageReleaseNotes>Added back in SheetNumber with auto convert to SheetNumbers to keep backwards compatibility</PackageReleaseNotes>
+    <AssemblyVersion>5.0.0.0</AssemblyVersion>
+    <FileVersion>5.0.0.0</FileVersion>
+    <PackageReleaseNotes>.net5 upgrade</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StoneAge.CleanArchitecture.Domain.DotNetCore" Version="3.7.8" />
+    <PackageReference Include="StoneAge.CleanArchitecture.Domain.DotNetCore" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
