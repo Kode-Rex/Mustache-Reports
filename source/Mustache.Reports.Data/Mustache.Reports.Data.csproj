@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>5.0.0</Version>
+    <Version>5.0.1</Version>
     <Authors>Travis Frisinger</Authors>
     <Company>StoneAge Technologies</Company>
     <Product>Mustache Reports - Data</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>.net5 upgrade</PackageReleaseNotes>
-    <AssemblyVersion>5.0.0.0</AssemblyVersion>
-    <FileVersion>5.0.0.0</FileVersion>
+    <AssemblyVersion>5.0.1.0</AssemblyVersion>
+    <FileVersion>5.0.1.0</FileVersion>
     <Description>The MustachReports.Data package</Description>
     <PackageProjectUrl>https://github.com/StoneAgeTechnologies/Mustache-Reports</PackageProjectUrl>
   </PropertyGroup>
