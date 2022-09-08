@@ -10,7 +10,7 @@
     "commander": "^2.9.0",
     "docxtemplater": "3.4.1",
     "docxtemplater-image-module": "3.1.0",
-    "jszip": "2.6.1",
+    "jszip": "2.7.0",
     "moment": "^2.20.1",
     "winston": "^2.3.1",
     "xlsx-template": "git://github.com/T-rav/xlsx-template.git"
